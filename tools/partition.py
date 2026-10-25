@@ -115,8 +115,10 @@ class Plan:
         return None
 
     def route(self, site):
+        sections = {s: self.home(n) for s, n in self.by_section.items()}
+        sections.update({r.split('/')[0]: self.home(site) for r in self.cfg['runtime']['paths']})   # every site answers its own VERSION, 404, .well-known
         return json.dumps({'self': self.home(site), 'assets': self.assets_base, 'data': self.data_base,
-                           'sections': {s: self.home(n) for s, n in sorted(self.by_section.items())}, 'rest': self.home('site')},
+                           'sections': dict(sorted(sections.items())), 'rest': self.home('site')},
                           separators=(',', ':'), sort_keys=True)
 
     def csp(self, policy):

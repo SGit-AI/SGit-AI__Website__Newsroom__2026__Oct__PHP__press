@@ -11,9 +11,9 @@
    "sha256": "7c962ba29c6716928e50728c14e9539f030d16d088d25282637477c0c755991c"
   },
   {
-   "bytes": 16734,
+   "bytes": 16931,
    "name": "tools/partition.py",
-   "sha256": "dead992d4184680ae984fb76bcb07d547cdf5920c607050903a32b5acc43d72b"
+   "sha256": "ddfe3c760051525f007ae70d164ffccacc17e8102e12dec8cd5d3b3d87f5cb79"
   },
   {
    "bytes": 5760,
@@ -656,6 +656,6 @@
    "sha256": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26"
   }
  ],
- "press": "1.0.2",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.2/"
+ "press": "1.0.3",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.3/"
 }
