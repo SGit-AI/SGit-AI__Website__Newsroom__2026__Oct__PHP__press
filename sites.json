@@ -1,5 +1,5 @@
 {
- "about": "The four sites the newsroom's pages are served from, and which top-level sections each one owns. A page belongs to the site that owns its first path segment; a section no site names belongs to the main site. 'home' is the address a link to the site's pages uses (its permanent name); 'serve_at' is where its repository is served today (the main site is staged at next. until the cutover, when php.oct.2026.newsroom.sgit.ai moves to it). The data and the team's records are their own repositories; team here is the team's pages.",
+ "about": "The four sites the newsroom's pages are served from, and which top-level sections each one owns. A page belongs to the site that owns its first path segment; a section no site names belongs to the main site. 'home' is the address a link to the site's pages uses (its permanent name); 'serve_at' is where its repository is served today (the main site is staged at site.php.oct.2026.newsroom.sgit.ai, the address its DNS record names, until the cutover, when php.oct.2026.newsroom.sgit.ai moves to it). The data and the team's records are their own repositories; team here is the team's pages.",
  "v1": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
   "home": "https://php.oct.2026.newsroom.sgit.ai"
@@ -8,7 +8,7 @@
   "site": {
    "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php__site",
    "home": "https://php.oct.2026.newsroom.sgit.ai",
-   "serve_at": "next.php.oct.2026.newsroom.sgit.ai",
+   "serve_at": "site.php.oct.2026.newsroom.sgit.ai",
    "what": "the main UI: the homes, the briefings, the questions, the stories, the tools, the risk graph, the views",
    "sections": "*"
   },

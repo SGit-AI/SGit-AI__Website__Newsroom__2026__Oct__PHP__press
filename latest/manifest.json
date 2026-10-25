@@ -1,9 +1,9 @@
 {
  "files": [
   {
-   "bytes": 4102,
+   "bytes": 4166,
    "name": "sites.json",
-   "sha256": "505c1faf1eb544c8d2eb6f8a850ab53131d8dada430670b3039d041371a32a86"
+   "sha256": "91086d2c94f612be67e9a831a1168dc53fcf6030252ebf9533489b9da2ab00f7"
   },
   {
    "bytes": 186,
@@ -656,6 +656,6 @@
    "sha256": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26"
   }
  ],
- "press": "1.0.3",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.3/"
+ "press": "1.0.4",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.4/"
 }
