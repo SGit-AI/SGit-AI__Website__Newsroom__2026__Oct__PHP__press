@@ -8,7 +8,19 @@ version stops. No clock: the same files give the same bytes.
 import hashlib, html, json, os, shutil, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-PUBLISH = ['sites.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/publish.py', 'tools/gate.py', 'tools/release.sh']
+PUBLISH = ['sites.json', 'assets.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/assets_v1.py',
+           'tools/publish.py', 'tools/gate.py', 'tools/release.sh']
+
+
+def published():
+    """The tools, sites.json, and every asset (assets/, taken from v1 by tools/assets_v1.py), served once for every site."""
+    out = list(PUBLISH)
+    for d, dirs, fs in os.walk(os.path.join(ROOT, 'assets')):
+        dirs.sort()
+        out += sorted(os.path.relpath(os.path.join(d, f), ROOT).replace(os.sep, '/') for f in fs)
+    return out
+
+
 HOME = 'https://press.php.oct.2026.newsroom.sgit.ai'
 
 
@@ -22,7 +34,7 @@ def vkey(v):
 
 def build(dst, version):
     files = []
-    for f in PUBLISH:
+    for f in published():
         os.makedirs(os.path.dirname(os.path.join(dst, f)) or dst, exist_ok=True)
         shutil.copyfile(os.path.join(ROOT, f), os.path.join(dst, f))
         files.append({'name': f, 'sha256': sha(os.path.join(ROOT, f)), 'bytes': os.path.getsize(os.path.join(ROOT, f))})
@@ -38,7 +50,7 @@ def main():
     if os.path.isdir(vdir):
         tmp = os.path.join(ROOT, '.publish-check'); shutil.rmtree(tmp, ignore_errors=True)
         build(tmp, version)
-        same = all(sha(os.path.join(tmp, f)) == sha(os.path.join(vdir, f)) for f in PUBLISH + ['manifest.json'] if os.path.exists(os.path.join(vdir, f)))
+        same = all(os.path.exists(os.path.join(vdir, f)) and sha(os.path.join(tmp, f)) == sha(os.path.join(vdir, f)) for f in published() + ['manifest.json'])
         shutil.rmtree(tmp)
         if not same:
             sys.exit(f'publish: v{version} is already published with other content; bump VERSION')

@@ -4,7 +4,8 @@
 1. Every file the press wrote is here, with the sha256 press.json records; nothing else is here but the repository's
    own files (README, CLAUDE.md, tools/, and what press.json lists as its own).
 2. Every relative link and source in every page resolves to a file in this repository.
-3. Every link to another of the newsroom's sites names a page that site serves (press.json has every site's pages).
+3. Every link to another of the newsroom's sites names a page that site serves, every link to the press an asset its
+   pinned version publishes, every link to the data API a file its pinned version publishes (press.json lists them).
 4. CNAME names where this site is served; no credential shapes in any page, script or data file.
 """
 import hashlib, json, os, posixpath, re, sys
@@ -39,6 +40,7 @@ for p in sorted(present - set(files)):
 
 # 2 and 3. links
 pages = {s: set(ps) for s, ps in meta['pages_by_site'].items()}
+assets, data_files = set(meta.get('press_assets', [])), set(meta.get('data_files', []))
 homes = meta['homes']
 broken = 0
 known = {(p, u) for p, u in meta.get('broken_in_v1', [])}
@@ -51,6 +53,15 @@ for p in sorted(files):
         if not path:
             continue
         if url.startswith(('https://', 'http://')):
+            # the one source of assets and data: the press version and the data version press.json pins
+            if url.startswith(meta.get('assets', '\0')):
+                if path[len(meta['assets']):] not in assets:
+                    fails.append(f'{p}: links to {url}, which press v{meta["press"]} does not publish')
+                continue
+            if url.startswith(meta.get('data_base', '\0')):
+                if path[len(meta['data_base']):] not in data_files:
+                    fails.append(f'{p}: links to {url}, which data v{meta["data"]} does not publish')
+                continue
             for s, h in homes.items():
                 if s != meta['site'] and url.startswith(h + '/') and h != meta['home']:
                     t = path[len(h) + 1:]
@@ -91,4 +102,4 @@ if known:
     print(f'note: {len(known)} link(s) that do not resolve in v1 either (press.json broken_in_v1); fix them at their source in v1')
 c = meta['counts']
 print(f'gate passed: {meta["site"]}, {c["pages"]} pages of its own, {c["redirects"]} redirects, {c["runtime"]} runtime files; '
-      f'v1 at {meta["v1"]["commit"][:12]} (site v{meta["v1"]["site_version"]}), press v{meta["press"]}')
+      f'assets from press v{meta["press"]}, data from v{meta.get("data")}; v1 at {meta["v1"]["commit"][:12]} (site v{meta["v1"]["site_version"]})')
