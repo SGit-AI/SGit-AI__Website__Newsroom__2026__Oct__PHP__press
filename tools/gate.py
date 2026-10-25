@@ -28,11 +28,11 @@ for n, c in cfg['sites'].items():
             if s in seen:
                 fails.append(f'sites.json: section "{s}" belongs to {seen[s]} and {n}')
             seen[s] = n
-try:
-    for line in subprocess.run(['git', '-C', ROOT, 'ls-files', '-s', 'v'], capture_output=True, text=True, check=True).stdout.splitlines():
-        _, blob, _, path = line.split(None, 3)
-        if subprocess.run(['git', '-C', ROOT, 'hash-object', path], capture_output=True, text=True).stdout.strip() != blob:
-            fails.append(f'{path}: a published file changed; a version is immutable')
+try:   # against the last commit (a staged change is still a change), and a published file removed is a change too
+    for line in subprocess.run(['git', '-C', ROOT, 'ls-tree', '-r', 'HEAD', '--', 'v'], capture_output=True, text=True, check=True).stdout.splitlines():
+        _, _, blob, path = line.replace('\t', ' ').split(None, 3)
+        if not os.path.exists(os.path.join(ROOT, path)) or subprocess.run(['git', '-C', ROOT, 'hash-object', path], capture_output=True, text=True).stdout.strip() != blob:
+            fails.append(f'{path}: a published file changed or went; a version is immutable')
 except (subprocess.CalledProcessError, FileNotFoundError):
     pass
 vdir = os.path.join(ROOT, 'v')

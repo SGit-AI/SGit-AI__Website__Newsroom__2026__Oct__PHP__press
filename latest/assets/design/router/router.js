@@ -13,6 +13,7 @@
    the site does not keep each release's pages to show, so a dated address opens today's page. */
 (function () {
   'use strict';
+  if (window.P2S_LEAVING) return;                        // route.js is sending this address to the site that owns it
   var RESERVED = { as: 1, on: 1, vs: 1, since: 1 }, DEPTHS = { plain: 1, technical: 1, deep: 1 };
   var ROLE_WORDS = { executive: 'exec', exec: 'exec', general: 'general', security: 'security', engineer: 'engineer',
     journalist: 'journalist', researcher: 'researcher', everything: 'everything' };

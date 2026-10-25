@@ -16,7 +16,7 @@ fi
 python3 tools/pages_gate.py
 if [ -f tools/gate.py ]; then python3 tools/gate.py; fi   # a repository with records of its own (team) checks them too
 git add -A
-if git diff --cached | grep -E -n 'sgit_private_(vault|read)_[0-9a-f]{12,}|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}' ; then
+if git diff --cached | grep -E -n 'sgit_private_(vault|read)_[0-9a-f]{12,}|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|\bsk-(or-v1-|proj-|ant-[a-z0-9]+-)?[A-Za-z0-9_]{32,}' ; then
   echo "tripwire: credential shape in the staged diff; release aborted"; exit 1
 fi
 if git diff --cached --quiet; then echo "nothing to release"; exit 0; fi

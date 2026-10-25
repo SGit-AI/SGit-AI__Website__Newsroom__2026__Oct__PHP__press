@@ -14,11 +14,18 @@ if git rev-parse -q --verify "origin/$BRANCH" >/dev/null && ! git merge-base --i
 fi
 python3 tools/gate.py
 OLD="$(cat VERSION)"; IFS=. read -r MA MI PA <<< "$OLD"
-if [ -d "v/$OLD" ]; then PA=$((PA+1)); fi
-NEW="$MA.$MI.$PA"; echo "$NEW" > VERSION
-python3 tools/publish.py
-python3 tools/gate.py
+if python3 tools/publish.py --same-as "$OLD"; then
+  NEW="$OLD"; echo "nothing new to publish: v$OLD holds these files already"   # a change outside what is published still commits
+else
+  if [ -d "v/$OLD" ]; then PA=$((PA+1)); fi
+  NEW="$MA.$MI.$PA"; echo "$NEW" > VERSION
+  python3 tools/publish.py
+  python3 tools/gate.py
+fi
 git add -A
+if git diff --cached | grep -E -n 'sgit_private_(vault|read)_[0-9a-f]{12,}|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|\bsk-(or-v1-|proj-|ant-[a-z0-9]+-)?[A-Za-z0-9_]{32,}' | head -3; then
+  echo "release stopped: a credential shape in the change"; exit 2
+fi
 if git diff --cached --quiet; then echo "nothing to release"; exit 0; fi
 if [ -n "${RELEASE_TRAILER:-}" ]; then git commit -q -m "v$NEW: $MSG" -m "$RELEASE_TRAILER"; else git commit -q -m "v$NEW: $MSG"; fi
 git push -q -u origin "HEAD:$BRANCH"

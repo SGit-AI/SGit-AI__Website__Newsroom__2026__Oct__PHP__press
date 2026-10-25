@@ -19,14 +19,16 @@ commit, cut by section, with one source for every file (the editor, 25 October 2
 It refuses to cut unless the press version holds exactly this v1 commit's assets and the data version exists. It
 records, in the site's press.json, the versions, the v1 commit, every file it wrote with its sha256, and every site's
 pages, the press's assets and the data's files (the site's gate checks every link against those). No clock: the same
-inputs write the same bytes. The repository's own files (README, CLAUDE.md, tools/, and its OWN list) are never touched.
+inputs write the same bytes. The repository's own files (README, CLAUDE.md, LICENSE, .gitignore, .github/, press.json, and
+the 'own' list of its entry in sites.json) are never touched; the gate and release the press installs under tools/ are
+in press.json with their sha256 like every other file it writes.
 """
 import argparse, hashlib, html, json, os, posixpath, re, shutil, subprocess, sys
 
 PRESS = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-KEEP = {'README.md', 'CLAUDE.md', 'LICENSE', '.gitignore', 'press.json', 'tools/', '.git/'}
-OWN = {'team': ['records/', 'index.html']}  # what a site's repository writes itself, besides KEEP
-LINK = re.compile(r'''(\s(?:href|src)=)(["'])([^"']*)\2''')
+KEEP = {'README.md', 'CLAUDE.md', 'LICENSE', '.gitignore', 'press.json', 'tools/', '.git/', '.github/'}   # .github/: a deploy workflow, through security
+LINK = re.compile(r'''(\s(?:href|src)=)(["'])((?:(?!\2).)*)\2''')
+MDLINK = re.compile(r'(\]\()([^)\s]+)(\))')   # a markdown link's target, in a page's markdown twin
 CSP = re.compile(r'''(<meta http-equiv="Content-Security-Policy" content=")([^"]*)(")''')
 SKIP = ('http:', 'https:', '//', '#', 'data:', 'mailto:', 'javascript:', 'tel:', 'blob:')
 BROKEN_IN_V1 = set()  # (page, link) pairs that do not resolve in v1 either: reported by the site's gate, not caused by the press
@@ -126,12 +128,14 @@ class Plan:
         press = self.cfg['elsewhere']['assets/']['home']; data = self.cfg['elsewhere']['data/']['home']
         sites = sorted({c['home'] for c in self.sites.values()} | {'https://' + c['serve_at'] for c in self.sites.values()})
         add = {'script-src': [press], 'style-src': [press], 'img-src': [press], 'font-src': [press], 'manifest-src': [press],
-               'connect-src': [press, data] + sites}
-        out = []
+               'media-src': [press], 'connect-src': [press, data] + sites}
+        out, seen = [], set()
         for d in [x.strip() for x in policy.split(';') if x.strip()]:
-            name = d.split()[0]
+            name = d.split()[0]; seen.add(name)
             extra = [h for h in add.get(name, []) if h not in d.split()]
             out.append(' '.join([d] + extra))
+        if 'default-src' in seen:   # a directive the page leaves to default-src would block the host: say it, with 'self'
+            out += [' '.join([name, "'self'"] + hosts) for name, hosts in add.items() if name not in seen]
         return '; '.join(out)
 
 
@@ -139,33 +143,42 @@ def rewrite(plan, site, page, text):
     """A page of `site`, cut: its links, its policy, its route, and its own address named for the site that serves it."""
     tail_of = lambda u: u[len(u.split('#')[0].split('?')[0]):]
 
-    def sub(m):
-        url = m.group(3)
-        if url.startswith(SKIP) or url == '':
-            return m.group(0)
+    def target(url):
+        """Where a link of this page goes now, or None to leave it as written."""
+        if url == '' or url.startswith(SKIP):
+            return None
         r = plan.resolve(page, url)
-        q = m.group(2)
         if r is None:
-            BROKEN_IN_V1.add((page, url)); return m.group(0)
+            BROKEN_IN_V1.add((page, url)); return None
         kind, t = r
         if kind == 'asset':
-            return f'{m.group(1)}{q}{plan.assets_base}{t}{tail_of(url)}{q}'
+            return f'{plan.assets_base}{t}{tail_of(url)}'
         if kind == 'data':
-            return f'{m.group(1)}{q}{plan.data_base}{t}{tail_of(url)}{q}'
+            return f'{plan.data_base}{t}{tail_of(url)}'
         if kind == 'source':
-            TO_GITHUB.add((page, t)); return f'{m.group(1)}{q}{plan.github(t)}{q}'
+            TO_GITHUB.add((page, t)); return plan.github(t)
         if t in plan.runtime_set:
-            return m.group(0)
+            return None
         o = plan.owner(t)
         if o == site:
-            return m.group(0)
+            return None
         loc = t[:-len('index.html')] if t.endswith('/index.html') else ('' if t == 'index.html' else t)
-        return f'{m.group(1)}{q}{plan.home(o)}/{loc}{tail_of(url)}{q}'
+        return f'{plan.home(o)}/{loc}{tail_of(url)}'
+
+    def sub(m):   # an href or src in HTML
+        new = target(m.group(3))
+        return m.group(0) if new is None else f'{m.group(1)}{m.group(2)}{new}{m.group(2)}'
+
+    def mdsub(m):   # a link in the page's markdown twin
+        new = target(m.group(2))
+        return m.group(0) if new is None else f'{m.group(1)}{new}{m.group(3)}'
     out = LINK.sub(sub, text)
+    if page.endswith('.md'):
+        out = MDLINK.sub(mdsub, out)
     v1home = plan.cfg['v1']['home']
     # absolute addresses of v1's assets and data (an image in the page's metadata, a link in a markdown twin)
     out = out.replace(v1home + '/assets/', plan.assets_base)
-    out = re.sub(re.escape(v1home) + r'/data/([A-Za-z0-9_./-]+)', lambda m: plan.data_base + m.group(1) if m.group(1) in plan.data_files else plan.github('data/' + m.group(1)), out)
+    out = re.sub(re.escape(v1home) + r'/data/([A-Za-z0-9_./-]*[A-Za-z0-9_/-])', lambda m: plan.data_base + m.group(1) if m.group(1) in plan.data_files else plan.github('data/' + m.group(1)), out)
     if page.endswith('.html'):
         out = CSP.sub(lambda m: m.group(1) + plan.csp(html.unescape(m.group(2))).replace('"', '&quot;') + m.group(3), out, count=1)
         meta = f'<meta name="p2s-route" content="{html.escape(plan.route(site), quote=True)}">'
@@ -181,6 +194,8 @@ def rewrite(plan, site, page, text):
         if page.endswith('.html'):
             md = page[:-5] + '.md'
             out = out.replace(f'{v1home}/{md}', f'{home}/{md}')
+        else:
+            out = out.replace(f'{v1home}/{page[:-3]}.html', f'{home}/{page[:-3]}.html')
     return out
 
 
@@ -191,9 +206,9 @@ def stub(url, title):
             f'</head><body><p>This page is now at <a href="{u}">{u}</a>.</p></body></html>\n')
 
 
-def title_of(path):
-    m = re.search(r'<title>(.*?)</title>', open(path, encoding='utf-8', errors='replace').read(), re.S)
-    return html.unescape(re.sub(r'\s+', ' ', m.group(1)).strip()) if m else path
+def title_of(v1, rel):
+    m = re.search(r'<title>(.*?)</title>', open(os.path.join(v1, rel), encoding='utf-8', errors='replace').read(), re.S)
+    return html.unescape(re.sub(r'\s+', ' ', m.group(1)).strip()) if m else rel
 
 
 def main():
@@ -214,7 +229,7 @@ def main():
     if a.site not in plan.sites:
         sys.exit(f'partition: no site "{a.site}" in sites.json')
     site, cfg = a.site, plan.sites[a.site]
-    keep = KEEP | set(OWN.get(site, []))
+    keep = KEEP | set(cfg.get('own', []))
     old = os.path.join(into, 'press.json')
     if os.path.exists(old):
         for f in json.load(open(old, encoding='utf-8'))['files']:
@@ -226,7 +241,7 @@ def main():
     written = {}
 
     def put(rel, data):
-        if matches(rel, keep):
+        if matches(rel, keep) and not rel.startswith('tools/pages_'):
             sys.exit(f"partition: {rel} is the repository's own file; sites.json or OWN is wrong")
         p = os.path.join(into, rel)
         os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -247,7 +262,7 @@ def main():
             if p in written or matches(p, keep):
                 continue   # a page of this site's own, or one of the repository's own files (the team's front page)
             loc = p[:-len('index.html')] if p.endswith('/index.html') else p
-            put(p, stub(f'{plan.home(other)}/{loc}', title_of(os.path.join(v1, p))).encode('utf-8')); stubs += 1
+            put(p, stub(f'{plan.home(other)}/{loc}', title_of(v1, p)).encode('utf-8')); stubs += 1
     host = cfg['serve_at']
     final = plan.home(site).split('//', 1)[1]
     locs = ''.join(f'<url><loc>{html.escape(plan.home(site))}/{html.escape(p[:-len("index.html")] if p.endswith("index.html") else p)}</loc></url>\n' for p in plan.pages[site])
@@ -256,15 +271,14 @@ def main():
     put('robots.txt', robots.encode())
     put('CNAME', (host + '\n').encode())
     put('.nojekyll', b'')
-    for t in ('site_gate.py', 'site_release.sh'):
-        dst = os.path.join(into, 'tools', t.replace('site_', 'pages_'))
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        shutil.copyfile(os.path.join(PRESS, 'tools', t), dst)
-        os.chmod(dst, 0o755)
+    for t in ('site_gate.py', 'site_release.sh'):   # the site's gate and release, with their sha256 in press.json like every file
+        dst = 'tools/' + t.replace('site_', 'pages_')
+        put(dst, open(os.path.join(PRESS, 'tools', t), 'rb').read())
+        os.chmod(os.path.join(into, dst), 0o755)
     commit = subprocess.run(['git', '-C', v1, 'rev-parse', 'HEAD'], capture_output=True, text=True, check=True).stdout.strip()
     meta = {
         'press': pv, 'data': dv, 'assets': plan.assets_base, 'data_base': plan.data_base,
-        'site': site, 'home': plan.home(site), 'serve_at': host, 'own': sorted(keep - {'.git/'}),
+        'site': site, 'home': plan.home(site), 'serve_at': host, 'own': sorted(keep - {'.git/', 'tools/'}),   # under tools/, only what the press installed and the 'own' list
         'v1': {'repository': plan.cfg['v1']['repository'], 'commit': commit,
                'site_version': open(os.path.join(v1, 'VERSION'), encoding='utf-8').read().strip()},
         'counts': {'pages': len(plan.pages[site]), 'files': len(plan.files[site]), 'runtime': len(plan.runtime), 'redirects': stubs,

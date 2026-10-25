@@ -8,7 +8,8 @@
       data/ from the data API, and a page of a section another site owns from that site: one source for every file.
       Without it (this repository's own site), a URL resolves exactly as it always has.
 
-   window.P2S_URL(u) does both; fetch() goes through it, and so do the scripts that import or load other scripts. */
+   window.P2S_URL(u) does both; fetch() goes through it, and so do the scripts that import or load other scripts. On the
+   404 page of a split site it also sends an address another host owns there (window.P2S_LEAVING tells the router). */
 (function () {
   'use strict';
   if (window.P2S_URL) return;
@@ -25,12 +26,23 @@
     var path = url.pathname.replace(/^\//, ''), seg = path.split('/')[0], tail = url.search + url.hash;
     if (seg === 'assets' && route.assets) return route.assets + path.slice('assets/'.length) + tail;
     if (seg === 'data' && route.data) return route.data + path.slice('data/'.length) + tail;   // every file a script fetches is in the API
-    var home = (route.sections && route.sections[seg]) || route.rest;
+    var home = (route.sections && Object.prototype.hasOwnProperty.call(route.sections, seg) && route.sections[seg]) || route.rest;
     return home && home !== route.self ? home + '/' + path + tail : url.href;
   };
+  // The 404 page, on a split site: an address of another site's section (a page, its markdown twin, a view address),
+  // of an asset or of a data file is sent where it lives now, before the router reads it as a view of a page here.
+  // Only to a host the route names: a path such as //other.example/ would otherwise read as another origin.
+  if (route && document.documentElement.getAttribute('data-path') === '404.html') {
+    var hosts = {}, k;
+    [route.self, route.rest, route.assets, route.data].concat(Object.keys(route.sections || {}).map(function (s) { return route.sections[s]; }))
+      .forEach(function (h) { try { if (h) hosts[new URL(h).origin] = 1; } catch (e) {} });
+    var there = window.P2S_URL(location.pathname.replace(/^\/+/, '/') + location.search + location.hash), origin = '';
+    try { origin = new URL(there).origin; } catch (e) { origin = ''; }
+    if (origin && origin !== location.origin && hosts[origin]) { window.P2S_LEAVING = there; location.replace(there); }
+  }
   var f = window.fetch;
   if (f) window.fetch = function (input, init) {
-    if (typeof input === 'string' || input instanceof URL) input = window.P2S_URL(String(input));
+    try { if (typeof input === 'string' || input instanceof URL) input = window.P2S_URL(String(input)); } catch (e) { /* an unparsable URL: let fetch reject it */ }
     return f.call(this, input, init);
   };
 })();

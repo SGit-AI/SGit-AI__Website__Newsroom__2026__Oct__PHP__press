@@ -55,7 +55,16 @@
     "feedback",
     "collaborators",
     "status"
-   ]
+   ],
+   "own": [
+    "records/",
+    "index.html",
+    "tools/gate.py",
+    "tools/import_v1.py",
+    "tools/front.py",
+    "tools/release.sh"
+   ],
+   "own_about": "what the repository writes itself, besides README.md, CLAUDE.md, LICENSE, .gitignore, .github/, press.json and the two tools the press installs: the partition never touches them, and the site's gate allows nothing else"
   }
  },
  "runtime": {

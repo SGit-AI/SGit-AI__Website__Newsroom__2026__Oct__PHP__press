@@ -2,8 +2,10 @@
 """A site's pages gate (tools/pages_gate.py), installed by the press (press.json names the version). Seconds. Exits non-zero on any failure.
 
 1. Every file the press wrote is here, with the sha256 press.json records; nothing else is here but the repository's
-   own files (README, CLAUDE.md, tools/, and what press.json lists as its own).
-2. Every relative link and source in every page resolves to a file in this repository.
+   own files (README, CLAUDE.md, LICENSE, .gitignore, .github/, and what press.json lists as its own); the gate and
+   release the press installed are checked like every other file, and nothing else may be under tools/.
+2. Every relative link and source in every page, and every relative link in every markdown twin, resolves to a file
+   in this repository.
 3. Every link to another of the newsroom's sites names a page that site serves, every link to the press an asset its
    pinned version publishes, every link to the data API a file its pinned version publishes (press.json lists them).
 4. CNAME names where this site is served; no credential shapes in any page, script or data file.
@@ -11,9 +13,10 @@
 import hashlib, json, os, posixpath, re, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-LINK = re.compile(r'''\s(?:href|src)=(["'])([^"']*)\1''')
+LINK = re.compile(r'''\s(?:href|src)=(["'])((?:(?!\1).)*)\1''')
+MDLINK = re.compile(r'\]\(([^)\s]+)\)')   # a markdown twin's links
 SKIP = ('http:', 'https:', '//', '#', 'data:', 'mailto:', 'javascript:', 'tel:', 'blob:')
-CREDENTIAL = re.compile(r'sgit_private_(vault|read)_[0-9a-f]{12,}|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}')
+CREDENTIAL = re.compile(r'sgit_private_(vault|read)_[0-9a-f]{12,}|BEGIN [A-Z ]*PRIVATE KEY|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|\bsk-(or-v1-|proj-|ant-[a-z0-9]+-)?[A-Za-z0-9_]{32,}')
 fails = []
 meta = json.load(open(os.path.join(ROOT, 'press.json'), encoding='utf-8'))
 files = meta['files']
@@ -45,10 +48,10 @@ homes = meta['homes']
 broken = 0
 known = {(p, u) for p, u in meta.get('broken_in_v1', [])}
 for p in sorted(files):
-    if not p.endswith('.html'):
+    if not p.endswith(('.html', '.md')):
         continue
     text = open(os.path.join(ROOT, p), encoding='utf-8', errors='replace').read()
-    for _, url in LINK.findall(text):
+    for url in ([u for _, u in LINK.findall(text)] if p.endswith('.html') else MDLINK.findall(text)):
         path = url.split('#')[0].split('?')[0]
         if not path:
             continue
@@ -74,7 +77,7 @@ for p in sorted(files):
             continue
         if url.startswith(SKIP):
             continue
-        t = posixpath.normpath(posixpath.join(posixpath.dirname(p), path))
+        t = posixpath.normpath(path.lstrip('/') or '.') if path.startswith('/') else posixpath.normpath(posixpath.join(posixpath.dirname(p), path))
         cands = ['index.html'] if t == '.' else ([t + '/index.html'] if path.endswith('/') else [t, t + '/index.html'])
         if not any(c in present for c in cands):
             if (p, url) in known:
@@ -90,7 +93,7 @@ cname = open(os.path.join(ROOT, 'CNAME'), encoding='utf-8').read().strip() if 'C
 if cname != meta['serve_at']:
     fails.append(f'CNAME: "{cname}", press.json says {meta["serve_at"]}')
 for p in sorted(files):
-    if p.endswith(('.html', '.js', '.json', '.md', '.txt')):
+    if p.endswith(('.html', '.js', '.json', '.md', '.txt', '.xml', '.py', '.sh')):
         if CREDENTIAL.search(open(os.path.join(ROOT, p), encoding='utf-8', errors='replace').read()):
             fails.append(f'{p}: a credential shape')
 

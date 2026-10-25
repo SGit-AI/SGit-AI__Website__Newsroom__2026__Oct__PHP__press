@@ -8,7 +8,7 @@ version stops. No clock: the same files give the same bytes.
 import hashlib, html, json, os, shutil, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-PUBLISH = ['sites.json', 'assets.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/assets_v1.py',
+PUBLISH = ['sites.json', 'assets.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/assets_v1.py', 'tools/parity.py',
            'tools/publish.py', 'tools/gate.py', 'tools/release.sh']
 
 
@@ -44,7 +44,18 @@ def build(dst, version):
     return m
 
 
+def same_as(version):
+    """True when what would be published is, file for file, what v<version> already holds (then there is nothing to publish)."""
+    man = os.path.join(ROOT, 'v', version, 'manifest.json')
+    if not os.path.exists(man):
+        return False
+    have = {f['name']: f['sha256'] for f in json.load(open(man, encoding='utf-8'))['files']}
+    return have == {f: sha(os.path.join(ROOT, f)) for f in published()}
+
+
 def main():
+    if len(sys.argv) > 2 and sys.argv[1] == '--same-as':
+        sys.exit(0 if same_as(sys.argv[2]) else 1)
     version = open(os.path.join(ROOT, 'VERSION'), encoding='utf-8').read().strip()
     vdir = os.path.join(ROOT, 'v', version)
     if os.path.isdir(vdir):
