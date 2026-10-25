@@ -59,7 +59,7 @@
   }
  },
  "runtime": {
-  "about": "What every site keeps its own copy of: the version its pages check, the 404 router that answers view addresses (/agencies/as/security/) and .well-known/. Everything else a page loads comes from one place: assets/ from the press (/v/<version>/assets/), data/ from the data API (/v/<version>/), a page of another site's section from that site (the editor, 26 October 2026: one source for every file).",
+  "about": "What every site keeps its own copy of: the version its pages check, the 404 router that answers view addresses (/agencies/as/security/) and .well-known/. Everything else a page loads comes from one place: assets/ from the press (/v/<version>/assets/), data/ from the data API (/v/<version>/), a page of another site's section from that site (the editor, 25 October 2026: one source for every file).",
   "paths": [
    "VERSION",
    "404.html",

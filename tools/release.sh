@@ -2,7 +2,7 @@
 # Release the press: take in dev, gate, bump, publish, gate again, commit, push.
 # Usage: tools/release.sh "<one sentence: what changed and why>"
 # The first release was 1.0.0; every release after it adds one to the last number (1.0.1, 1.0.2, ...), whatever it
-# changes (the editor, 26 October 2026). Take v1's assets in first when they changed: tools/assets_v1.py --from <v1>.
+# changes (the editor, 25 October 2026). Take v1's assets in first when they changed: tools/assets_v1.py --from <v1>.
 # A change to the partition, the site gate or the site release reaches the sites only when each partitions again with
 # the new version. Never --no-verify, never a force-push, never main. Security reviews every press release (CLAUDE.md).
 set -euo pipefail

@@ -5,7 +5,7 @@
         --data ../sgit-ai__website__newsroom__2026__oct__php__data --into ../sgit-ai__website__newsroom__2026__oct__php__refs
 
 v1 is still where every page is built (its release commits the output), so a site is v1's committed output at one
-commit, cut by section, with one source for every file (the editor, 26 October 2026):
+commit, cut by section, with one source for every file (the editor, 25 October 2026):
 
 - **its pages**: every page v1's build writes (admin/build/outputs.txt) whose first path segment the site owns;
 - **assets/ from the press** and **data/ from the data API**, never copied: every page's links name them at the
