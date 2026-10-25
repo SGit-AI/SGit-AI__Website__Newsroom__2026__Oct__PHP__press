@@ -30,7 +30,7 @@
   };
   var f = window.fetch;
   if (f) window.fetch = function (input, init) {
-    if (typeof input === 'string') input = window.P2S_URL(input);
+    if (typeof input === 'string' || input instanceof URL) input = window.P2S_URL(String(input));
     return f.call(this, input, init);
   };
 })();

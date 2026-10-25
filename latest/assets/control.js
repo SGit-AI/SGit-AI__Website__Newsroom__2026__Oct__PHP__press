@@ -486,7 +486,7 @@
   // ---------- loading ----------
   function load() {
     var u;
-    try { u = new URL(SRC, location.href); u.searchParams.set('_', String(Date.now())); } catch (e) { u = SRC; }
+    try { u = new URL(SRC, window.P2S_BASE || location.href); u.searchParams.set('_', String(Date.now())); u = u.href; } catch (e) { u = SRC; }   // the page as loaded, not the view in the address bar
     return fetch(u, { cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
       return r.json();
