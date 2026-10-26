@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "edcaa964f2dea3a7f06f77d5e860488b47c9aa96",
-  "site_version": "0.22.28"
+  "commit": "61c0c765ad3c487d2bcd914c781c3b4351b9dd01",
+  "site_version": "0.22.29"
  },
  "sources": {
   "assets/": "assets/",
@@ -71,8 +71,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "cd43e9e75150b1ceb0d1267cf4298a1968d7d0a9f70667494ee720f17d8ea3fc",
-  "assets/design/line/copy.json": "fa81b1fefc0e852dc331adaaf66dbd50a52081877c4b672399a9dc43543f02f5",
+  "assets/design/line/config.js": "1c6b84fb1419ed96ccf2a1c61491f90e090f01ecd3fd90088418f4738d4a488d",
+  "assets/design/line/copy.json": "3892574e41bab1e9f1bdca9de2b4f2d63eb89caf85caa3dd958300205c90cfe6",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -164,7 +164,7 @@
   "build/invite.py": "48fa6230d34c79ce340265a5b49e3e1168d7466c2c04f4c8b1d43ae0e3ae8f9a",
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969",
-  "build/outputs.txt": "d536b030834216ddfebe478394d27b64e060511376513b7b49bb0b02e1bc88a9",
+  "build/outputs.txt": "a51ec728197aedf0be0a8890488fe457d4aeb318cf50dcef0c092ea09f7e7a3f",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",

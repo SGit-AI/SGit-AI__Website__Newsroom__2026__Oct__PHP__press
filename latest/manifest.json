@@ -8,7 +8,7 @@
   {
    "bytes": 187,
    "name": "assets.json",
-   "sha256": "f8ee4894fc74eed4980f3930aa19e692d12f1a6e4e020fc125f34e0df95680e6"
+   "sha256": "c1b9746f2c05303cc57cbbd48afb0175cc8f217e6c71f83aed64a6e8a064c19a"
   },
   {
    "bytes": 18137,
@@ -58,7 +58,7 @@
   {
    "bytes": 19899,
    "name": "sources.json",
-   "sha256": "4b78c924fb8dcdcb3839c3bf491b14e03582848faf0177183b14b48c00daff15"
+   "sha256": "f895f28f5cc52eb341b86e33f451cd3eed7f9d0ebf6ef0cfe7a53d2f6ef7a618"
   },
   {
    "bytes": 5917,
@@ -443,12 +443,12 @@
   {
    "bytes": 24895,
    "name": "assets/design/line/config.js",
-   "sha256": "cd43e9e75150b1ceb0d1267cf4298a1968d7d0a9f70667494ee720f17d8ea3fc"
+   "sha256": "1c6b84fb1419ed96ccf2a1c61491f90e090f01ecd3fd90088418f4738d4a488d"
   },
   {
    "bytes": 11667,
    "name": "assets/design/line/copy.json",
-   "sha256": "fa81b1fefc0e852dc331adaaf66dbd50a52081877c4b672399a9dc43543f02f5"
+   "sha256": "3892574e41bab1e9f1bdca9de2b4f2d63eb89caf85caa3dd958300205c90cfe6"
   },
   {
    "bytes": 12365,
@@ -816,9 +816,9 @@
    "sha256": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969"
   },
   {
-   "bytes": 105883,
+   "bytes": 108569,
    "name": "build/outputs.txt",
-   "sha256": "d536b030834216ddfebe478394d27b64e060511376513b7b49bb0b02e1bc88a9"
+   "sha256": "a51ec728197aedf0be0a8890488fe457d4aeb318cf50dcef0c092ea09f7e7a3f"
   },
   {
    "bytes": 5901,
@@ -981,6 +981,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.27",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.27/"
+ "press": "1.0.28",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.28/"
 }
