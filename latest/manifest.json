@@ -36,14 +36,14 @@
    "sha256": "2e47b95adce26271cfeb0e6647efc9a7115614406e07bb4a852cffb9a12d341d"
   },
   {
-   "bytes": 4179,
+   "bytes": 4392,
    "name": "tools/chain.sh",
-   "sha256": "e7bf25e2413a11070b9c7c01fb40a958fcd1228a0905b6805e07c641a4cf7e4c"
+   "sha256": "6ad0e9155fefde74e54c4d385b618e5bd327750ba9be32bc968aa813d1a1d735"
   },
   {
-   "bytes": 3998,
+   "bytes": 3804,
    "name": "tools/build.sh",
-   "sha256": "22a112f002840e6e68f7b4b192336251c3a50743b8dd86c3581c94a3ae3e9b7e"
+   "sha256": "692d88b8a3991b8d13c748dcb1e18eee6a83464c8286ee2631463717c41197a8"
   },
   {
    "bytes": 6515,
@@ -981,6 +981,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.14",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.14/"
+ "press": "1.0.15",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.15/"
 }

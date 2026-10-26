@@ -35,6 +35,7 @@ for r in press data team site refs updates; do
   git -C "$d" fetch -q origin "+refs/heads/dev:refs/remotes/origin/dev"
   git -C "$d" merge -q --ff-only origin/dev || { echo "chain: $d cannot take in origin/dev fast-forward; merge it by hand"; exit 3; }
 done
+[ -z "$(git -C "$BOX" status --porcelain)" ] || { echo "chain: the box is not clean; a round stopped between its exports and its build (git -C $BOX checkout -- . && git -C $BOX clean -fd puts it back)"; exit 3; }
 
 echo "== 1. export what was written in the six into the box"
 (cd "${V}__team" && python3 tools/sync_v1.py export --into "../$BOX")

@@ -35,7 +35,6 @@ if [ ! -d "$BOX/.git" ]; then
 fi
 [ "$MSG" = "--make" ] && { echo "box: $BOX, edition v$(cat "$BOX/VERSION")"; exit 0; }
 cd "$BOX"
-[ -z "$(git status --porcelain)" ] || { echo "box: the tree is not clean before the build; the exports should have been committed by the last build"; git status --porcelain | head -5; exit 3; }
 OLD="$(cat VERSION)"; IFS=. read -r MA MI PA <<< "$OLD"; NEW="$MA.$MI.$((PA+1))"
 # the edition: VERSION and its entry in data/versions.json (as v1's release wrote them)
 python3 - "$NEW" "$MSG" <<'PY'
