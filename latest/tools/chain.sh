@@ -2,7 +2,9 @@
 # The chain: what carries the agents' writes to the sites. Since step B of the split (26 October 2026) nothing depends
 # on v1's repository: the pages are built in a box the chain owns (tools/build.sh), from the six repositories' sources.
 #
-#   tools/chain.sh "<one sentence: what changed and why>"
+#   tools/chain.sh "<one sentence: what changed and why>" [--if-changed]
+#   (--if-changed: a scheduled round; it builds only when the last commit of one of the six is not the round's own,
+#    which a "Round:" trailer marks)
 #
 # Run from a folder that holds the six clones side by side (sgit-ai__website__newsroom__2026__oct__php__press, __data,
 # __team, __site, __refs, __updates; the box, __box, is made beside them from v1 as frozen), with RELEASE_TRAILER set as
@@ -19,6 +21,7 @@
 # Never --no-verify on a release, never a force-push, never main, never a push to v1.
 set -euo pipefail
 MSG="${1:?message required}"
+ONLY_IF_CHANGED=0; [ "${2:-}" = "--if-changed" ] && ONLY_IF_CHANGED=1   # a scheduled round: build only when someone other than the round released
 HERE="$(cd "$(dirname "$0")/.." && pwd)"; cd "$(dirname "$HERE")"
 V=sgit-ai__website__newsroom__2026__oct__php
 BOX="${V}__box"
@@ -36,6 +39,13 @@ for r in press data team site refs updates; do
   git -C "$d" merge -q --ff-only origin/dev || { echo "chain: $d cannot take in origin/dev fast-forward; merge it by hand"; exit 3; }
 done
 [ -z "$(git -C "$BOX" status --porcelain)" ] || { echo "chain: the box is not clean; a round stopped between its exports and its build (git -C $BOX checkout -- . && git -C $BOX clean -fd puts it back)"; exit 3; }
+if [ "$ONLY_IF_CHANGED" = 1 ]; then
+  new=0
+  for r in press data team site updates; do
+    git -C "${V}__$r" log -1 --format=%B | grep -q '^Round: ' || new=1    # the last commit is someone's, not the round's
+  done
+  [ "$new" = 1 ] || { echo "chain: nothing released by anyone since the last round; nothing to build"; exit 0; }
+fi
 
 echo "== 1. export what was written in the six into the box"
 (cd "${V}__team" && python3 tools/sync_v1.py export --into "../$BOX")

@@ -7192,9 +7192,9 @@ def build_members():
         if st:
             pol = st.get('policy', {})
             stt = table(['Field', 'Value'], [['Round', E(json.dumps(st.get('round'))) if st.get('round') else E(st.get('state', ''))],
-                                              ['Done', '<br>'.join(E(d.get('what', '')) for d in st.get('done', [])) or 'nothing recorded'],
-                                              ['Next', '<br>'.join(E(n.get('what', '')) for n in st.get('next', [])) or 'nothing proposed'],
-                                              ['Asks', '<br>'.join(E(n.get('what', '')) + (f' (from {E(n.get("from", ""))})' if n.get('from') else '') for n in st.get('asks', [])) or 'none'],
+                                              ['Done', '<br>'.join(E(d.get('what', '') if isinstance(d, dict) else d) for d in st.get('done', [])) or 'nothing recorded'],   # a member may write a line, not an object
+                                              ['Next', '<br>'.join(E(n.get('what', '') if isinstance(n, dict) else n) for n in st.get('next', [])) or 'nothing proposed'],
+                                              ['Asks', '<br>'.join((E(n.get('what', '')) + (f' (from {E(n.get("from", ""))})' if n.get('from') else '')) if isinstance(n, dict) else E(n) for n in st.get('asks', [])) or 'none'],
                                               ['Tokens', E('unknown' if st.get('tokens', {}).get('value') is None else str(st['tokens']['value'])) + ' &middot; ' + E(st.get('tokens', {}).get('how', ''))],
                                               ['Policy', E(', '.join(f'{k} {v}' for k, v in pol.items() if k != 'version'))]])
         dbh = ''.join(f'<article class="role" id="{E(db["file"][:-3])}"><h3>{E(db.get("title", db["file"]))}</h3><p class="small">{E(db.get("date", ""))} &middot; round {E(db.get("round", ""))} &middot; branch <code>{E(db.get("branch", ""))}</code> &middot; commits <code>{E(db.get("commits", ""))}</code> &middot; tokens {E(db.get("tokens", ""))} &middot; outside scope {E(db.get("outside_scope", ""))} &middot; overrides {E(db.get("overrides", ""))}</p>{debrief_html(db, 3)}</article>' for db in load_debriefs(a))
