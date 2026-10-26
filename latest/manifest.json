@@ -176,6 +176,46 @@
    "sha256": "a5e006edb61a2357c7c3ae2f04d9d0dcf22c06ef5b90e8d89236679335ac20ee"
   },
   {
+   "bytes": 27436,
+   "name": "assets/articles/has-anyone-been-hacked/deck.html",
+   "sha256": "0b068ad4b308a2b07f2fbbaa2f99f762ce4fd33eae7c7fa5eeb99e3871b4b9cd"
+  },
+  {
+   "bytes": 209758,
+   "name": "assets/articles/has-anyone-been-hacked/deck.pdf",
+   "sha256": "22f9504e331e859279bdebd93d7e1b3625ed2a1c2f3af58faf735f7873df431e"
+  },
+  {
+   "bytes": 60254,
+   "name": "assets/articles/has-anyone-been-hacked/evidence.png",
+   "sha256": "f6be4d59b5dacac5433e059174f393f754c1a04e5b4d955b4572402e68cc6b0b"
+  },
+  {
+   "bytes": 115591,
+   "name": "assets/articles/has-anyone-been-hacked/ladder.png",
+   "sha256": "481787b72b3589131ee78284ed08741d201584d4429cc7c3d696ac043ac00cd8"
+  },
+  {
+   "bytes": 40509,
+   "name": "assets/articles/has-anyone-been-hacked/offline-vs-breached.png",
+   "sha256": "faced3b8b446cba9fc1ae8f930cd582e93fd99bb7fccfd39f3e4e32b58a2989a"
+  },
+  {
+   "bytes": 47959,
+   "name": "assets/articles/has-anyone-been-hacked/pipeline.png",
+   "sha256": "2e71fcb78bea7864006b3dc11b5c7ccd1395f1da3b12f247e22eec6758932e06"
+  },
+  {
+   "bytes": 50457,
+   "name": "assets/articles/has-anyone-been-hacked/statements.png",
+   "sha256": "4106ebb5f17925e670dfd18bd8c08afd4bdc108befff52d9f53f782035b8065b"
+  },
+  {
+   "bytes": 68821,
+   "name": "assets/articles/has-anyone-been-hacked/timeline.png",
+   "sha256": "b97b08a96cf6cddd53229df126b057c40dbc5e5a128ce0e70eadc769dce60e15"
+  },
+  {
    "bytes": 80522,
    "name": "assets/articles/the-risk-graph-before-and-after/basis-after.png",
    "sha256": "56d2518ee21cf56fb1442994cca14681e64413908cd1f31fc7ab872356c378d2"
@@ -981,6 +1021,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.28",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.28/"
+ "press": "1.0.29",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.29/"
 }
