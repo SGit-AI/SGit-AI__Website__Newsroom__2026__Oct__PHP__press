@@ -33,9 +33,10 @@ for attempt in 1 2 3 4 5; do
   if [ -n "${RELEASE_TRAILER:-}" ]; then git commit -q -m "v$NEW: $MSG" -m "$RELEASE_TRAILER"; else git commit -q -m "v$NEW: $MSG"; fi
   if git push -q -u origin "HEAD:$BRANCH" 2>/dev/null; then echo "pushed v$NEW to $BRANCH"; exit 0; fi
   echo "push rejected (someone released meanwhile): taking it in and numbering again ($attempt of 5)"
-  git reset -q --soft HEAD~1
+  git reset -q --soft HEAD~1; git reset -q               # the commit undone, nothing staged: the imported files stay as changes in the tree
   if [ "$NEW" != "$OLD" ]; then rm -rf "v/$NEW"; fi
   git checkout -q HEAD -- VERSION versions.json index.html latest 2>/dev/null || true
+  git clean -fdq latest 2>/dev/null || true
   git fetch -q origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
   git merge -q --ff-only "origin/$BRANCH" || { echo "release stopped: your change and someone else's touch the same file; merge origin/$BRANCH by hand and run this again"; exit 3; }
 done
