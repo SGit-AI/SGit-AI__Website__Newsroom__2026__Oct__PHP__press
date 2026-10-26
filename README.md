@@ -12,7 +12,9 @@ every address another site owns, and installs the site's gate (`tools/pages_gate
 are published here once, under `/v/<version>/assets/`; the data by the data API; each page's links, its route
 (`<meta name="p2s-route">`, read by `assets/route.js`) and its Content-Security-Policy name those hosts at pinned
 versions. `tools/parity.py` checks that every page v1 builds is owned by one site and reads the same there. Every
-release after 1.0.0 adds one to the last number. `tools/chain.sh` is the whole round in one command: the records
-and the data written in team and data exported into v1, v1's release, the assets taken in, the data imported, the
-four sites cut, parity, every release. In pass two the build library itself moves here. The rules for working here
+release after 1.0.0 adds one to the last number. `tools/chain.sh` is the whole round in one command, and since step B of the split (26 October) nothing in it
+depends on v1's repository: what was written in the six is exported into the chain's box (`tools/build.sh`: a clone of
+v1 as frozen, never pushed), the box builds the edition with `build/` (v1's build and gate, held here), what the build
+derives comes back, the four sites are cut, parity is checked, every repository releases. In pass two the build
+itself becomes the press's own, not v1's layout in a box. The rules for working here
 are in [CLAUDE.md](CLAUDE.md).

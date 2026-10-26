@@ -36,9 +36,9 @@
    "sha256": "2e47b95adce26271cfeb0e6647efc9a7115614406e07bb4a852cffb9a12d341d"
   },
   {
-   "bytes": 3667,
+   "bytes": 4179,
    "name": "tools/chain.sh",
-   "sha256": "4522bafe7e902ed8c1dec851a918ed983556fdeaa7ad97d56365e6758d48333c"
+   "sha256": "e7bf25e2413a11070b9c7c01fb40a958fcd1228a0905b6805e07c641a4cf7e4c"
   },
   {
    "bytes": 3998,
@@ -981,6 +981,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.13",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.13/"
+ "press": "1.0.14",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.14/"
 }

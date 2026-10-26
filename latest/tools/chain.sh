@@ -28,6 +28,14 @@ done
 : "${RELEASE_TRAILER:?set RELEASE_TRAILER (Agent: <you>, and the rest)}"
 [ -d "$BOX/.git" ] || "${V}__press/tools/build.sh" --make
 
+echo "== 0. take in what the agents released in the six since the last round"
+for r in press data team site refs updates; do
+  d="${V}__$r"
+  [ -z "$(git -C "$d" status --porcelain)" ] || { echo "chain: $d has uncommitted changes; the last round did not finish, or someone edited it here"; exit 3; }
+  git -C "$d" fetch -q origin "+refs/heads/dev:refs/remotes/origin/dev"
+  git -C "$d" merge -q --ff-only origin/dev || { echo "chain: $d cannot take in origin/dev fast-forward; merge it by hand"; exit 3; }
+done
+
 echo "== 1. export what was written in the six into the box"
 (cd "${V}__team" && python3 tools/sync_v1.py export --into "../$BOX")
 (cd "${V}__data" && python3 tools/sync_v1.py export --into "../$BOX")

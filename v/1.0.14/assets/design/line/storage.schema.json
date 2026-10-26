@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "p2s.lens.v2",
+  "title": "p2s.lens, version 2: the reader's view, kept in this browser",
+  "description": "One record in localStorage under the key 'p2s.lens'. Replaces the v1 record of prototype E (time, who, aim, seen). Read synchronously by lens-boot.js before first paint; written by lens.js. Other tabs follow through the 'storage' event. p2s.persona is kept in step (the reader id, or the role id when no reader is chosen) so the rest of the site keeps working. Session-only state lives in sessionStorage under 'p2s.lens.session'. Later: the same record in the reader's vault (board 140).",
+  "type": "object",
+  "required": ["v", "role", "depth", "source", "confirmed", "asked", "firstVisit", "lastVisit", "lastActive", "visits", "seen"],
+  "properties": {
+    "v": { "const": 2 },
+    "role": { "enum": ["exec", "general", "security", "engineer", "journalist", "researcher", "everything"] },
+    "reader": { "type": ["string", "null"], "description": "Optional: a reader id from data/personas.json inside the role (board, cfo, ...)." },
+    "depth": { "enum": ["plain", "technical", "deep"] },
+    "depthSet": { "type": "boolean", "description": "True when the reader chose the depth; false when it follows the role or reader default." },
+    "source": { "type": "string", "description": "How the role was set: default | guess:advisory | guess:search-version | guess:archive | guess:news | shared | chosen" },
+    "confirmed": { "type": "boolean" },
+    "asked": { "type": "integer", "minimum": 0, "description": "How many visits showed the 'who are you' question. Stops at 2." },
+    "firstVisit": { "type": "string", "format": "date-time" },
+    "lastVisit": { "type": "string", "format": "date-time", "description": "Start of the previous visit's end: 'since you were last here' counts from here. Moves only when a new visit starts." },
+    "lastActive": { "type": "string", "format": "date-time", "description": "Last time the reader did anything on the site. A gap over 30 minutes starts a new visit." },
+    "visits": { "type": "integer", "minimum": 1 },
+    "seenBuild": { "type": "string", "description": "The site release the reader last caught up with, e.g. v0.15.18." },
+    "seen": {
+      "type": "object",
+      "description": "Part key -> content hash at the moment it was read. A part whose current hash differs is 'changed'. Keys are page-scoped: 'front/now', 'agencies/spectrum'.",
+      "additionalProperties": { "type": "string" }
+    },
+    "said": {
+      "type": "array",
+      "description": "The last 20 things the line said and what was tapped, so it never repeats itself (e.g. not asking twice in one visit).",
+      "maxItems": 20,
+      "items": { "type": "object", "properties": { "at": { "type": "string" }, "rule": { "type": "integer" }, "key": { "type": "string" }, "tapped": { "type": ["string", "null"] } } }
+    },
+    "history": {
+      "type": "array",
+      "maxItems": 50,
+      "items": { "type": "object", "properties": { "at": { "type": "string" }, "role": { "type": "string" }, "reader": { "type": ["string", "null"] }, "depth": { "type": "string" }, "source": { "type": "string" } } }
+    }
+  },
+  "x-session": {
+    "key": "p2s.lens.session",
+    "properties": {
+      "shared": "{ role, reader?, depth? } from ?as=, until 'Switch to mine' or the tab closes",
+      "asOf": "ISO date-time when looking at the past",
+      "gates": "list of page paths where 'Read it anyway' was tapped",
+      "switchedAt": "ISO date-time of the last view change, for the Undo line"
+    }
+  },
+  "x-share-link": "?as=<role or reader>&depth=<plain|technical|deep>[&since=<ISO>]  ('since' only on 'Copy my view' between a reader's own devices)",
+  "x-forget": "'Forget me on this browser' removes p2s.lens, p2s.lens.session and p2s.persona; the next load is a first visit."
+}

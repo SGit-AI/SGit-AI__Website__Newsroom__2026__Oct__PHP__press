@@ -1,0 +1,40 @@
+{
+  "note": "The reader's timelines. A visit moment is worked out on every page load from the stored record (p2s.lens), the clock and the URL, before first paint. reference/line-engine.js momentFrom() implements this order exactly; the first match wins.",
+  "thresholds": {
+    "sessionGapMinutes": 30,
+    "sameVisitMinutes": 60,
+    "catchUpDays": 7,
+    "catchUpChanges": 20,
+    "askAtMost": 2,
+    "switchedToastSeconds": 6
+  },
+  "detectionOrder": [
+    { "id": "shared",   "when": "URL has ?as= and it differs from the saved role (or nothing is saved and the reader has not kept it)", "session": true },
+    { "id": "past",     "when": "URL or session has an as-of date in the past", "session": true },
+    { "id": "first",    "when": "no record in this browser" },
+    { "id": "switched", "when": "the role, reader or depth changed in the last few seconds (set by the control, not by a load)", "session": true },
+    { "id": "live",     "when": "a new build was published while this page is open, with at least one change for the role" },
+    { "id": "first",    "when": "not confirmed and this is visit 1: the question stays on every page of the first visit (open size on inner pages)" },
+    { "id": "second",   "when": "not confirmed and this is visit 2 (askAtMost): asked once more, on every page of that visit; never after" },
+    { "id": "long",     "when": "more than catchUpChanges changes for the role, or at least one change and away catchUpDays or more" },
+    { "id": "week",     "when": "at least one change for the role since the visit started counting (visitStart().since); stays until Show me / Mark as seen" },
+    { "id": "reading",  "when": "the same visit (active in the last sessionGapMinutes), nothing new" },
+    { "id": "hour",     "when": "a new visit within sameVisitMinutes of the last activity, nothing new" },
+    { "id": "sameday",  "when": "a new visit, nothing new for the role, last activity was today" },
+    { "id": "reading",  "when": "anything else: the page's one line" }
+  ],
+  "moments": {
+    "first":    { "label": "First visit",                     "size": "panel on the front page, open elsewhere", "writes": "persona, source, confirmed=false, asked=1, firstVisit, lastVisit, visits=1" },
+    "reading":  { "label": "Same visit, reading on",          "size": "line", "writes": "seen (parts read), lastActive" },
+    "hour":     { "label": "Back within the hour",            "size": "line", "writes": "visits+1, lastActive" },
+    "sameday":  { "label": "Later the same day",              "size": "line", "writes": "visits+1, lastActive" },
+    "second":   { "label": "Second visit, never answered",    "size": "open", "writes": "asked+1; after askAtMost the view is kept quietly" },
+    "week":     { "label": "Back within a week",              "size": "open", "writes": "nothing until Show me / Mark as seen; lastVisit moves on when the visit ends" },
+    "long":     { "label": "Back after a week or more",       "size": "open", "writes": "as week; catch-up marks the five as seen" },
+    "live":     { "label": "Story updates while reading",     "size": "line", "writes": "nothing until Show me" },
+    "switched": { "label": "Just changed view",               "size": "line", "writes": "persona/reader/depth, source=chosen, confirmed=true, history+1" },
+    "shared":   { "label": "Opened a shared link",            "size": "line", "writes": "session only, unless 'Make it mine'" },
+    "past":     { "label": "Looking at the past",             "size": "line", "writes": "session only; never touches seen" }
+  },
+  "visitEnds": "A gap of sessionGapMinutes without activity starts a new visit. Then, and only then, lastVisit is set to the previous lastActive and visits goes up by one; so a reload never wipes 'since you were last here'. Show me, Mark as seen and Catch me up set lastVisit to now. Use visitStart() to know whether a load starts a visit and from when to count changes."
+}
