@@ -221,6 +221,36 @@
    "sha256": "edee58563a6ecafcc086ef747ad6ca728289bcf42ccb96d70c7e8686a80dfc00"
   },
   {
+   "bytes": 84561,
+   "name": "assets/articles/steal-my-bitcoin/chain.png",
+   "sha256": "63ebe0b24ac08dcc9c333adae338cb7858afd8fb0dda9040fc284d77f7b4f4ff"
+  },
+  {
+   "bytes": 22202,
+   "name": "assets/articles/steal-my-bitcoin/deck2.html",
+   "sha256": "9c8f85f8ed72b93baebf223eb40ff25582abdae1874979d56fe900b7b737f16b"
+  },
+  {
+   "bytes": 195767,
+   "name": "assets/articles/steal-my-bitcoin/deck2.pdf",
+   "sha256": "a8ca290f07b177b53eb170dfbfc28c9b0d3d25a9417c9f6e9e75a9bae9f3a40a"
+  },
+  {
+   "bytes": 66864,
+   "name": "assets/articles/steal-my-bitcoin/funnel.png",
+   "sha256": "37b71b0d8c9b7be127f79fc278549b886f46502bd981125865ecda899f920ff8"
+  },
+  {
+   "bytes": 94640,
+   "name": "assets/articles/steal-my-bitcoin/replicable.png",
+   "sha256": "31e1f86bd4f2bec7fd6257a4ac8b120fb06cb9590c34b3b1f1b63527785b6772"
+  },
+  {
+   "bytes": 89142,
+   "name": "assets/articles/steal-my-bitcoin/three-things.png",
+   "sha256": "a67960504d37cf45c4372786854a5e1281bcb588a563cfd319e9a8c7ed29b876"
+  },
+  {
    "bytes": 80522,
    "name": "assets/articles/the-risk-graph-before-and-after/basis-after.png",
    "sha256": "56d2518ee21cf56fb1442994cca14681e64413908cd1f31fc7ab872356c378d2"
@@ -1026,6 +1056,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.32",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.32/"
+ "press": "1.0.33",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.33/"
 }
