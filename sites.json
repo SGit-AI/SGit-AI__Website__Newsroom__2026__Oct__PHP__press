@@ -10,7 +10,16 @@
    "home": "https://php.oct.2026.newsroom.sgit.ai",
    "serve_at": "site.php.oct.2026.newsroom.sgit.ai",
    "what": "the main UI: the homes, the briefings, the questions, the stories, the tools, the risk graph, the views",
-   "sections": "*"
+   "sections": "*",
+   "sources": {
+    "content/articles/": "admin/content/articles/",
+    "content/external/": "admin/content/external/",
+    "content/reviews/": "admin/content/reviews/"
+   },
+   "own": [
+    "content/",
+    "sources.json"
+   ]
   },
   "refs": {
    "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php__refs",
@@ -41,6 +50,14 @@
     "updates",
     "whatsnew",
     "feeds"
+   ],
+   "sources": {
+    "content/views/": "admin/content/views/",
+    "content/updates/": "admin/content/updates/"
+   },
+   "own": [
+    "content/",
+    "sources.json"
    ]
   },
   "team": {
@@ -61,6 +78,7 @@
     "index.html",
     "tools/gate.py",
     "tools/import_v1.py",
+    "tools/sync_v1.py",
     "tools/front.py",
     "tools/release.sh"
    ],
@@ -116,5 +134,6 @@
    "home": "https://data.php.oct.2026.newsroom.sgit.ai",
    "path": "/v/{data}/"
   }
- }
+ },
+ "sources_about": "'sources': the folders of this repository's own sources and their v1 paths, while v1 still builds the pages; tools/pages_sync.py (installed by the press) carries them both ways, and what is written here wins. 'own': what the repository writes itself; the partition never touches it and the gate allows nothing else."
 }

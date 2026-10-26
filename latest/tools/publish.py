@@ -8,17 +8,19 @@ version stops. No clock: the same files give the same bytes.
 import hashlib, html, json, os, shutil, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-PUBLISH = ['sites.json', 'assets.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/assets_v1.py', 'tools/parity.py',
+PUBLISH = ['sites.json', 'assets.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/assets_v1.py', 'tools/parity.py', 'tools/chain.sh', 'tools/sync_v1.py', 'tools/site_sync.py', 'sources.json',
            'tools/publish.py', 'tools/gate.py', 'tools/release.sh']
 
 
 def published():
-    """The tools, sites.json, and every asset (assets/, taken from v1 by tools/assets_v1.py), served once for every site."""
+    """The tools, sites.json, and every source the press holds (assets/, served once for every site; build/, the build and
+    the gate; rules/, what every session reads; vault-app/), so a version is the whole press as it was."""
     out = list(PUBLISH)
-    for d, dirs, fs in os.walk(os.path.join(ROOT, 'assets')):
-        dirs.sort()
-        out += sorted(os.path.relpath(os.path.join(d, f), ROOT).replace(os.sep, '/') for f in fs)
-    return out
+    for top in ('assets', 'build', 'rules', 'vault-app'):
+        for d, dirs, fs in os.walk(os.path.join(ROOT, top)):
+            dirs.sort(); dirs[:] = [x for x in dirs if x != '__pycache__']
+            out += sorted(os.path.relpath(os.path.join(d, f), ROOT).replace(os.sep, '/') for f in fs if not f.endswith('.pyc'))
+    return [f for f in out if os.path.exists(os.path.join(ROOT, f))]
 
 
 HOME = 'https://press.php.oct.2026.newsroom.sgit.ai'

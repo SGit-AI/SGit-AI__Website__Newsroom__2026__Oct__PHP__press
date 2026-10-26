@@ -271,14 +271,14 @@ def main():
     put('robots.txt', robots.encode())
     put('CNAME', (host + '\n').encode())
     put('.nojekyll', b'')
-    for t in ('site_gate.py', 'site_release.sh'):   # the site's gate and release, with their sha256 in press.json like every file
+    for t in ('site_gate.py', 'site_release.sh', 'site_sync.py'):   # the site's gate, release and sync, with their sha256 in press.json like every file
         dst = 'tools/' + t.replace('site_', 'pages_')
         put(dst, open(os.path.join(PRESS, 'tools', t), 'rb').read())
         os.chmod(os.path.join(into, dst), 0o755)
     commit = subprocess.run(['git', '-C', v1, 'rev-parse', 'HEAD'], capture_output=True, text=True, check=True).stdout.strip()
     meta = {
         'press': pv, 'data': dv, 'assets': plan.assets_base, 'data_base': plan.data_base,
-        'site': site, 'home': plan.home(site), 'serve_at': host, 'own': sorted(keep - {'.git/', 'tools/'}),   # under tools/, only what the press installed and the 'own' list
+        'site': site, 'home': plan.home(site), 'serve_at': host, 'own': sorted(keep - {'.git/', 'tools/'}), 'sources': cfg.get('sources', {}),   # under tools/, only what the press installed and the 'own' list
         'v1': {'repository': plan.cfg['v1']['repository'], 'commit': commit,
                'site_version': open(os.path.join(v1, 'VERSION'), encoding='utf-8').read().strip()},
         'counts': {'pages': len(plan.pages[site]), 'files': len(plan.files[site]), 'runtime': len(plan.runtime), 'redirects': stubs,

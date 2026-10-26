@@ -13,5 +13,14 @@ commit or publish a secret; never `--no-verify`, never force-push, never push to
   partitions again with it (a moved page leaves a redirect where it was).
 - The assets (scripts, styles, images, components) are served once, from here: `tools/assets_v1.py` takes them from
   v1 at a released commit, a release publishes them under `/v/<version>/assets/`, and the sites name that version.
-- The sites run the press's tools as installed by the partition (`tools/pages_gate.py`, `tools/pages_release.sh`);
-  `press.json` in each site names the press version that wrote it.
+- The sites run the press's tools as installed by the partition (`tools/pages_gate.py`, `tools/pages_release.sh`,
+  `tools/pages_sync.py`); `press.json` in each site names the press version that wrote it.
+- **From 26 October (step A) the press also holds, and its owners write here:** `assets/` (every script, stylesheet,
+  image and component: story-site's design, dev's tools, each desk's script, as v1's policies say), `build/` (v1's
+  `admin/build/`: the build, the gate, the exporters; each member's part as its policy says) and `rules/` (the
+  newsroom's rules every session reads: `admin/security/`, `CLAUDE.md`, `AGENTS.md`, `SECURITY.md`, `.claude/`;
+  security's). What is written here wins: `tools/sync_v1.py import` (v1 to here) never overwrites a change made here,
+  and `export` carries it into v1, where the pages are still built; dev's chain runs both. Security's review before
+  release is for `tools/`, `rules/`, `build/validate.py`, `build/security_check.py`, `build/release.sh`,
+  `build/agents.py` and `.github/` (code that runs in every session); a change to the rest of `assets/` and `build/`
+  is its owner's, released with `tools/release.sh` after the gate, like any other repository.
