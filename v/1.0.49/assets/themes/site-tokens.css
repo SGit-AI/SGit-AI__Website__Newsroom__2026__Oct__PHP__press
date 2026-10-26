@@ -1,0 +1,16 @@
+/* php.oct.2026.newsroom.sgit.ai: this site's own tokens, defined once in terms of the five themes'
+   tokens (assets/themes/themes.css, vendored from newsroom.sgit.ai). Loaded after themes.css.
+   No literal colour here; every token this site's site.css reads resolves to a theme token. */
+:root, :root[data-theme]{
+  --ok-bg:var(--tint-solid); --ok-ink:var(--accent-dk);
+  --bad-bg:var(--danger-bg); --bad-ink:var(--danger-ink);
+  --mute-ink:var(--text);
+  /* --warn-bg, --warn-ink, --info-bg and --info-ink are the themes' own names: used as they are. Mapping them to
+     themselves here (--warn-bg:var(--warn-bg)) made them cyclic, so invalid, on every page since v0.2.4. */
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --serif:Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+nav.site .tools{display:flex;align-items:center;gap:.6rem;margin-left:auto}
+nav.site .tools sg-meter{margin-left:0}
+@media (max-width:900px){nav.site .tools{margin-left:0;flex-basis:100%;justify-content:space-between;order:3}}

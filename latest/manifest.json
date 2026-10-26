@@ -501,9 +501,9 @@
    "sha256": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f"
   },
   {
-   "bytes": 23258,
+   "bytes": 25756,
    "name": "assets/design/v2-live.css",
-   "sha256": "4d56ca09564e6f1896f3a066ab3ad8eca93ec9a5f44d6cf388f5abf09077e026"
+   "sha256": "b8ea4f9d0a72f5aaf8f83a1db0af46f259d2d7aaf46252b82de6f221afe604f2"
   },
   {
    "bytes": 17817,
@@ -876,9 +876,9 @@
    "sha256": "d1f32c5a8b2d5adb97e6532096e406cd7d4ab823cd803fe07c81fe65e1f933de"
   },
   {
-   "bytes": 162264,
+   "bytes": 164762,
    "name": "build/design.py",
-   "sha256": "efe4b910e5021074c5c955a01ac1e9d312237bcbecc814c52be58e2b5955d420"
+   "sha256": "e41dbfb91ac8b1f0b06698f9274b5c5371696ab09c5eb3df62ee57444e778dd7"
   },
   {
    "bytes": 5856,
@@ -1101,6 +1101,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.48",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.48/"
+ "press": "1.0.49",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.49/"
 }
