@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "f597f105235fa529e2e2c5816a5c45e2be5d7d36",
-  "site_version": "0.22.26"
+  "commit": "de469d22747fbe638cab4f2807607c7b6dd17ef3",
+  "site_version": "0.22.27"
  },
  "sources": {
   "assets/": "assets/",
@@ -14,7 +14,10 @@
   "rules/SECURITY.md": "SECURITY.md",
   "vault-app/": "vault-app/"
  },
- "kept": [],
+ "kept": [
+  "build/build.py",
+  "rules/security/injection-allowlist.json"
+ ],
  "files": {
   "assets/articles/the-risk-graph-before-and-after/basis-after.png": "56d2518ee21cf56fb1442994cca14681e64413908cd1f31fc7ab872356c378d2",
   "assets/articles/the-risk-graph-before-and-after/basis-before.png": "15dc645bc065e5004341a2a7ccd8d2fe96cfe67a0eef9ed17cb572c13b51f915",
@@ -71,8 +74,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "e5d063332f86115b94c9497835cd137952113942c5b26946cf5239a89f7471ea",
-  "assets/design/line/copy.json": "acc363fd23d469ede98530cd53f1fc6b72c2ee1d06d534d83d85426268b9087c",
+  "assets/design/line/config.js": "60e0886b7cdee6a9f468e54a78960520b2119ed52158a099360c8fe15e744f17",
+  "assets/design/line/copy.json": "4316155985ea40d22838642d6a8cbf33a0c45080ee4d54994ef8f6f6993225dd",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -147,7 +150,7 @@
   "assets/vendor/sg-vault/v0.2.3/sg-vault/sg-vault.js": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26",
   "assets/vendor/vault-ui-embed.js": "fb2c5766b0fdd1eddfbfc810d7c5ed76a650fc1e07f6ae28659f19d97a790d25",
   "build/agents.py": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05",
-  "build/build.py": "483cb21ee639663d95fda9ebc04297613cd04ce677f5d6a22c761566eb885519",
+  "build/build.py": "e8ec4a26adcc79ff3d58a34059143e7ed1c016d51c3837139a3f41b17d6b4ce5",
   "build/collaborators_drain.py": "dbad852284408dbea8708bec3fbf3f0ffe8c088cfe79d124e072dce7b27d728e",
   "build/conductor_drain.py": "750b8f448cd479f74a452d38995962c5743f58b2bb93ee48daec87d7e4dc7ca6",
   "build/contributors.py": "2f4fd828083cacdf21ce9a032e62de20bc9aa0c7b31403aada7d9953e682b619",
@@ -164,7 +167,7 @@
   "build/invite.py": "48fa6230d34c79ce340265a5b49e3e1168d7466c2c04f4c8b1d43ae0e3ae8f9a",
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969",
-  "build/outputs.txt": "98a8b48229e71435b845291b4418e40b073927896fad4e2704e6f0df73662342",
+  "build/outputs.txt": "6207b67477746f60f89a597e79d0d068d39368c840d56893eb655773f50f82d6",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",
@@ -188,7 +191,7 @@
   "rules/security/abp/DELTA.md": "1e93ac4e13975579f7fb36bf5b7edffb08a2b3bff1d3325f64e6597f3d3ee728",
   "rules/security/abp/GRANT.md": "24d6fc569b254b874668eac9a0ce4fea033ef2ed5678607fb0cbe44c9724c9f8",
   "rules/security/abp/MANDATE.md": "864667196906c5d51a5ced1de9356bf2314371e4b3bd1a1b79068993ec904db0",
-  "rules/security/injection-allowlist.json": "ccd9c4b4aedf658b3629ed8375d2bd6f5c27e4daf9ca8eb7b2d7a6eed0f1fb3b",
+  "rules/security/injection-allowlist.json": "a8eec6dbf3e3c64b299cb551418e56ccbaccddbbb7cc889ceb3b57d6675f5f66",
   "vault-app/README.md": "1d03352afeeb687d6a4090f4f946ac73ef31eaded96b0afbdde54f3a2640b261",
   "vault-app/build.py": "2d2091e145b6867c6dd8ca300cdc8a3e2a2e683a6b87779d399a3d3bef38eca5",
   "vault-app/src/index.html.tpl": "cdea62665eeb424e8e94a359986af6dacee668047bcac4d19c19ed91ff076965",

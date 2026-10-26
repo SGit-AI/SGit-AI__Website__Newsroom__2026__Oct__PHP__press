@@ -366,6 +366,12 @@ admin/briefs/2026-10-25__report__one-source-for-every-file/index.html
 admin/briefs/2026-10-25__report__one-source-for-every-file/index.md
 admin/briefs/2026-10-25__review__the-split-as-served/index.html
 admin/briefs/2026-10-25__review__the-split-as-served/index.md
+admin/briefs/2026-10-26__brief__every-release-is-live-again/index.html
+admin/briefs/2026-10-26__brief__every-release-is-live-again/index.md
+admin/briefs/2026-10-26__brief__for-the-sgit-cli-team-0-25-0-in-the-newsroom/index.html
+admin/briefs/2026-10-26__brief__for-the-sgit-cli-team-0-25-0-in-the-newsroom/index.md
+admin/briefs/2026-10-26__brief__sgit-0-25-0/index.html
+admin/briefs/2026-10-26__brief__sgit-0-25-0/index.md
 admin/briefs/index.html
 admin/briefs/index.md
 admin/build/outputs.txt
@@ -2136,6 +2142,8 @@ team/schedule/curator/index.html
 team/schedule/curator/index.md
 team/schedule/desk/index.html
 team/schedule/desk/index.md
+team/schedule/dev/index.html
+team/schedule/dev/index.md
 team/schedule/factcheck/index.html
 team/schedule/factcheck/index.md
 team/schedule/index.html
