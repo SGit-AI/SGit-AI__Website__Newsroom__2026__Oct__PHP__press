@@ -66,9 +66,9 @@
    "sha256": "05fa68d304931ffcb2f257086deee6d1971e2dd313d0ef089d1b50c719cb92fb"
   },
   {
-   "bytes": 3046,
+   "bytes": 3854,
    "name": "tools/gate.py",
-   "sha256": "99c1757397b4ae41306275ffde5ff4d6c08f832d9ef3847af567450cadf3edb1"
+   "sha256": "6a272470f42db506e3ddfecbfbc58841e86264ef5f0017b512496861781b34fd"
   },
   {
    "bytes": 3272,
@@ -226,9 +226,9 @@
    "sha256": "63ebe0b24ac08dcc9c333adae338cb7858afd8fb0dda9040fc284d77f7b4f4ff"
   },
   {
-   "bytes": 22202,
+   "bytes": 22384,
    "name": "assets/articles/steal-my-bitcoin/deck2.html",
-   "sha256": "9c8f85f8ed72b93baebf223eb40ff25582abdae1874979d56fe900b7b737f16b"
+   "sha256": "f0c7f835e2901143a0081e88c6aa8b9d23828b8c598b9a92baf8d47ab09b024a"
   },
   {
    "bytes": 195767,
@@ -1056,6 +1056,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.35",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.35/"
+ "press": "1.0.36",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.36/"
 }

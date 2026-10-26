@@ -45,6 +45,16 @@ for v in vs:
 if vs and os.path.exists(os.path.join(ROOT, 'latest', 'manifest.json')):
     if open(os.path.join(ROOT, 'latest', 'manifest.json')).read() != open(os.path.join(vdir, vs[-1], 'manifest.json')).read():
         fails.append(f'latest/: is not v{vs[-1]}')
+# every HTML page the press serves (a deck, a figure page under assets/) carries a Content-Security-Policy, as every page
+# of the sites does; refused here, at the writer's own release, not later in the build every other writer waits on
+import re as _re
+for d, dirs, fs in os.walk(os.path.join(ROOT, 'assets')):
+    for f in fs:
+        if f.endswith(('.html', '.htm')):
+            p = os.path.join(d, f)
+            if not _re.search(r'<meta http-equiv="Content-Security-Policy" content="', open(p, encoding='utf-8', errors='replace').read()):
+                fails.append(f'{os.path.relpath(p, ROOT)}: no Content-Security-Policy (add <meta http-equiv="Content-Security-Policy" ...> after <meta charset>; a self-contained page: default-src \'none\'; style-src \'unsafe-inline\'; img-src \'self\' data:)')
+
 for f in fails:
     print('FAIL:', f)
 if fails:
