@@ -6293,7 +6293,7 @@ def build_wiring_page(cards):
 </ol>'''
         inner = (f'<p>Card: <code>data/schedule/{E(a)}.json</code>, status {E(c["status"])}; wakes {E(", ".join(c["times"]))} ({E(c["tz"])}); {E("done: every task wired" if done else "to do")}.</p>'
                  + (table(["Task", "Name", "Wakes", "Session", "Prompt"], rows, "board") if rows else '<p class="sub-err">No scheduled task wakes this agent: ask the editor\'s go to create one (step 4).</p>')
-                 + f'<h3>The card\'s prompt, word for word</h3><p class="msg"><code>{E(c["instructions"])}</code></p><h3>What to do</h3>{steps}')
+                 + f'<h3>The card\'s prompt, word for word</h3><p class="msg"><code>{E(c.get("instructions") or "(the card has no prompt yet)")}</code></p><h3>What to do</h3>{steps}')
         secs.append(section(a, f'{a} ({c["address"]})', inner))
     body = f'''
 <p class="crumb"><a href="../../index.html">The team</a> / <a href="../index.html">Schedule</a> / Wiring</p>
