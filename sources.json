@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "61c0c765ad3c487d2bcd914c781c3b4351b9dd01",
-  "site_version": "0.22.29"
+  "commit": "cdded4546d768e4cfe5d8a8cf6e8699aca41ddab",
+  "site_version": "0.22.30"
  },
  "sources": {
   "assets/": "assets/",
@@ -14,8 +14,27 @@
   "rules/SECURITY.md": "SECURITY.md",
   "vault-app/": "vault-app/"
  },
- "kept": [],
+ "kept": [
+  "assets/articles/has-anyone-been-hacked/deck.html",
+  "assets/articles/has-anyone-been-hacked/deck.pdf",
+  "assets/articles/has-anyone-been-hacked/evidence.png",
+  "assets/articles/has-anyone-been-hacked/ladder.png",
+  "assets/articles/has-anyone-been-hacked/offline-vs-breached.png",
+  "assets/articles/has-anyone-been-hacked/pipeline.png",
+  "assets/articles/has-anyone-been-hacked/statements.png",
+  "assets/articles/has-anyone-been-hacked/timeline.png",
+  "assets/articles/has-anyone-been-hacked/weight.png"
+ ],
  "files": {
+  "assets/articles/has-anyone-been-hacked/deck.html": "cad6d9fc112d38103fed212373dc9c286b5b5ef10afc5d197a2cf65b70ce5254",
+  "assets/articles/has-anyone-been-hacked/deck.pdf": "bcd70d94a7b974ec5f022369675471b795c59bc34d0c892a894a41a6967d7608",
+  "assets/articles/has-anyone-been-hacked/evidence.png": "f6be4d59b5dacac5433e059174f393f754c1a04e5b4d955b4572402e68cc6b0b",
+  "assets/articles/has-anyone-been-hacked/ladder.png": "481787b72b3589131ee78284ed08741d201584d4429cc7c3d696ac043ac00cd8",
+  "assets/articles/has-anyone-been-hacked/offline-vs-breached.png": "faced3b8b446cba9fc1ae8f930cd582e93fd99bb7fccfd39f3e4e32b58a2989a",
+  "assets/articles/has-anyone-been-hacked/pipeline.png": "2e71fcb78bea7864006b3dc11b5c7ccd1395f1da3b12f247e22eec6758932e06",
+  "assets/articles/has-anyone-been-hacked/statements.png": "4106ebb5f17925e670dfd18bd8c08afd4bdc108befff52d9f53f782035b8065b",
+  "assets/articles/has-anyone-been-hacked/timeline.png": "b97b08a96cf6cddd53229df126b057c40dbc5e5a128ce0e70eadc769dce60e15",
+  "assets/articles/has-anyone-been-hacked/weight.png": "edee58563a6ecafcc086ef747ad6ca728289bcf42ccb96d70c7e8686a80dfc00",
   "assets/articles/the-risk-graph-before-and-after/basis-after.png": "56d2518ee21cf56fb1442994cca14681e64413908cd1f31fc7ab872356c378d2",
   "assets/articles/the-risk-graph-before-and-after/basis-before.png": "15dc645bc065e5004341a2a7ccd8d2fe96cfe67a0eef9ed17cb572c13b51f915",
   "assets/articles/the-risk-graph-before-and-after/explore-after.png": "2c73b3f4028a52a34d217c239c01a0b8c1e4dcf20b3ab596d4ea36f65d08d16e",
@@ -71,8 +90,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "1c6b84fb1419ed96ccf2a1c61491f90e090f01ecd3fd90088418f4738d4a488d",
-  "assets/design/line/copy.json": "3892574e41bab1e9f1bdca9de2b4f2d63eb89caf85caa3dd958300205c90cfe6",
+  "assets/design/line/config.js": "639334895e1ca0a917f4f9e308a901a3b81d1dbf0b502f745b4e43ee3de3a39a",
+  "assets/design/line/copy.json": "0cf72a7d263aab2cc023430e477dc65ddb05c277f3d71d11aa66e4ea7c8e613c",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -164,7 +183,7 @@
   "build/invite.py": "48fa6230d34c79ce340265a5b49e3e1168d7466c2c04f4c8b1d43ae0e3ae8f9a",
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969",
-  "build/outputs.txt": "a51ec728197aedf0be0a8890488fe457d4aeb318cf50dcef0c092ea09f7e7a3f",
+  "build/outputs.txt": "2cb0d340f4e58b1ce83b1c2c45a8d34e8146da8f329354a8b12716218f01136d",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",
