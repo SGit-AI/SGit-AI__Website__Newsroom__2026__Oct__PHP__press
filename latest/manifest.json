@@ -71,9 +71,9 @@
    "sha256": "99c1757397b4ae41306275ffde5ff4d6c08f832d9ef3847af567450cadf3edb1"
   },
   {
-   "bytes": 2058,
+   "bytes": 2945,
    "name": "tools/release.sh",
-   "sha256": "4954a3096be51d5c8b098263af2861aca437cea8a3903091fe8553adf7f99cd7"
+   "sha256": "5d650f915bb1a28f8c20b521a186cee77b20cef9ccf05bf3cec08505ee320079"
   },
   {
    "bytes": 5209,
@@ -981,6 +981,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.16",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.16/"
+ "press": "1.0.17",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.17/"
 }
