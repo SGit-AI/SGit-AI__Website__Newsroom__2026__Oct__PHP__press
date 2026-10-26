@@ -5781,7 +5781,7 @@ def sherpa_card(r, p, d):
         return f'<div class="fv-card" id="c{p["n"]}"><b>{E(r["id"])}.{p["n"]}: held</b><p>{E(p["comment"])}</p></div>'
     also = (', with ' + ', '.join(sherpa_who(x, d) for x in p['also'])) if p.get('also') else ''
     sev = sherpa_pill(SHERPA_SEVERITY[p['severity']], p['severity']) if p.get('severity') else ''
-    return f'''<div class="fv-card" id="c{p["n"]}"><b>{E(r["id"])}.{p["n"]} · {E(p["kind"])}</b> {sherpa_pill(*SHERPA_SEEN[p["replicated"]])} {sev}
+    return f'''<div class="fv-card" id="c{p["n"]}"><b>{E(r["id"])}.{p["n"]} · {E(p["kind"])}</b> {sherpa_pill(*SHERPA_SEEN.get(p["replicated"], (None, str(p["replicated"]))))} {sev}
 <p>{E(p["comment"])}</p>{f'<p class="small"><b>Evidence.</b> {E(p["evidence"])}</p>' if p.get("evidence") else ""}
 <p><b>Recommend.</b> {E(p["recommendation"])}</p>
 <p class="small">Who can act: {sherpa_who(p["owner"], d)}{also}{(" · friction " + E(p["friction"])) if p.get("friction") else ""}</p></div>'''

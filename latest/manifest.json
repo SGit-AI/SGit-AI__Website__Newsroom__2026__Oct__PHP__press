@@ -806,9 +806,9 @@
    "sha256": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05"
   },
   {
-   "bytes": 810513,
+   "bytes": 810547,
    "name": "build/build.py",
-   "sha256": "e8ec4a26adcc79ff3d58a34059143e7ed1c016d51c3837139a3f41b17d6b4ce5"
+   "sha256": "059c87d3a9d1c18546c5abb3c34de0a11a1627df18ae36c50cc85003ef266d6c"
   },
   {
    "bytes": 7630,
@@ -1056,6 +1056,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.38",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.38/"
+ "press": "1.0.39",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.39/"
 }
