@@ -763,6 +763,8 @@ feedback/uf-004/index.html
 feedback/uf-004/index.md
 feedback/uf-005/index.html
 feedback/uf-005/index.md
+feedback/uf-006/index.html
+feedback/uf-006/index.md
 feeds/all.xml
 feeds/for-you.xml
 feeds/index.html

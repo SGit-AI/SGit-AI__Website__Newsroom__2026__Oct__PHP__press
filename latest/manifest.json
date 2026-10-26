@@ -8,7 +8,7 @@
   {
    "bytes": 187,
    "name": "assets.json",
-   "sha256": "aaa026c9b6144d7d66d47cab4983a828856ee3489cd007385010d8129a72976d"
+   "sha256": "4955f90aff2a5da4c03c7762354f3a4be4378be4e6283a88062dee7f2c633757"
   },
   {
    "bytes": 18694,
@@ -56,9 +56,9 @@
    "sha256": "7fcff2bad27cd650fc9700f6168a972895ac044619ee19f2587158017b769ff4"
   },
   {
-   "bytes": 22156,
+   "bytes": 21757,
    "name": "sources.json",
-   "sha256": "03a64e9f9f3148f59a7179e374841837b7e945d1544c543b5fa90c7dacf27e7a"
+   "sha256": "13c1ad2e78c74afbe1fd1f2b46cf4c737a0d59652d2d2d9660fbfaf6696c3adb"
   },
   {
    "bytes": 5917,
@@ -501,9 +501,9 @@
    "sha256": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f"
   },
   {
-   "bytes": 25711,
+   "bytes": 23258,
    "name": "assets/design/v2-live.css",
-   "sha256": "e9ba4eb434b5b15b5fa9f44fc5445c3cd56040e9acc61fabf333d2ac7e823a5b"
+   "sha256": "4d56ca09564e6f1896f3a066ab3ad8eca93ec9a5f44d6cf388f5abf09077e026"
   },
   {
    "bytes": 17817,
@@ -518,12 +518,12 @@
   {
    "bytes": 24895,
    "name": "assets/design/line/config.js",
-   "sha256": "e81ff94a64d8854425fc091e657f5d994b7ccac9675157cd04775a7b9bf7db77"
+   "sha256": "f48de589224367a1345797858a20116e1c99c6304ec3692424bfef0943b37e00"
   },
   {
    "bytes": 11667,
    "name": "assets/design/line/copy.json",
-   "sha256": "b91f882f99039147849634c487ca2fb2d2f46b664cd767f2eb25ff402d244a7b"
+   "sha256": "3bca506b84e5656b2fde4c2d3af0c3058364f20758204f9b86ee262cfeacbe75"
   },
   {
    "bytes": 12365,
@@ -891,9 +891,9 @@
    "sha256": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969"
   },
   {
-   "bytes": 111329,
+   "bytes": 111381,
    "name": "build/outputs.txt",
-   "sha256": "4305ce968232647a37b08ced8a0c43f5dfae1fcd6363a127491aeb4fc714e31e"
+   "sha256": "a62821a7a82d11718a99e4a89dcb947ea697a65ea65d3aaf975e496749603ae7"
   },
   {
    "bytes": 5901,
@@ -1056,6 +1056,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.39",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.39/"
+ "press": "1.0.40",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.40/"
 }
