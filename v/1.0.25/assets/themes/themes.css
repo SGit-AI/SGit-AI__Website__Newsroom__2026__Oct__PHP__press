@@ -1,0 +1,279 @@
+/* newsroom.sgit.ai: the five themes, and the whole of the site's colour (card 036).
+
+   Loaded on every page by admin/build/chrome.py, after the page's own stylesheet, so its
+   rules win. One attribute on <html> picks the theme: data-theme="night". Absent, or an
+   unknown value, is Newsprint, the look the site has had since v0.6.0: an unknown theme
+   must degrade to the page everybody knows, never to an unstyled one.
+
+   THREE LAYERS, IN THIS FILE AND NOWHERE ELSE:
+
+     A. the tokens        one block per theme, every token in every block. A theme with
+                          a hole would inherit Newsprint's value for it silently and ship
+                          half-applied; the test (admin/build/test_themes.mjs) reads this
+                          file and fails on a token any theme leaves out.
+     B. the override map  the imported stylesheet (assets/newsroom.css, sgit.ai's, which
+                          this site must not edit: validate.js check 11) writes forty-odd
+                          literal colours, #101114 for a heading and #34363c for a
+                          paragraph and #fff on an accent fill. Each rule that carries one
+                          is restated here with the token whose Newsprint value IS that
+                          literal, so Newsprint renders pixel for pixel as before and the
+                          other four themes reach every heading. The stylesheets this site
+                          owns (site.css, the vault pane, search, the wire, engineering)
+                          were rewritten to read the tokens directly and need no map.
+     C. the picker        the control in the nav, drawn by themes.js.
+
+   THE RULE: a stylesheet on this site names a colour through a token, and a token is
+   defined here, in all five themes. assets/themes/README.md is the guidance; the test is
+   the gate. The terminal palette (--term-*) is the one deliberate exception: a transcript
+   is dark in every theme, the way a terminal is, and the dark panels built on it (the
+   vault debugger, the object browser, the shell figures) keep their own literals.
+
+   The token names sgit.ai's stylesheet already had (--bg, --panel, --accent...) keep their
+   names and gain four themes. The names added here (--head, --text, --on-accent, the
+   tints) are the colours the literals stood for. --head is NOT called --ink on purpose:
+   the deck viewer in newsroom.css reads var(--ink) as the colour of a DARK BAR, and a
+   heading token that is near-white in Night would have turned that bar white under its
+   white text, which is the exact conflation VoiceDebrief's tokens file warns about. */
+
+
+/* ---------- A. the tokens ---------- */
+
+/* Newsprint: warm off-white and teal, the look since v0.6.0. The default. */
+:root,
+:root[data-theme="newsprint"] {
+  --bg:#faf9f5; --panel:#ffffff; --panel2:#f2f0e9; --line:#e5e1d5; --line2:#d5d0c2;
+  --fg:#1c1d21; --dim:#5c5f66; --dim2:#8a8d94;
+  --head:#101114; --text:#34363c; --code-ink:#24343f;
+  --accent:#0f766e; --accent-dk:#115e59; --on-accent:#ffffff;
+  --yellow:#a16207; --warm:#b45309; --red:#b91c1c;
+  --tint:rgba(15,118,110,.07); --tint-line:rgba(15,118,110,.35); --tint-solid:#e6f4ee;
+  --mute-bg:#eef1f4; --input-bg:#ffffff; --mark:#fff1c2;
+  --warn-bg:#fff7e6; --warn-line:#f1d7a2; --warn-ink:#5c3d06;
+  --danger-bg:#fdecec; --danger-ink:#8a0a0a;
+  --info-bg:#e8eefc; --info-ink:#1d4ed8;
+  --nav-bg:rgba(250,249,245,.92);
+  --shadow:0 1px 2px rgba(28,29,33,.05),0 4px 14px rgba(28,29,33,.04);
+  --shadow-pop:0 6px 24px rgba(28,29,33,.13);
+  --swatch:#0f766e;
+  color-scheme:light;
+}
+
+/* Night: the dark mode that was asked for. Teal stays the accent, lifted two steps so it
+   holds 4.5:1 on the dark page; links take the lighter teal, because --accent-dk is the
+   LINK colour on this site and "dark" is the wrong direction on a dark page. */
+:root[data-theme="night"] {
+  --bg:#0f1115; --panel:#161a21; --panel2:#1c2129; --line:#2a303a; --line2:#3a4150;
+  --fg:#e6e8ec; --dim:#a3a9b5; --dim2:#7c8391;
+  --head:#f4f5f7; --text:#c9cdd4; --code-ink:#d5d9e0;
+  --accent:#2dd4bf; --accent-dk:#5eead4; --on-accent:#06211d;
+  --yellow:#e3b341; --warm:#f0a35a; --red:#ff7b72;
+  --tint:rgba(45,212,191,.10); --tint-line:rgba(45,212,191,.38); --tint-solid:#163a36;
+  --mute-bg:#242a34; --input-bg:#0f1115; --mark:#4a3c12;
+  --warn-bg:#2f2612; --warn-line:#5c4a1c; --warn-ink:#f1d7a2;
+  --danger-bg:#3a1a1a; --danger-ink:#ffb4ac;
+  --info-bg:#1b2740; --info-ink:#9fb8ff;
+  --nav-bg:rgba(15,17,21,.9);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.35);
+  --shadow-pop:0 6px 24px rgba(0,0,0,.55);
+  --swatch:#2dd4bf;
+  color-scheme:dark;
+}
+
+/* Paper: warm cream and terracotta. Newsprint with the lights down and the ink browner,
+   for reading long pieces. */
+:root[data-theme="paper"] {
+  --bg:#f7f1e6; --panel:#fffcf6; --panel2:#efe6d6; --line:#e2d6c0; --line2:#cfc0a4;
+  --fg:#221c15; --dim:#655849; --dim2:#8d7f6b;
+  --head:#1d1811; --text:#3d3328; --code-ink:#3b2b22;
+  --accent:#a8442a; --accent-dk:#8e3620; --on-accent:#fff7f2;
+  --yellow:#8a6a18; --warm:#9a5b12; --red:#96271a;
+  --tint:rgba(168,68,42,.08); --tint-line:rgba(168,68,42,.38); --tint-solid:#f6e3da;
+  --mute-bg:#ece3d3; --input-bg:#fffcf6; --mark:#f8e3a8;
+  --warn-bg:#f3ead2; --warn-line:#d9c48e; --warn-ink:#5c4711;
+  --danger-bg:#f6dcd7; --danger-ink:#7a1d12;
+  --info-bg:#e4e6ee; --info-ink:#2b3f8f;
+  --nav-bg:rgba(247,241,230,.92);
+  --shadow:0 1px 2px rgba(70,52,30,.07),0 4px 14px rgba(70,52,30,.06);
+  --shadow-pop:0 6px 24px rgba(70,52,30,.16);
+  --swatch:#a8442a;
+  color-scheme:light;
+}
+
+/* Blueprint: white and electric blue. The cool, high-contrast one. */
+:root[data-theme="blueprint"] {
+  --bg:#ffffff; --panel:#ffffff; --panel2:#f1f3f7; --line:#dde1e9; --line2:#c4cad6;
+  --fg:#101318; --dim:#596270; --dim2:#828c9c;
+  --head:#0b0e13; --text:#2f3744; --code-ink:#1f2a44;
+  --accent:#1b4dff; --accent-dk:#1540d6; --on-accent:#ffffff;
+  --yellow:#946a00; --warm:#b45309; --red:#c81e1e;
+  --tint:rgba(27,77,255,.07); --tint-line:rgba(27,77,255,.35); --tint-solid:#e8edff;
+  --mute-bg:#edeff3; --input-bg:#ffffff; --mark:#fff1a8;
+  --warn-bg:#fdf3e7; --warn-line:#f0cfa0; --warn-ink:#7a3d06;
+  --danger-bg:#fde8e8; --danger-ink:#8f1414;
+  --info-bg:#e8edff; --info-ink:#1540d6;
+  --nav-bg:rgba(255,255,255,.92);
+  --shadow:0 1px 2px rgba(16,19,24,.05),0 4px 14px rgba(16,19,24,.05);
+  --shadow-pop:0 6px 24px rgba(16,19,24,.14);
+  --swatch:#1b4dff;
+  color-scheme:light;
+}
+
+/* Ember: dark and amber. The second dark theme, warm where Night is cool. Amber is light
+   enough that the ink ON it must be dark, which is what --on-accent exists for. */
+:root[data-theme="ember"] {
+  --bg:#16130f; --panel:#1d1914; --panel2:#262019; --line:#352d24; --line2:#4a3f33;
+  --fg:#f1e9dc; --dim:#b3a692; --dim2:#8a7c68;
+  --head:#f7f1e7; --text:#d2c6b3; --code-ink:#e6dbc8;
+  --accent:#e0a22b; --accent-dk:#f0bb56; --on-accent:#231705;
+  --yellow:#e5c565; --warm:#ffb070; --red:#ff8a78;
+  --tint:rgba(224,162,43,.10); --tint-line:rgba(224,162,43,.4); --tint-solid:#3a2d12;
+  --mute-bg:#2e2720; --input-bg:#16130f; --mark:#5a4512;
+  --warn-bg:#2d3a2b; --warn-line:#4d6a48; --warn-ink:#cde0c9;
+  --danger-bg:#3d1f1a; --danger-ink:#ffb9ad;
+  --info-bg:#2b2a40; --info-ink:#b9b8ff;
+  --nav-bg:rgba(22,19,15,.9);
+  --shadow:0 1px 2px rgba(0,0,0,.45),0 4px 14px rgba(0,0,0,.4);
+  --shadow-pop:0 6px 24px rgba(0,0,0,.6);
+  --swatch:#e0a22b;
+  color-scheme:dark;
+}
+
+/* Print is paper: every theme prints as Newsprint, and the two stylesheets' print rules
+   (white page, no bar) apply as they did. The block repeats the Newsprint tokens because a
+   selector cannot be told to use another block's values. */
+@media print{
+  :root[data-theme]{
+    --bg:#faf9f5; --panel:#ffffff; --panel2:#f2f0e9; --line:#e5e1d5; --line2:#d5d0c2;
+    --fg:#1c1d21; --dim:#5c5f66; --dim2:#8a8d94;
+    --head:#101114; --text:#34363c; --code-ink:#24343f;
+    --accent:#0f766e; --accent-dk:#115e59; --on-accent:#ffffff;
+    --yellow:#a16207; --warm:#b45309; --red:#b91c1c;
+    --tint:rgba(15,118,110,.07); --tint-line:rgba(15,118,110,.35); --tint-solid:#e6f4ee;
+    --mute-bg:#eef1f4; --input-bg:#ffffff; --mark:#fff1c2;
+    --warn-bg:#fff7e6; --warn-line:#f1d7a2; --warn-ink:#5c3d06;
+    --danger-bg:#fdecec; --danger-ink:#8a0a0a;
+    --info-bg:#e8eefc; --info-ink:#1d4ed8;
+    --nav-bg:rgba(250,249,245,.92);
+    --shadow:none; --shadow-pop:none;
+    color-scheme:light;
+  }
+}
+
+
+/* ---------- B. the override map for assets/newsroom.css ----------
+   Every selector below is one newsroom.css writes with a literal. Same selector, same
+   specificity, later in the cascade, token instead of literal. Keep this list in the
+   order of the file it shadows so a diff against a re-import is a diff, not a hunt. */
+
+p code,li code,td code,.note code,.doc code{color:var(--code-ink)}
+nav.site{background:var(--nav-bg)}
+nav.site .sub{box-shadow:var(--shadow-pop)}
+.stage-pill{border-color:var(--tint-line);background:var(--tint)}
+
+/* headings and titles: #101114 */
+header.hero h1,section.band h2,.feat .f b,.card h3,.card h4,.eco .e b,.triplet,
+main.doc h1,main.doc h2,main.doc h3,.note b,.warnbox b,section.uc h2,
+.vdocs-body h1,.vdocs-body h2,.vdocs-body h3,.capstack .cap h3,details.faq summary,
+.artcard b,.vt-orient b,th.vt-sortable:hover,.sib-title,.hv-card b,.job b,.team .t .num,
+.rolecard b,.kcard b,.inv-nums .t .lbl b,.short h3,a.acard > b,a.afeat .afeat-text b,
+.fmast h1,a.flead b,.frail li a,a.fhigh b,a.dnote b,.dnote-q,a.ctile b,blockquote.dquote p,
+a.nrole b,article.nlissue h2 a{color:var(--head)}
+
+/* body text: #34363c, #2a2c33, #3c3f45 */
+.sees ul,main.doc .lead,main.doc .abstract,main.doc p,main.doc li,main.doc td,.note,.warnbox,
+.subscribe,section.uc p,.vdocs-body p,.vdocs-body li,.vdocs-body td,blockquote.challenge,
+.capstack .cap p,.capstack .capvs,details.src summary,details.faq p,.sib-desc,
+.rolecard .role-mission,.kcol h3,.kcard .kbody p,.short-body li,.afeat-teaser,.agraph-idea,
+.agraph-quote,.fnote,.flead-teaser,a.nrole span,p.subteaser{color:var(--text)}
+
+/* ink on an accent fill: #fff */
+.subform .subbtn,.btn,.btn:hover,.evtag,.frames-d.is-on,.nc-send,.sc-launch,.sc-send,
+.achip[aria-pressed="true"],.trail-here,.deck-print{color:var(--on-accent)}
+.achip[aria-pressed="true"] span{color:var(--on-accent);opacity:.85}
+
+/* inputs and small white surfaces */
+.subform input[type=email],.subform input[type=text]{background:var(--input-bg);color:var(--head)}
+details.src .src-copy{background:var(--panel);color:var(--head)}
+.sib-cat,.kcount{background:var(--panel)}
+.kcol{background:var(--panel2)}
+.kcol-needs,.inv-ask,.sc-keypanel{background:var(--warn-bg)}
+.kcol-done{background:var(--tint-solid)}
+.sc-pane{background:var(--bg)}
+
+/* the accent, the warm and the red, written out */
+.subform .sub-status.warn{color:var(--warm)}
+.subform .sub-status.ok{color:var(--accent)}
+.sgv-uiembed-label,.cmp-b-pass,.wt-text .wt-tag{color:var(--accent)}
+.cmp-check.cmp-fresh{border-left-color:var(--accent)}
+.cmp-check.cmp-stale{border-left-color:var(--warm)}
+.cmp-check.cmp-fail{border-left-color:var(--red)}
+.cmp-b-absent{color:var(--warm)}
+.cmp-b-fail{color:var(--red)}
+.cmp-lose{color:var(--warm)}
+.nh-warn .nh-tag{color:var(--red)}
+.chip,.tchip,.cmp-b-pass,.cmp-banner.cmp-fresh,.wt-text .wt-tag{border-color:var(--tint-line);background:var(--tint)}
+
+
+/* ---------- C. the picker ----------
+   A pill like Search and Vault beside it: the current theme's swatch and its name. The
+   menu lists the five, each with its own swatch, name and a word on what it is. Drawn by
+   themes.js; without it there is no control and the page is Newsprint, which is fine. */
+.theme-pick{position:relative;flex:none}
+.theme-pick > button{display:inline-flex;align-items:center;gap:.45rem;font:inherit;font-size:.82rem;
+  padding:.3rem .7rem;border:1px solid var(--line2);border-radius:999px;background:var(--panel);
+  color:var(--fg);cursor:pointer;line-height:1.2;white-space:nowrap}
+.theme-pick > button:hover,.theme-pick > button[aria-expanded="true"]{border-color:var(--accent)}
+.theme-pick .sw{display:inline-block;width:.62rem;height:.62rem;border-radius:50%;flex:none;
+  background:var(--sw,var(--accent));box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.theme-pick .caret{font-size:.55em;opacity:.55}
+.theme-pick ul{position:absolute;top:100%;right:0;margin:.4rem 0 0;padding:.4rem;min-width:14.5rem;
+  list-style:none;z-index:70;background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  box-shadow:var(--shadow-pop)}
+.theme-pick ul[hidden]{display:none}
+.theme-pick li button{display:flex;align-items:center;gap:.6rem;width:100%;font:inherit;font-size:.86rem;
+  text-align:left;padding:.42rem .6rem;border:0;border-radius:6px;background:none;color:var(--fg);cursor:pointer}
+.theme-pick li button:hover,.theme-pick li button:focus-visible{background:var(--panel2);outline:none}
+.theme-pick li button[aria-current="true"]{color:var(--accent-dk);font-weight:600}
+.theme-pick li button .n{display:block;font-size:.74rem;font-weight:400;color:var(--dim)}
+.theme-pick li button:focus-visible{box-shadow:inset 0 0 0 2px var(--accent)}
+/* each entry's swatch is ITS theme's accent, not the active one, so the list reads as five
+   colours. The five literals here are the --swatch tokens above, repeated because a token
+   from another theme cannot be read without switching to it. */
+.theme-pick .sw-newsprint{--sw:#0f766e} .theme-pick .sw-night{--sw:#2dd4bf}
+.theme-pick .sw-paper{--sw:#a8442a} .theme-pick .sw-blueprint{--sw:#1b4dff} .theme-pick .sw-ember{--sw:#e0a22b}
+@media (max-width:520px){
+  .theme-pick > button{padding:.3rem .5rem}
+  .theme-pick > button .name,.theme-pick > button .caret{display:none}
+}
+
+/* Code blocks scroll inside themselves on a phone instead of widening the page (v0.12.106). */
+main.doc pre{max-width:100%;overflow-x:auto}
+
+/* Figures with a size (shot--small, --narrow, --medium): the size sets the image's width; the caption keeps the
+   column's full width, whatever the image's size (v0.12.109). Overrides the imported newsroom.css, which sized the
+   whole figure. */
+main figure.shot.shot--small,main figure.shot.shot--narrow,main figure.shot.shot--medium{max-width:none;margin-left:0;margin-right:0}
+main figure.shot.shot--small img{max-width:42%;margin:0 auto}
+main figure.shot.shot--narrow img{max-width:62%;margin:0 auto}
+main figure.shot.shot--medium img{max-width:78%;margin:0 auto}
+@media (max-width:720px){main figure.shot.shot--narrow img,main figure.shot.shot--medium img{max-width:100%}main figure.shot.shot--small img{max-width:80%}}
+
+/* Who is speaking, on every article's byline (v0.12.109). An agent writing in its own voice links to its page under
+   newsroom.sgit.ai/about/newsroom-*: it gets a small agent mark and the word "agent". Dinis's byline links to his
+   about page: articles in his voice are written from his memos by the newsroom's agents, and the byline says so. */
+main a[rel~="author"][href*="newsroom.sgit.ai/about/newsroom-"]::before{content:"";display:inline-block;width:1em;height:1em;margin-right:.3em;vertical-align:-.15em;background:currentColor;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 2h2v3h4a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h4zM9 10.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9 16v1.5h6V16z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M11 2h2v3h4a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h4zM9 10.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9 16v1.5h6V16z'/%3E%3C/svg%3E") center/contain no-repeat}
+main a[rel~="author"][href*="newsroom.sgit.ai/about/newsroom-"]::after{content:"agent";display:inline-block;margin-left:.4em;padding:0 .45em;border:1px solid currentColor;border-radius:999px;font-size:.78em;line-height:1.5;letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+main a[rel~="author"][href="https://sgit.ai/about/index.html"]::after{content:"with the newsroom's agents";display:inline-block;margin-left:.4em;padding:0 .45em;border:1px solid currentColor;border-radius:999px;font-size:.78em;line-height:1.5;text-decoration:none;opacity:.8}
+
+/* Series (v0.12.118, admin/build/series.py): a thin bar under the byline of every article in a series, linking to
+   the full list at the foot (#series) and to the previous and next articles; the list marks where the reader is. */
+main nav.aseries{margin:.4rem 0 .8rem;padding:.3rem .7rem;border-left:3px solid var(--accent);background:var(--panel2);font-size:.88rem;line-height:1.5;overflow-wrap:anywhere}
+main nav.aseries a{text-decoration:none}
+main section.aseries-all{margin:2rem 0 1rem;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+main section.aseries-all h2{margin-top:0;font-size:1.15rem}
+main section.aseries-all ol{list-style:none;padding:0;margin:.6rem 0 0}
+main section.aseries-all li{padding:.45rem 0;border-top:1px solid var(--line);overflow-wrap:anywhere}
+main section.aseries-all li.here{border-left:3px solid var(--accent);padding-left:.6rem}
+main section.aseries-all .aseries-n{display:inline-block;min-width:1.6em;font-weight:700;color:var(--accent-dk)}

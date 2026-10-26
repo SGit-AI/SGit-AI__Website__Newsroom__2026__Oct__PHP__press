@@ -7,7 +7,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"; cd "$ROOT"
 MSG="${1:?release message required}"
 BRANCH="${RELEASE_BRANCH:-dev}"
-git fetch -q origin "$BRANCH" 2>/dev/null || true
+git fetch -q origin "+refs/heads/$BRANCH:refs/remotes/origin/$BRANCH" 2>/dev/null || true   # the tracking ref itself: a clone made for one branch does not move it on a plain fetch
 if git rev-parse -q --verify "origin/$BRANCH" >/dev/null && ! git merge-base --is-ancestor "origin/$BRANCH" HEAD; then
   if ! git merge -q --ff-only "origin/$BRANCH" 2>/dev/null; then
     echo "release stopped: origin/$BRANCH has commits this clone does not; partition again on top of it"; exit 3
