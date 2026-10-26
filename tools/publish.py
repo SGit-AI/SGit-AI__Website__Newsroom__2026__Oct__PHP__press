@@ -8,7 +8,7 @@ version stops. No clock: the same files give the same bytes.
 import hashlib, html, json, os, shutil, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-PUBLISH = ['sites.json', 'assets.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/assets_v1.py', 'tools/parity.py', 'tools/chain.sh', 'tools/sync_v1.py', 'tools/site_sync.py', 'sources.json',
+PUBLISH = ['sites.json', 'assets.json', 'tools/partition.py', 'tools/site_gate.py', 'tools/site_release.sh', 'tools/assets_v1.py', 'tools/parity.py', 'tools/chain.sh', 'tools/build.sh', 'tools/sync_v1.py', 'tools/site_sync.py', 'sources.json',
            'tools/publish.py', 'tools/gate.py', 'tools/release.sh']
 
 

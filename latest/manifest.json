@@ -8,7 +8,7 @@
   {
    "bytes": 187,
    "name": "assets.json",
-   "sha256": "0f2c9dcfe3a42f312f2f3c609e282db2504e561f58ce7f3aa246103a26ea76de"
+   "sha256": "3cc0a674d7a514e17f2514a178a92341ace311ea3787169f9f546c366bae9185"
   },
   {
    "bytes": 18137,
@@ -36,9 +36,14 @@
    "sha256": "2e47b95adce26271cfeb0e6647efc9a7115614406e07bb4a852cffb9a12d341d"
   },
   {
-   "bytes": 3517,
+   "bytes": 3667,
    "name": "tools/chain.sh",
-   "sha256": "842e196fd4acfddd06b65febc36240da60198f8bf3c444c2979472bf7acb5955"
+   "sha256": "4522bafe7e902ed8c1dec851a918ed983556fdeaa7ad97d56365e6758d48333c"
+  },
+  {
+   "bytes": 3998,
+   "name": "tools/build.sh",
+   "sha256": "22a112f002840e6e68f7b4b192336251c3a50743b8dd86c3581c94a3ae3e9b7e"
   },
   {
    "bytes": 6515,
@@ -53,12 +58,12 @@
   {
    "bytes": 19899,
    "name": "sources.json",
-   "sha256": "a66fb200b1da0ce305257210777b4521a81a70cb5bc8aa1165b604ffe2c9a37c"
+   "sha256": "edb1687295d4e42041e06cadd5c4cab22b9754fe197a8eb5dc819d9806fb653d"
   },
   {
-   "bytes": 5899,
+   "bytes": 5917,
    "name": "tools/publish.py",
-   "sha256": "18038989c45675ee8a3bce7bb7a28d6b07c363cb73ba325e158fff32fa31c098"
+   "sha256": "05fa68d304931ffcb2f257086deee6d1971e2dd313d0ef089d1b50c719cb92fb"
   },
   {
    "bytes": 3046,
@@ -438,12 +443,12 @@
   {
    "bytes": 24895,
    "name": "assets/design/line/config.js",
-   "sha256": "bdacfec24cce9ba27151b3d7cb843c9a7a16f2e6f41528693e0d91283712522f"
+   "sha256": "3fc6e8c5e976c977e1e7f9b1fdd07cb20951243e056e6070d69334aa419788c1"
   },
   {
    "bytes": 11667,
    "name": "assets/design/line/copy.json",
-   "sha256": "1c486145d3d33a976ee812b305ae454592970a276f8a6ab219e6466bdd892c33"
+   "sha256": "067e700ca016712d786730b0d7465a93d8db67284a300aa4a422f67d20c73f91"
   },
   {
    "bytes": 12365,
@@ -976,6 +981,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.12",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.12/"
+ "press": "1.0.13",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.13/"
 }

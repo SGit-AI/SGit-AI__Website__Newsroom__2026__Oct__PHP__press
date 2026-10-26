@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "469bc18d700b04bd0f86beb6bab233e5ec2b847c",
-  "site_version": "0.22.22"
+  "commit": "0952022178594c200de7ea369bed3e4c2c0655fb",
+  "site_version": "0.22.23"
  },
  "sources": {
   "assets/": "assets/",
@@ -71,8 +71,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "bdacfec24cce9ba27151b3d7cb843c9a7a16f2e6f41528693e0d91283712522f",
-  "assets/design/line/copy.json": "1c486145d3d33a976ee812b305ae454592970a276f8a6ab219e6466bdd892c33",
+  "assets/design/line/config.js": "3fc6e8c5e976c977e1e7f9b1fdd07cb20951243e056e6070d69334aa419788c1",
+  "assets/design/line/copy.json": "067e700ca016712d786730b0d7465a93d8db67284a300aa4a422f67d20c73f91",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
