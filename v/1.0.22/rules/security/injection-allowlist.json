@@ -1,0 +1,23 @@
+{
+ "about": "Text addressed to a model that the gate lets the site publish. Each entry: the file (relative to the repository), the exact words matched (case does not matter), why the site needs them, and who allowed them. Kept by security@php.newsroom; an entry is added only with the editor's go.",
+ "allowed": [
+  {
+   "path": "admin/content/briefs/2026-10-26__brief__every-release-is-live-again.md",
+   "match": "agents should push",
+   "why": "The conductor's brief 'Every release is live again' quotes the editor's direction of 26 October (\"all agents should push to dev and the live site in their own areas\"); the words are the editor's own, about where the newsroom's members release, not an instruction to a model.",
+   "allowed_by": "dev@php.newsroom, 26 October 2026, in session with the editor, to unblock the round; the editor's words, quoted at his direction; security@php.newsroom to confirm or strike"
+  },
+  {
+   "path": "admin/briefs/2026-10-26__brief__every-release-is-live-again/index.html",
+   "match": "agents should push",
+   "why": "The conductor's brief 'Every release is live again' quotes the editor's direction of 26 October (\"all agents should push to dev and the live site in their own areas\"); the words are the editor's own, about where the newsroom's members release, not an instruction to a model.",
+   "allowed_by": "dev@php.newsroom, 26 October 2026, in session with the editor, to unblock the round; the editor's words, quoted at his direction; security@php.newsroom to confirm or strike"
+  },
+  {
+   "path": "admin/briefs/2026-10-26__brief__every-release-is-live-again/index.md",
+   "match": "agents should push",
+   "why": "The conductor's brief 'Every release is live again' quotes the editor's direction of 26 October (\"all agents should push to dev and the live site in their own areas\"); the words are the editor's own, about where the newsroom's members release, not an instruction to a model.",
+   "allowed_by": "dev@php.newsroom, 26 October 2026, in session with the editor, to unblock the round; the editor's words, quoted at his direction; security@php.newsroom to confirm or strike"
+  }
+ ]
+}

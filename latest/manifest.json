@@ -921,9 +921,9 @@
    "sha256": "c0088aa9d3ef95641440e3932f58df687fd00224986a3a4e511379479eab1eb3"
   },
   {
-   "bytes": 317,
+   "bytes": 2146,
    "name": "rules/security/injection-allowlist.json",
-   "sha256": "ccd9c4b4aedf658b3629ed8375d2bd6f5c27e4daf9ca8eb7b2d7a6eed0f1fb3b"
+   "sha256": "7fee9ad720644296055f1cfedd3a2fbaa2bafd8bbe02271800d66fc8e0cdace8"
   },
   {
    "bytes": 3179,
@@ -981,6 +981,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.21",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.21/"
+ "press": "1.0.22",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.22/"
 }
