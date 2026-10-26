@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """After a drain: classify every session, write the classes into the private telemetry vault, and write the curated,
-public stats into the public stats vault (and into this site, which draws them on /admin/telemetry/).
+public stats into the public stats vault (and into the data repository's files/telemetry-public.json, which the site
+draws on /admin/telemetry/).
 
-  python3 admin/build/telemetry_publish.py --vault <telemetry vault clone> --public <public stats vault clone> [--site .]
+  python3 build/telemetry_publish.py --vault <telemetry vault clone> --public <public stats vault clone> [--data <data clone>/files]
 
-Run by admin/build/telemetry_flow.sh, which pulls, drains, publishes and pushes both vaults. Standard library only.
+(--site <v1 checkout> still means <site>/data.) Run by build/telemetry_flow.sh, which pulls, drains, publishes and pushes both vaults. Standard library only.
 
 What leaves the private vault, and what does not. Published: counts per UTC hour and per day for four groups (readers;
 the editor, team and power users together, so no one person's hours are public; synthetic visitors; crawlers), and,
@@ -45,8 +46,11 @@ def top(counter, n=None):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--vault', required=True); ap.add_argument('--public', required=True); ap.add_argument('--site')
+    ap.add_argument('--vault', required=True); ap.add_argument('--public', required=True)
+    ap.add_argument('--data', help="the folder the public stats go to: the data repository's files/"); ap.add_argument('--site', help='v1 only')
     a = ap.parse_args()
+    out_dir = a.data or (os.path.join(a.site, 'data') if a.site else None)
+    if out_dir and not os.path.isdir(out_dir): sys.exit(f'no folder {out_dir} for the public stats')
     rows = load_rows(a.vault)
     classes = TC.classify(rows)
     real = [r for r in rows if r.get('sid') in classes]
@@ -117,9 +121,9 @@ def main():
     os.makedirs(os.path.join(P, 'stats'), exist_ok=True)
     json.dump(summary, open(os.path.join(P, 'stats', 'summary.json'), 'w'), indent=1, ensure_ascii=False)
     json.dump(hourly, open(os.path.join(P, 'stats', 'hourly.json'), 'w'), separators=(',', ':'), ensure_ascii=False)
-    if a.site:
+    if out_dir:
         out = dict(summary, hourly=hourly['hours'])
-        with open(os.path.join(a.site, 'data', 'telemetry-public.json'), 'w', encoding='utf-8') as f:
+        with open(os.path.join(out_dir, 'telemetry-public.json'), 'w', encoding='utf-8') as f:
             json.dump(out, f, indent=1, ensure_ascii=False); f.write('\n')
     t = summary['totals']
     print('classes (sessions): ' + ', '.join(f"{c} {cc[c]['sessions']}" for c in TC.CLASSES))

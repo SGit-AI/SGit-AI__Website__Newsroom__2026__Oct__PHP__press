@@ -17,9 +17,10 @@ admin/content/briefs/2026-10-22__brief__feedback-keys-and-review.md.
 """
 import argparse, datetime, glob, hashlib, json, os, re, secrets, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from contributors import ROOT, enrol as enrol_key
+from contributors import enrol as enrol_key
+from newsroom_paths import data_file, is_published
 
-P = os.path.join(ROOT, 'data', 'contributors.json')
+P = data_file('contributors.json')   # the data repository's files/; release it there with its tools/release.sh
 BASE = 'https://php.oct.2026.newsroom.sgit.ai/join/'
 
 def save(d):
@@ -27,7 +28,7 @@ def save(d):
 
 def new(a):
     out = os.path.abspath(a.out)
-    if out == ROOT or out.startswith(ROOT + os.sep): sys.exit('refusing: --out is inside the repository, and everything there is published')
+    if is_published(out): sys.exit('refusing: --out is inside one of the newsroom\'s repositories, and everything there is published')
     d = json.load(open(P, encoding='utf-8'))
     if a.role not in {r for r, _ in d['roles']}: sys.exit(f'role must be one of {[r for r, _ in d["roles"]]}')
     code = secrets.token_hex(16)

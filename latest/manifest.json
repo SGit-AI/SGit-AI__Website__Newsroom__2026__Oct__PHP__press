@@ -171,9 +171,9 @@
    "sha256": "d9a110fcdc4d60eef99a2a4617932d23c929fc3ce4a58cd2ae308c947ad569e8"
   },
   {
-   "bytes": 7413,
+   "bytes": 7830,
    "name": "assets/telemetry.js",
-   "sha256": "a5e006edb61a2357c7c3ae2f04d9d0dcf22c06ef5b90e8d89236679335ac20ee"
+   "sha256": "83b1a57e8e23145c3ae8ad0d3d0ace2e58df9d88989a78d54d5e34363a1fd862"
   },
   {
    "bytes": 33363,
@@ -821,9 +821,9 @@
    "sha256": "750b8f448cd479f74a452d38995962c5743f58b2bb93ee48daec87d7e4dc7ca6"
   },
   {
-   "bytes": 7299,
+   "bytes": 7360,
    "name": "build/contributors.py",
-   "sha256": "2f4fd828083cacdf21ce9a032e62de20bc9aa0c7b31403aada7d9953e682b619"
+   "sha256": "3ec4b8db116bb33e1bae1070437748858519525b440d3fcd4b52e5651a84484e"
   },
   {
    "bytes": 4678,
@@ -876,9 +876,9 @@
    "sha256": "7ff038112060e36a962e70a173db467bc51f0c6bd9ae74a8e0e412ca5efcf70b"
   },
   {
-   "bytes": 4340,
+   "bytes": 4439,
    "name": "build/invite.py",
-   "sha256": "48fa6230d34c79ce340265a5b49e3e1168d7466c2c04f4c8b1d43ae0e3ae8f9a"
+   "sha256": "2e20a66a488f3055e1a3baca2630a8d3c77cd5e2429f7d9b220b55149862174f"
   },
   {
    "bytes": 5794,
@@ -889,6 +889,11 @@
    "bytes": 28697,
    "name": "build/loops.py",
    "sha256": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969"
+  },
+  {
+   "bytes": 2056,
+   "name": "build/newsroom_paths.py",
+   "sha256": "dea7967e26286dd09a599ce7bc5f629f8463d06a34b3a4430f3f2c9b0eaa032e"
   },
   {
    "bytes": 111381,
@@ -926,9 +931,9 @@
    "sha256": "2655331dd8627b96a763b2ba197f44465f26fb7a053ff3cd0d16e14286f6ec24"
   },
   {
-   "bytes": 6329,
+   "bytes": 6366,
    "name": "build/subscriptions_drain.py",
-   "sha256": "497d3a05f32ac1153321420bb482b2a070e7c3334b8403ec051ccf4c54b3b1ff"
+   "sha256": "ddb964dabca2becfa97dcbc80d859bbfd458b4e79639c5722c8225b49b7a9a9e"
   },
   {
    "bytes": 5341,
@@ -936,19 +941,19 @@
    "sha256": "4c2fdd3e5577614aeefbe4b3260a8199eab0b892cd3a8be254c0e63aeed08055"
   },
   {
-   "bytes": 6746,
+   "bytes": 7696,
    "name": "build/telemetry_drain.py",
-   "sha256": "ff8d35948845868e0f790aa78a51153aeefa6e9bca99dd968aae3552eb302862"
+   "sha256": "d130c76e5c5ab1ea741b2480180c7356c72390b2e5aa12e7e1bdb0b36413c228"
   },
   {
-   "bytes": 1732,
+   "bytes": 2509,
    "name": "build/telemetry_flow.sh",
-   "sha256": "bdccc8067c10af1ebf3f0e927ca1313cca2aecf146721d16d0f19b292cf31c81"
+   "sha256": "94a0af1aaf3f8d4bd6c6389d34e061775a8da410f2a008eb7622c1105ea332c7"
   },
   {
-   "bytes": 8067,
+   "bytes": 8452,
    "name": "build/telemetry_publish.py",
-   "sha256": "22c3e320acfdb8b3ad543add02db432a54d9091da74447906e09195a8f0ba72d"
+   "sha256": "505ab0908e3affd4bc143f1af9589ea77d976a6d0b29e60f33efd06045750d95"
   },
   {
    "bytes": 7820,
@@ -1056,6 +1061,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.40",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.40/"
+ "press": "1.0.41",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.41/"
 }

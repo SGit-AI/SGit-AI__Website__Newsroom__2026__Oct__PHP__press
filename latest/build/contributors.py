@@ -8,9 +8,9 @@ names, that `from` is that fingerprint, and that the signature over canon(messag
 which key wrote it. Whether that key belongs to a contributor is data/contributors.json's question (status()).
 Standard library and the sgit CLI only.
 """
-import base64, datetime, hashlib, json, os, re, subprocess, tempfile
-
-ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+import base64, datetime, hashlib, json, os, re, subprocess, sys, tempfile
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from newsroom_paths import data_file   # since the split: the data repository's files/, not ../../data/
 
 def canon(v):
     """pki.sgit.ai's canonical JSON, as JavaScript writes it: keys sorted, no whitespace, non-ASCII left as it is."""
@@ -45,7 +45,7 @@ def verify(msg, bundle=None):
     return (True, '') if res.get('valid') is True else (False, str(res.get('error') or r.stderr or 'the signature does not verify').strip()[-200:])
 
 def load():
-    return json.load(open(os.path.join(ROOT, 'data', 'contributors.json'), encoding='utf-8'))
+    return json.load(open(data_file('contributors.json'), encoding='utf-8'))
 
 def status(msg, data=None):
     """'enrolled' (a known contributor's key), 'unknown key' (signed, not enrolled), or 'unsigned' / why it failed."""
@@ -55,7 +55,7 @@ def status(msg, data=None):
     return 'enrolled' if msg['from'] in keys else 'unknown key'
 
 def save(data):
-    p = os.path.join(ROOT, 'data', 'contributors.json')
+    p = data_file('contributors.json')
     json.dump(data, open(p, 'w', encoding='utf-8'), indent=1, ensure_ascii=False); open(p, 'a').write('\n')
 
 def enrol(m, data, today=None):

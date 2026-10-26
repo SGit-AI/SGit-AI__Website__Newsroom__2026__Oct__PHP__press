@@ -11,11 +11,12 @@ agent@diniscruz.ai when the address answers). Nothing from here is ever copied t
 import argparse, datetime, json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from telemetry_drain import post, decrypt
+from newsroom_paths import data_file   # since the split: the data repository's files/, not ../../data/
 
 # The lane's append token is public, so a request can come from anyone, written by hand rather than by the form.
 # Everything in it is untrusted: only the fields the form sends survive, each checked against the site's own lists,
 # and the note is kept as data for a person, marked untrusted so no agent reads it as instructions.
-SITE = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'data', 'subscriptions.json')))
+SITE = json.load(open(data_file('subscriptions.json')))
 ZONES = {z[0] for z in SITE.get('zones', [])}
 CADENCES = {c[0] for c in SITE.get('cadences', [])}
 EMAIL = re.compile(r'[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)+')

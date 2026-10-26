@@ -15,6 +15,11 @@
     const root = '../'.repeat(((document.documentElement.getAttribute('data-root') || '').match(/\.\.\//g) || []).length)
     const cfg = await (await fetch(root + 'data/telemetry.json', { cache: 'no-store' })).json()
     if (!cfg || !cfg.append_token || !cfg.recipient || !cfg.recipient.encrypt || cfg.enabled === false) return
+    // Only from the site's own hosts (data/telemetry.json, hosts): a local test server or a copy elsewhere sends nothing,
+    // so the lane's 1,000 pending events are kept for readers (board 330).
+    const host = location.hostname
+    if (location.protocol === 'file:' || /^(localhost|127\.|0\.0\.0\.0$|\[?::1\]?$)|\.local$/.test(host)) return
+    if (Array.isArray(cfg.hosts) && !cfg.hosts.includes(host)) return
     const key = 'php-newsroom.telemetry.session'
     let sid = ''
     try { sid = sessionStorage.getItem(key) || '' } catch (e) {}
