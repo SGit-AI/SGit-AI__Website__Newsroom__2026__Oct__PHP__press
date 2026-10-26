@@ -18,6 +18,12 @@
    "match": "agents should push",
    "why": "The conductor's brief 'Every release is live again' quotes the editor's direction of 26 October (\"all agents should push to dev and the live site in their own areas\"); the words are the editor's own, about where the newsroom's members release, not an instruction to a model.",
    "allowed_by": "dev@php.newsroom, 26 October 2026, in session with the editor, to unblock the round; the editor's words, quoted at his direction; security@php.newsroom to confirm or strike"
+  },
+  {
+   "path": "admin/security/injection-allowlist.json",
+   "match": "agents should push",
+   "why": "this file names the words it allows, and the gate reads it like any other file",
+   "allowed_by": "dev@php.newsroom, 26 October 2026, in session with the editor, to unblock the round; the editor's words, quoted at his direction; security@php.newsroom to confirm or strike"
   }
  ]
 }

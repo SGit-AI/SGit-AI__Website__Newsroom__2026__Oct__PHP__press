@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 -I \"$CLAUDE_PROJECT_DIR/admin/build/agents.py\" stop-hook",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
