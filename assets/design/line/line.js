@@ -136,9 +136,16 @@
       pic.segments.forEach(function (s) { var i = el('i'); i.style.flex = s[0]; i.style.background = s[1]; bar.appendChild(i); });
       p.appendChild(bar); p.appendChild(el('span', 'l', pic.label)); row.appendChild(p);
     }
-    if (line.size === 'line' && line.actions.length) {
+    // The quiet top (26 October, the editor: "a massive salad of links and data"): only the front page's first visit
+    // (the panel) lays out every role; anywhere else the question is one row, with "Change" opening the sheet.
+    var compact = line.size === 'open';
+    if ((line.size === 'line' || compact) && line.actions.length) {
       var a1 = el('span', 'ln-acts');
       line.actions.forEach(function (x, i) { a1.appendChild(act(x, i > 0)); });
+      if (compact && line.others) {
+        var ch = act(/^Not you/.test(line.others) ? 'Not you?' : 'Change', true);
+        ch.dataset.act = ''; ch.setAttribute('data-open-sheet', ''); ch.setAttribute('aria-haspopup', 'dialog'); a1.appendChild(ch);
+      }
       row.appendChild(a1);
     }
     box.appendChild(row);
@@ -151,17 +158,19 @@
         });
         box.appendChild(items);
       }
-      var a2 = el('div', 'ln-acts ln-open-acts');
-      line.actions.forEach(function (x, i) { a2.appendChild(act(x, i > 0)); });
-      if (line.others) {
-        var o = el('span', 'ln-others');
-        o.appendChild(document.createTextNode(line.others.split(':')[0] + ':'));
-        ROLES.order.filter(function (x) { return x !== st.role; }).forEach(function (x) {
-          var b = act(ROLES.roles[x].name, true); b.dataset.act = ''; b.dataset.role = x; o.appendChild(b);
-        });
-        a2.appendChild(o);
+      if (!compact) {
+        var a2 = el('div', 'ln-acts ln-open-acts');
+        line.actions.forEach(function (x, i) { a2.appendChild(act(x, i > 0)); });
+        if (line.others) {
+          var o = el('span', 'ln-others');
+          o.appendChild(document.createTextNode(line.others.split(':')[0] + ':'));
+          ROLES.order.filter(function (x) { return x !== st.role; }).forEach(function (x) {
+            var b = act(ROLES.roles[x].name, true); b.dataset.act = ''; b.dataset.role = x; o.appendChild(b);
+          });
+          a2.appendChild(o);
+        }
+        box.appendChild(a2);
       }
-      box.appendChild(a2);
     }
     if (lastSaid !== line.key) {
       lastSaid = line.key;
@@ -330,6 +339,7 @@
   document.addEventListener('click', function (e) {
     var t = e.target.closest ? e.target : null; if (!t) return;
     if (t.closest('.ln-chip')) { e.preventDefault(); openSheet(sheet && sheet.hidden); return; }
+    if (t.closest('[data-open-sheet]')) { e.preventDefault(); openSheet(true); return; }
     var fold = t.closest('.lp-fold button[data-open]');
     if (fold) { fold.closest('.lp').classList.remove('is-folded'); return; }
     var asLink = t.closest('a[data-as]');                     // "Read this page as": switch in place, no navigation

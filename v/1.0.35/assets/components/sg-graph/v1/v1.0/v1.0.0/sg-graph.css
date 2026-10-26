@@ -1,0 +1,92 @@
+/* sg-graph v1.0.0. Every colour is one of the site's theme tokens (assets/themes/), which reach
+   inside the shadow root, so the graph follows the page's theme and dark mode. Labels are drawn at
+   12px in real pixels: the SVG is laid out at the width it is shown at, never scaled down. */
+
+:host                { display: block; min-width: 0; max-width: 100%; margin: 1rem 0; font: 14px/1.45 var(--sans); color: var(--fg) }
+[hidden]             { display: none !important }
+
+.root                { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: .6rem }
+.bar                 { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin-bottom: .4rem }
+.find                { flex: 1 1 12rem; min-width: 0; font: inherit; padding: .35rem .5rem; border: 1px solid var(--line2); border-radius: 6px; background: var(--bg); color: var(--fg) }
+.views               { display: inline-flex; flex-wrap: wrap; gap: .25rem }
+button               { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line2); border-radius: 6px; padding: .3rem .55rem; cursor: pointer; min-height: 32px }
+button:hover         { border-color: var(--accent) }
+button:focus-visible,
+a:focus-visible,
+.find:focus-visible,
+select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px }
+button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg) }
+.depth               { font-size: .85rem; color: var(--dim) }
+select               { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line2); border-radius: 6px; padding: .2rem }
+
+.hits                { display: flex; flex-direction: column; gap: .2rem; margin: .2rem 0 .5rem; max-height: 18rem; overflow: auto }
+.hits button         { text-align: left }
+.k                   { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--dim) }
+
+.trail               { font-size: .85rem; color: var(--dim); margin: .2rem 0 .4rem; line-height: 2 }
+.trail button        { padding: .05rem .4rem; min-height: 28px; font-size: .85rem }
+.trail b             { color: var(--fg) }
+
+.chips               { display: flex; flex-wrap: wrap; gap: .25rem; margin-bottom: .4rem }
+.chip                { font-size: .8rem; padding: .1rem .5rem; min-height: 28px; border-radius: 99px }
+.chip .n             { color: inherit; opacity: .75 }
+
+.stage               { width: 100%; overflow: hidden; border-radius: 8px; background: var(--bg) }
+svg                  { display: block; touch-action: pan-y }
+svg .e               { fill: none; stroke: var(--line2); stroke-width: 1 }
+svg .e.on-path       { stroke: var(--accent); stroke-width: 2.5 }
+svg .v-states,
+svg .v-stated_by     { stroke: var(--accent) }
+svg .v-flags         { stroke: var(--warn-ink); stroke-dasharray: 4 3 }
+svg .v-relays        { stroke-dasharray: 2 3 }
+svg .col             { font-size: 12px; font-weight: 700; fill: var(--dim) }
+svg .n               { cursor: pointer; outline: none }
+svg .n circle        { fill: var(--panel); stroke: var(--dim); stroke-width: 1.5 }
+svg .n text          { font-size: 12px; fill: var(--fg); paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round }
+svg .n:hover circle,
+svg .n:focus circle  { stroke: var(--accent); stroke-width: 3 }
+svg .n:focus text    { text-decoration: underline }
+svg .n.focus circle  { fill: var(--accent); stroke: var(--accent) }
+svg .n.focus text    { font-weight: 700 }
+svg .n.on-path circle { stroke: var(--accent); stroke-width: 3 }
+svg .n.has-graph circle { stroke-width: 3; stroke: var(--accent) }
+svg .k-party circle  { fill: var(--warm); stroke: var(--warm) }
+svg .k-source circle,
+svg .k-capture circle { fill: var(--panel); stroke: var(--accent) }
+svg .k-contradiction circle { fill: var(--warn-bg); stroke: var(--warn-ink) }
+svg .s-confirmed circle { fill: var(--ok-ink); stroke: var(--ok-ink) }
+svg .s-disputed circle,
+svg .s-contradicted circle,
+svg .s-open circle   { fill: var(--warn-ink); stroke: var(--warn-ink) }
+svg .s-unverified circle { fill: var(--bad-ink); stroke: var(--bad-ink) }
+
+.detail              { min-width: 0; overflow-wrap: anywhere; margin-top: .5rem; padding: .5rem .6rem; border-left: 3px solid var(--accent); background: var(--bg); border-radius: 0 6px 6px 0 }
+.detail .head        { margin: 0; display: flex; gap: .5rem; align-items: center }
+.detail .label       { margin: .2rem 0 .4rem; font-weight: 700 }
+.acts                { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: .3rem 0 }
+.acts a              { color: var(--accent); font-weight: 600 }
+.st                  { font-size: .72rem; padding: .05rem .4rem; border-radius: 4px; background: var(--info-bg); color: var(--info-ink) }
+.st.s-confirmed      { background: var(--ok-bg); color: var(--ok-ink) }
+.st.s-disputed,
+.st.s-contradicted,
+.st.s-open           { background: var(--warn-bg); color: var(--warn-ink) }
+.st.s-unverified     { background: var(--bad-bg); color: var(--bad-ink) }
+dl                   { display: grid; grid-template-columns: minmax(0, max-content) minmax(0, 1fr); gap: .1rem .6rem; margin: .3rem 0; font-size: .85rem }
+dt                   { color: var(--dim) }
+dd                   { margin: 0; overflow-wrap: anywhere }
+.files               { font-size: .8rem; margin: .2rem 0; padding-left: 1.1rem }
+.hash                { color: var(--dim) }
+ol.path              { margin: .2rem 0; padding-left: 1.3rem }
+.small               { font-size: .85rem; color: var(--dim); margin: .3rem 0 }
+
+.list                { margin-top: .5rem }
+.list details        { margin: .15rem 0 }
+.list summary        { cursor: pointer; padding: .2rem 0 }
+.list ul             { list-style: none; margin: .1rem 0 .4rem; padding-left: .6rem }
+.list li             { min-width: 0; overflow-wrap: anywhere; display: flex; align-items: baseline; gap: .3rem; margin: .1rem 0 }
+.list .to            { border: 0; background: none; text-align: left; padding: .2rem .1rem; color: var(--fg); min-height: 28px }
+.list .to:hover      { text-decoration: underline }
+.list .page          { color: var(--accent); text-decoration: none; padding: 0 .3rem }
+.foot                { font-size: .78rem; color: var(--dim); margin: .4rem 0 0 }
+
+.root[data-view="list"] .list { margin-top: 0 }

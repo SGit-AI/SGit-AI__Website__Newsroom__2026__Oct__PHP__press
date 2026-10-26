@@ -616,7 +616,7 @@ def answer_card(ns, default):
     p = PERSONAS[default]
     return (f'<aside class="ans" data-answer-for="{E(default)}"><div class="who-line"><span class="av {E(p["group"])}" data-a-av>{E(p["person"][0])}</span>'
             f'<div><b>Your answer in thirty seconds</b><div class="small" style="color:var(--band-muted)" data-a-who>for {E(p["person"])}, {E(p["label"].lower())}</div></div></div>'
-            f'<p data-a-text>{E(p["answer"])}</p><p class="small" style="color:var(--band-muted);margin-bottom:0">Choose who you are in the bar above and this answer, the menu and your home change to fit.</p></aside>')
+            f'<p data-a-text>{E(p["answer"])}</p><p class="small" style="color:var(--band-muted);margin-bottom:0">Choose who you are in the bar above and this answer changes to fit.</p></aside>')
 
 def kpi(ns, cls, k, v, d, href=None, up=''):
     E, U = ns['E'], ns['U']

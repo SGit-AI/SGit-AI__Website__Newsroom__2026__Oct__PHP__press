@@ -172,3 +172,27 @@ html[data-role] .pbar-new{display:none}
 /* the older "Reading as ..." bar says who the reader is, which is the line's job now: one message at a time.
    Its reading path ("Next: your briefing") is to come back as one of the line's actions (board). */
 html[data-role] .pbar{display:none}
+
+/* the quiet top (26 October, the editor: "a massive salad of links and data; some of it is important, but it should
+   not be so much in your face"). The line lines up with the bar and the page, not with the window's edge; asking is
+   the page's own background and a thin rule, not a white slab with a thick edge; and outside the front page's first
+   visit the question is one row (the chip, the question, the answer, "Change"). */
+nav.site ~ .ln{padding-left:max(16px,calc((100% - 1680px)/2 + 16px));padding-right:max(16px,calc((100% - 1680px)/2 + 16px))}
+nav.site ~ .ln[data-tone="ask"]{background:var(--bg,#fbfaf7);border-bottom:1px solid var(--line,#e5e1d8)}
+nav.site ~ .ln[data-size="open"]{padding-top:.45rem;padding-bottom:.45rem;gap:.3rem}
+nav.site ~ .ln[data-size="open"] .ln-row .ln-acts{display:flex;flex:none}
+nav.site ~ .ln[data-size="open"] .ln-items{font-size:.84rem;opacity:.85}
+nav.site ~ .ln[data-size="panel"]{padding-top:1rem;padding-bottom:1rem}
+nav.site ~ .ln .ln-act{font-size:.8rem;padding:.26rem .65rem}
+@media (max-width:860px){
+  nav.site ~ .ln[data-size="open"] .ln-row .ln-acts{flex:1 1 100%}
+}
+/* on the live pages the line takes the site's own theme tokens (Newsprint, Paper, Night, Ember), not the prototype's
+   fixed light and dark palettes: under Night it was a bright band across a dark page, and under a light theme on a
+   computer set to dark it went dark. The news tone keeps its own dark band in every theme. */
+nav.site ~ .ln{--ln-calm-bg:color-mix(in srgb,var(--accent) 8%,var(--panel));--ln-calm-fg:var(--fg);--ln-calm-edge:var(--line);
+  --ln-ask-bg:var(--bg);--ln-ask-edge:var(--accent);
+  --ln-worn-bg:color-mix(in srgb,#b45309 12%,var(--panel));--ln-worn-fg:var(--fg);--ln-worn-edge:var(--line)}
+nav.site ~ .ln .ln-chip{background:var(--panel);color:var(--fg)}
+nav.site ~ .ln:is([data-tone="calm"],[data-tone="ask"]) .ln-act{background:var(--accent);color:var(--on-accent,#fff)}
+nav.site ~ .ln:is([data-tone="calm"],[data-tone="ask"]) .ln-act[data-second]{background:transparent;color:inherit;border-color:var(--line2)}

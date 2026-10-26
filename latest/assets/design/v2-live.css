@@ -285,3 +285,36 @@ html[data-path^="admin/"] .console-live{grid-template-columns:260px minmax(0,1fr
   .v2 .app>div{order:1}
   .v2 .app>.rail{order:2}
 }
+/* the quiet top (26 October, the editor: "a massive salad of links and data"). One order of importance: the story;
+   then who the page is written for (the line); then what is new to you, what kind of page this is, the version and
+   the state of the evidence. Nothing is removed: each is smaller, dimmer, without a box or a pill, on one line. */
+nav.site .ver{border:0;padding:0;font-size:.7rem;opacity:.8}
+nav.site .status a{text-decoration:none}
+nav.site .crumbs{font-size:.7rem}
+nav.site .crumbs a{text-decoration:none}
+html[data-path="index.html"] nav.site .row>.status{display:none}   /* the front page's own first line says it */
+nav.site #feedback-open{background:transparent;color:var(--accent-dk,var(--accent));border-color:var(--line2)}
+main>.rs-strip{display:inline-flex;vertical-align:baseline;border:0;border-radius:0;background:none;padding:0;margin:.6rem 1.4rem .6rem 0;
+  font-size:.78rem;color:var(--dim)}
+main>.rs-strip b{font-weight:600;color:var(--fg)}
+main>.rs-strip .rs-acts{gap:.15rem .75rem}
+main>.rs-strip .rs-b,main>.rs-strip .rs-v{border:0;border-radius:0;background:none;padding:0;font-size:.78rem;color:var(--accent-dk,var(--accent));
+  text-decoration:underline;text-decoration-color:color-mix(in srgb,currentColor 35%,transparent);text-underline-offset:2px}
+main>.rs-strip .rs-v{margin:0 .15rem}
+main>.rs-strip .rs-v.on{background:none;color:var(--fg);font-weight:600;text-decoration:none}
+main>.rs-strip .rs-desk{margin-left:0;font-size:.78rem}
+@media (hover:hover){   /* the rarer tools wait until the reader reaches for the line */
+  main>.rs-strip .rs-acts>.rs-b+.rs-b,main>.rs-strip .rs-view{display:none}
+  main>.rs-strip:hover .rs-acts>.rs-b+.rs-b,main>.rs-strip:focus-within .rs-acts>.rs-b+.rs-b{display:inline}
+  main>.rs-strip:hover .rs-view,main>.rs-strip:focus-within .rs-view{display:inline-flex}
+}
+main>.origin{vertical-align:baseline;border:0;border-radius:0;background:none;padding:0;margin:.6rem 0;font-size:.74rem;color:var(--dim)}
+main>.origin b{font-size:.64rem;color:var(--dim)}
+main>.origin span{display:none}
+.v2 .band .eyebrow a:not(.term){text-decoration:none;text-transform:none;letter-spacing:.01em;font-weight:500}
+@media (max-width:760px){
+  main>.rs-strip .rs-acts>.rs-b,main>.rs-strip .rs-view{display:none}   /* on a phone: the count and your desk */
+  main>.rs-strip{margin:.5rem .9rem .3rem 0}
+  main>.origin{margin:.2rem 0 .5rem}
+}
+main:has(>.rs-strip:first-child){padding-top:.15rem}
