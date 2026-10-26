@@ -176,9 +176,9 @@
    "sha256": "a5e006edb61a2357c7c3ae2f04d9d0dcf22c06ef5b90e8d89236679335ac20ee"
   },
   {
-   "bytes": 33181,
+   "bytes": 33363,
    "name": "assets/articles/has-anyone-been-hacked/deck.html",
-   "sha256": "34e5fdea1bb9a3a7e37fdf477fb8e7f4136de175318648d6eb2e356805774ec0"
+   "sha256": "cad6d9fc112d38103fed212373dc9c286b5b5ef10afc5d197a2cf65b70ce5254"
   },
   {
    "bytes": 226565,
@@ -1026,6 +1026,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.31",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.31/"
+ "press": "1.0.32",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.32/"
 }
