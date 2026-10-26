@@ -176,14 +176,14 @@
    "sha256": "a5e006edb61a2357c7c3ae2f04d9d0dcf22c06ef5b90e8d89236679335ac20ee"
   },
   {
-   "bytes": 27436,
+   "bytes": 33181,
    "name": "assets/articles/has-anyone-been-hacked/deck.html",
-   "sha256": "0b068ad4b308a2b07f2fbbaa2f99f762ce4fd33eae7c7fa5eeb99e3871b4b9cd"
+   "sha256": "34e5fdea1bb9a3a7e37fdf477fb8e7f4136de175318648d6eb2e356805774ec0"
   },
   {
-   "bytes": 209758,
+   "bytes": 226565,
    "name": "assets/articles/has-anyone-been-hacked/deck.pdf",
-   "sha256": "22f9504e331e859279bdebd93d7e1b3625ed2a1c2f3af58faf735f7873df431e"
+   "sha256": "bcd70d94a7b974ec5f022369675471b795c59bc34d0c892a894a41a6967d7608"
   },
   {
    "bytes": 60254,
@@ -214,6 +214,11 @@
    "bytes": 68821,
    "name": "assets/articles/has-anyone-been-hacked/timeline.png",
    "sha256": "b97b08a96cf6cddd53229df126b057c40dbc5e5a128ce0e70eadc769dce60e15"
+  },
+  {
+   "bytes": 94025,
+   "name": "assets/articles/has-anyone-been-hacked/weight.png",
+   "sha256": "edee58563a6ecafcc086ef747ad6ca728289bcf42ccb96d70c7e8686a80dfc00"
   },
   {
    "bytes": 80522,
@@ -1021,6 +1026,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.30",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.30/"
+ "press": "1.0.31",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.31/"
 }
