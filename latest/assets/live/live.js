@@ -70,11 +70,65 @@
     return el('div', { class: 'tw' }, [el('table', { class: cls || 't' }, [el('thead', {}, [head]), body])]);
   }
 
-  // Replace a live container's contents with nodes.
+  // Replace a live container's contents with nodes (a string becomes text). Drawn aside first and swapped in whole, so
+  // a container is never left half drawn or empty.
   function fill(box, nodes) {
+    var f = document.createDocumentFragment();
+    (Array.isArray(nodes) ? nodes : [nodes]).forEach(function (n) {
+      if (n == null || n === false) return;
+      f.appendChild(typeof n === 'object' ? n : document.createTextNode(String(n)));
+    });
     while (box.firstChild) box.removeChild(box.firstChild);
-    (Array.isArray(nodes) ? nodes : [nodes]).forEach(function (n) { if (n) box.appendChild(n); });
+    box.appendChild(f);
   }
+
+  // The build's inline_md(): `code`, **bold**, *italic* and [text](http(s) link), as nodes. The first pattern that
+  // matches earliest wins; what is inside bold, italic and a link's text is read again; code is read as text.
+  var INLINE = [['code', /`([^`]+)`/], ['b', /\*\*([^*]+)\*\*/], ['i', /(?<![\w*])\*([^*\s][^*]*)\*(?![\w*])/], ['a', /\[([^\]]+)\]\((https?:\/\/[^)\s"<>]+)\)/]];
+  function inline(s) {
+    var f = document.createDocumentFragment();
+    s = String(s == null ? '' : s);
+    while (s) {
+      var best = null;
+      INLINE.forEach(function (p) { var m = p[1].exec(s); if (m && (!best || m.index < best.m.index)) best = { k: p[0], m: m }; });
+      if (!best) { f.appendChild(document.createTextNode(s)); break; }
+      if (best.m.index) f.appendChild(document.createTextNode(s.slice(0, best.m.index)));
+      var k = best.k, m = best.m;
+      if (k === 'code') f.appendChild(el('code', {}, [m[1]]));
+      else if (k === 'a') { var a = el('a', { href: m[2], rel: 'noopener' }); a.appendChild(inline(m[1])); f.appendChild(a); }
+      else { var n = el(k); n.appendChild(inline(m[1])); f.appendChild(n); }
+      s = s.slice(m.index + m[0].length);
+    }
+    return f;
+  }
+
+  // The build's render_md_text(): headings (as h4), lists (a line indented two spaces continues its item), paragraphs.
+  function md(text) {
+    var f = document.createDocumentFragment(), ul = null;
+    String(text == null ? '' : text).split(/\r?\n/).forEach(function (line) {
+      var h = line.match(/^(#{1,4})\s+(.*)$/);
+      if (h) { ul = null; f.appendChild(el('h4', {}, [h[2]])); return; }
+      if (/^\s*[-*]\s+/.test(line)) {
+        if (!ul) { ul = el('ul'); f.appendChild(ul); }
+        var li = el('li'); li.appendChild(inline(line.replace(/^\s*[-*]\s+/, ''))); ul.appendChild(li); return;
+      }
+      if (ul && line.indexOf('  ') === 0) { var last = ul.lastChild; last.appendChild(document.createTextNode(' ')); last.appendChild(inline(line.trim())); return; }
+      ul = null;
+      if (line.trim()) { var p = el('p'); p.appendChild(inline(line)); f.appendChild(p); }
+    });
+    return f;
+  }
+
+  // Python's str() of a JSON value, for the few places the build prints one (True, None, 12, 1.5).
+  function pyStr(v) {
+    if (v === true) return 'True';
+    if (v === false) return 'False';
+    if (v == null) return 'None';
+    return typeof v === 'object' ? JSON.stringify(v) : String(v);
+  }
+
+  // The build's stat(): a number over its label.
+  function stat(n, label) { return el('div', { class: 'stat' }, [el('b', {}, [String(n)]), el('span', {}, [label])]); }
 
   function json(path) {
     return fetch(root() + path, { cache: 'no-cache', credentials: 'omit' }).then(function (r) {
@@ -91,5 +145,5 @@
     return p;
   }
 
-  window.P2S_LIVE = { el: el, href: href, pill: pill, json: json, root: root, stamp: stamp, link: link, table: table, fill: fill };
+  window.P2S_LIVE = { el: el, href: href, pill: pill, json: json, root: root, stamp: stamp, link: link, table: table, fill: fill, inline: inline, md: md, pyStr: pyStr, stat: stat };
 })();

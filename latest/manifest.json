@@ -606,14 +606,34 @@
    "sha256": "52edf6d1c74b0746714e1c6d68ce8ef98843220beeb13a2f184a1e3ba5be870e"
   },
   {
-   "bytes": 4775,
+   "bytes": 7699,
    "name": "assets/live/live.js",
-   "sha256": "b785917a7bc5569cc7a28b6e75128cc84ca80a16a79900956cf2d272d2d2e475"
+   "sha256": "7136f288dc5ce5107b62315d693f43efe2cf1a4994e941135644068de7c927e5"
+  },
+  {
+   "bytes": 4888,
+   "name": "assets/live/members.js",
+   "sha256": "a70eda5d802f68dee0d36e4d556a19016d381517e3e498d80aa53724a155df95"
+  },
+  {
+   "bytes": 3224,
+   "name": "assets/live/runs.js",
+   "sha256": "3318a86cc8f20b05c9e41ac2a584780390d081170cea6d5e59893e9caadd91b3"
   },
   {
    "bytes": 7958,
    "name": "assets/live/schedule.js",
    "sha256": "a968c425e4efb1e6b80de76b0737fb1e62695789ab119a362b6925aaff1ef5eb"
+  },
+  {
+   "bytes": 4237,
+   "name": "assets/live/status.js",
+   "sha256": "862e496e607ece3e7cc6159361b79e328820ac05a54527e136e4e320d12c0fcd"
+  },
+  {
+   "bytes": 1663,
+   "name": "assets/live/tasks.js",
+   "sha256": "31b46b697d9db1152578c61e98ed78e50f8161c366afbac4ef0184837b6f4c7a"
   },
   {
    "bytes": 3118,
@@ -826,9 +846,9 @@
    "sha256": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05"
   },
   {
-   "bytes": 811937,
+   "bytes": 813257,
    "name": "build/build.py",
-   "sha256": "3a88323da9fa6023266b4980de00e95df409fab833f2672f418e4e87e4b55945"
+   "sha256": "c841dab25db98cd4b418ddd12aaee63a7c8f0cef7bd347e784b5f7e0fb904096"
   },
   {
    "bytes": 7630,
@@ -1081,6 +1101,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.47",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.47/"
+ "press": "1.0.48",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.48/"
 }

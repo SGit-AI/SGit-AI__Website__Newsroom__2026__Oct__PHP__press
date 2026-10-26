@@ -1285,8 +1285,8 @@ def build_team():
         achieved = ''.join(f'<li>{E(x)}</li>' for x in m['achieved'])
         waiting_on = ''
         if m['kind'] == 'human' and opn:
-            waiting_on = section('waiting', 'Waiting on ' + E(m['name'].split()[0]), task_table(opn, 2), 'Decisions and work only a person can supply. Each is a card in this member\'s queue in the issues vault, and the conductor names it in every digest until it is answered.')
-        tasks = '' if (m['kind'] == 'human' and opn) else section('tasks', 'Open tasks', task_table(opn, 2))
+            waiting_on = section('waiting', 'Waiting on ' + E(m['name'].split()[0]), f'<div data-live="member-tasks" data-member="{E(m["id"])}" data-status="open">' + task_table(opn, 2) + '</div>', 'Decisions and work only a person can supply. Each is a card in this member\'s queue in the issues vault, and the conductor names it in every digest until it is answered.')
+        tasks = '' if (m['kind'] == 'human' and opn) else section('tasks', 'Open tasks', f'<div data-live="member-tasks" data-member="{E(m["id"])}" data-status="open">' + task_table(opn, 2) + '</div>')
         body = f'''
 <p class="crumb"><a href="../index.html">The team</a> / {E(m["name"])}</p>
 <h1>{E(m["name"])}: {E(m["role"].lower() if m["kind"] != "human" else m["role"])}</h1>
@@ -1298,8 +1298,10 @@ def build_team():
 {section("home", "Their home on this site", f'<div class="doors">{home}</div>')}
 {waiting_on}
 {tasks}
-{section("blocked", "Waiting on someone else", task_table(wait, 2)) if wait else ''}
-{section("achieved", "What they have done", (f'<ul>{achieved}</ul>' if achieved else '<p class="small">Nothing yet.</p>') + (f'<h3>Closed on the board</h3>{task_table(done, 2)}' if done else ''))}
+{section("blocked", "Waiting on someone else", f'<div data-live="member-tasks" data-member="{E(m["id"])}" data-status="waiting">' + task_table(wait, 2) + '</div>') if wait else ''}
+{section("achieved", "What they have done", (f'<ul>{achieved}</ul>' if achieved else '<p class="small">Nothing yet.</p>') + (f'<h3>Closed on the board</h3><div data-live="member-tasks" data-member="{E(m["id"])}" data-status="done">{task_table(done, 2)}</div>' if done else ''))}
+<script src="../../assets/live/live.js" defer></script>
+<script src="../../assets/live/tasks.js" defer></script>
 {section("reach", "How to reach them", f'<ul><li><b>Mail</b>: an <code>.eml</code> in <code>mail/mailroom/{E(m["mail"])}/</code> in the mail vault (<code>fmb2tpl2</code>).</li><li><b>Their queue</b>: <code>issues/{E(m["id"])}/open|blocked|done/</code> in the issues vault (<code>zjruy9vk</code>). Read it; do not write in it.</li><li><b>Their page in the conductor vault</b>: <code>team/members/{E(m["id"])}.md</code>.</li></ul><p class="small">What the three vaults are and who holds their keys: <a href="../channels/index.html">how the team talks</a>.</p>')}
 '''
         page(f'team/{m["id"]}/index.html', f'{m["name"]}, {m["role"].lower() if m["kind"] != "human" else m["role"]}: the team', f'{m["name"]} ({m["alias"]}) on the team behind this site: {m["summary"]}', body, kind='site', topics='team agents')
@@ -4844,7 +4846,7 @@ def build_runs():
 {section("quiet", "Quiet hours", f'<p><b>{E(q["from"])} to {E(q["to"])} {E(q["tz"])}.</b> {E(q["rule"])}</p><p class="caveat">Status: {E(q["status"])}. Counted for {E(q["as_of"])}; the clocks go back on 25 October, which moves a UTC schedule an hour later in London.</p>')}
 {section("schedules", "What runs on its own", reg, f"As observed on {S['observed']}. A schedule changes only with the editor's go; a workflow change goes to a branch for security review first.")}
 {section("articles", "Every run with changes leaves an article", f'<p>{E(S["article_rule"])}</p>')}
-{section("runs", "Every run", table(['When', 'Who', 'What', 'Run', 'Summary', 'Changes', 'Article', 'Output'], erows, 'board'), "Newest first, read from the data each agent publishes: the release history, the source watch, the fact-check desk's runs and the synthetic readers' latest run each. " + ", ".join(f"{E(members[m]['name']) if m in members else E(m)}: {n}" for m, n in counts.most_common()) + ".")}
+{section("runs", "Every run", '<div data-live="runs-all">' + table(['When', 'Who', 'What', 'Run', 'Summary', 'Changes', 'Article', 'Output'], erows, 'board') + '</div>\n<script src="../../assets/live/live.js" defer></script>\n<script src="../../assets/live/runs.js" defer></script>', "Newest first, read from the data each agent publishes: the release history, the source watch, the fact-check desk's runs and the synthetic readers' latest run each. " + ", ".join(f"{E(members[m]['name']) if m in members else E(m)}: {n}" for m, n in counts.most_common()) + ".")}
 '''
     page('team/runs/index.html', 'Runs: what the agents do on their own, and every time they did it', 'The register of every schedule the team runs (who, where, how often, how many runs fall in the quiet hours) and every recorded run, newest first, with the article each run with changes should leave.', body, kind='site', topics='team agents')
 
@@ -5674,14 +5676,16 @@ def build_status_page():
     body = f'''
 <p class="crumb"><a href="../index.html">The team</a> / Status</p>
 <h1>Status: where every agent is</h1>
-<p class="lead">{E(S["about"])}</p>
-<p class="kv"><b>As of</b> {E(S["as_of"].replace("T", " "))} UTC &middot; <b>live site</b> v{E(S["live_version"])}</p>
-<div class="stats">{stats}</div>
-{section("decisions", "What needs a decision first", "<ol>" + "".join(f"<li>{E(x)}</li>" for x in S["decisions"]) + "</ol>")}
-{section("agents", "Every agent", table(["Agent", "State", "Last activity (UTC)", "Last did", "Waiting for", "Cost"], rows, "board"), "Blocked first, then ready for review, then working, then done.")}
-{section("branches", "Branches waiting to be carried into dev", table(["Branch", "By", "Commits ahead", "What"], [[f"<code>{E(b)}</code>", E(w), str(n), E(t)] for b, w, n, t in S["branches"]], "board"), "Agents push to their own branches; dev@php.newsroom carries them into dev and releases. Until then, none of this is on the site.")}
-{section("schedules", "What ran on its own", table(["Schedule", "State"], [[E(a), E(b)] for a, b in S["schedules"]]), 'The register of schedules and every recorded run is on <a href="../runs/index.html">runs</a>.')}
-{section("freshness", "How fresh this site\'s data is", table(["Data", "As of", "Note"], [[E(a), E(b), E(c)] for a, b, c in S["freshness"]]), "The vaults move ahead of the site; a fact reaches the site only when its vault is exported and the site released.")}
+<p class="lead" data-live="status-about">{E(S["about"])}</p>
+<p class="kv" data-live="status-asof"><b>As of</b> {E(S["as_of"].replace("T", " "))} UTC &middot; <b>live site</b> v{E(S["live_version"])}</p>
+<div class="stats" data-live="status-stats">{stats}</div>
+{section("decisions", "What needs a decision first", '<div data-live="status-decisions"><ol>' + "".join(f"<li>{E(x)}</li>" for x in S["decisions"]) + "</ol></div>")}
+{section("agents", "Every agent", '<div data-live="status-agents">' + table(["Agent", "State", "Last activity (UTC)", "Last did", "Waiting for", "Cost"], rows, "board") + '</div>', "Blocked first, then ready for review, then working, then done.")}
+{section("branches", "Branches waiting to be carried into dev", '<div data-live="status-branches">' + table(["Branch", "By", "Commits ahead", "What"], [[f"<code>{E(b)}</code>", E(w), str(n), E(t)] for b, w, n, t in S["branches"]], "board") + '</div>', "Agents push to their own branches; dev@php.newsroom carries them into dev and releases. Until then, none of this is on the site.")}
+{section("schedules", "What ran on its own", '<div data-live="status-schedules">' + table(["Schedule", "State"], [[E(a), E(b)] for a, b in S["schedules"]]) + '</div>', 'The register of schedules and every recorded run is on <a href="../runs/index.html">runs</a>.')}
+{section("freshness", "How fresh this site\'s data is", '<div data-live="status-freshness">' + table(["Data", "As of", "Note"], [[E(a), E(b), E(c)] for a, b, c in S["freshness"]]) + '</div>', "The vaults move ahead of the site; a fact reaches the site only when its vault is exported and the site released.")}
+<script src="../../assets/live/live.js" defer></script>
+<script src="../../assets/live/status.js" defer></script>
 '''
     page('team/status/index.html', 'Status: where every agent is', 'Every agent on the team: what it last did, what it waits for and from whom, the branches waiting for dev, what ran on a schedule and how fresh the data is; a snapshot by the conductor.', body, kind='site', topics='team agents')
 
@@ -7212,8 +7216,10 @@ def build_members():
 <p class="lead">The role definition, the agent behaviour policy and every round, from <code>admin/content/agents/{E(a)}/</code>. Who this member is on the team, and the tasks it holds, are on <a href="../../../team/index.html">the team</a>; every member's scope side by side is <a href="../roles/index.html">who owns what</a>.</p>
 {section("role", "The role", role)}
 {section("delta", "The delta, computed", dtab) if dtab else ""}
-{section("status", "Where it is now", stt or '<p class="small">No status file.</p>')}
-{section("debriefs", "Its rounds", dbh or '<p class="small">No debrief yet.</p>')}
+{section("status", "Where it is now", f'<div data-live="member-status" data-agent="{E(a)}">' + (stt or '<p class="small">No status file.</p>') + '</div>')}
+{section("debriefs", "Its rounds", f'<div data-live="member-debriefs" data-agent="{E(a)}">' + (dbh or '<p class="small">No debrief yet.</p>') + '</div>')}
+<script src="../../../assets/live/live.js" defer></script>
+<script src="../../../assets/live/members.js" defer></script>
 <p class="small">Files: <a href="{U(REPO_URL + "/tree/dev/admin/content/agents/" + a)}">admin/content/agents/{E(a)}/</a> &middot; the same data for every member in <a href="../../../data/agents.json">data/agents.json</a>.</p>
 """
         page(f'admin/agents/{a}/index.html', f'{p["name"]}: role, policy and rounds', f'{p["title"]}: the role definition, what it writes and owns, its agent behaviour policy and computed delta, and every round it has recorded.', body, kind='site')
