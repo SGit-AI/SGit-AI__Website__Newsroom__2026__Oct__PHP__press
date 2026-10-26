@@ -64,9 +64,14 @@ class Plan:
         if not os.path.exists(man):
             sys.exit(f'partition: press v{press_version} is not published here (v/{press_version}/manifest.json)')
         press_assets = {f['name'][len('assets/'):]: f['sha256'] for f in json.load(open(man))['files'] if f['name'].startswith('assets/')}
-        if press_assets != self.v1_assets:
-            diff = sorted(set(press_assets.items()) ^ set(self.v1_assets.items()))[:3]
-            sys.exit(f'partition: press v{press_version} does not hold v1\'s assets at this commit (e.g. {diff}); take them in and release the press first')
+        missing = sorted(set(self.v1_assets) - set(press_assets))
+        if missing:   # a page would load an asset the pinned press version does not serve
+            sys.exit(f'partition: press v{press_version} does not serve {len(missing)} asset(s) the pages load (e.g. {missing[:3]}); release the press first')
+        # an asset the press holds a newer copy of (an owner released it while the box was building): the pages load the
+        # newer one, which is what its owner released it for; said, not refused
+        self.newer_assets = sorted(n for n in self.v1_assets if press_assets.get(n) != self.v1_assets[n])
+        if self.newer_assets:
+            print(f'partition: note: press v{press_version} holds a newer copy of {len(self.newer_assets)} asset(s) than the build used (e.g. {self.newer_assets[:3]}); the pages load those')
         dman = os.path.join(data_root, 'v', data_version, 'manifest.json')
         if not os.path.exists(dman):
             sys.exit(f'partition: data v{data_version} is not published in {data_root}')
