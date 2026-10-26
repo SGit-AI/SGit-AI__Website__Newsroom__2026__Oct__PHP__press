@@ -1,0 +1,17 @@
+{
+ "current": "v0.1.1",
+ "versions": [
+  {
+   "version": "v0.1.0",
+   "date": "2026-10-22",
+   "title": "The first app on the evidence vault: overview, sources, the evidence wall, claims, timeline and the desk",
+   "file": "v0.1.0.json"
+  },
+  {
+   "version": "v0.1.1",
+   "date": "2026-10-22",
+   "title": "Says whose content is whose: ours is CC BY 4.0, everything captured is credited to its source",
+   "file": "v0.1.1.json"
+  }
+ ]
+}
