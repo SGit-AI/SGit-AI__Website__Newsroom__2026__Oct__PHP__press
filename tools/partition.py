@@ -124,6 +124,8 @@ class Plan:
     def route(self, site):
         sections = {s: self.home(n) for s, n in self.by_section.items()}
         sections.update({r.split('/')[0]: self.home(site) for r in self.cfg['runtime']['paths']})   # every site answers its own VERSION, 404, .well-known
+        sections.update({o.rstrip('/'): self.home(n) for n, c in self.sites.items() for o in c.get('own', [])
+                         if o.endswith('/') and '/' not in o.rstrip('/')})   # a folder a site writes itself (team's records/) is served by that site
         return json.dumps({'self': self.home(site), 'assets': self.assets_base, 'data': self.data_base,
                            'sections': dict(sorted(sections.items())), 'rest': self.home('site')},
                           separators=(',', ':'), sort_keys=True)

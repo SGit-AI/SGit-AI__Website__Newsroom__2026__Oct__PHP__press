@@ -2282,9 +2282,11 @@ def build_admin_section():
     rows = [[E(b['id']), E(b['title']) + (f'<div class="note">{E(b["note"])}</div>' if b.get('note') else ''), pill(b['status']), E(b['owner']), E(b.get('version') or '')] for b in A['board']]
     body = f"""
 <h1>The board</h1>
-<p class="lead">The work, as rows in <code>data/admin.json</code>: {len(A["board"])} items, {st.get("open", 0)} open, {st.get("done", 0)} done. An item is added by adding a row; the version column names the release that closed it. Several agents work on this site and on the evidence vault; the board is where they see what is taken and what is waiting.</p>
+<p class="lead">The work, as rows in the team repository's <code>records/board/</code>, one file per row: <span data-live-count="all">{len(A["board"])}</span> items, <span data-live-count="open">{st.get("open", 0)}</span> open, <span data-live-count="done">{st.get("done", 0)}</span> done. An item is added by adding a row (and releasing team; the board reads the rows when it opens); the version column names the release that closed it. Several agents work on this site and on the evidence vault; the board is where they see what is taken and what is waiting.</p>
 {table(['#', 'Item', 'Status', 'Owner', 'Shipped in'], rows, 'board')}
 <p>Who the owners are is on <a href="../roles/index.html">roles</a>; the briefs that open items are on <a href="../briefs/index.html">briefs</a>.</p>
+<script src="../../assets/live/live.js" defer></script>
+<script src="../../assets/live/board.js" defer></script>
 """
     page('admin/board/index.html', 'The board', 'The work on this site and its vault, as rows: what is open, who owns it, what shipped it.', body, kind='site')
     def pki_html(r):
