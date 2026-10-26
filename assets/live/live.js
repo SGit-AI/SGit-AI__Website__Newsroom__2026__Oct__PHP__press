@@ -56,6 +56,26 @@
     return '../'.repeat(((document.documentElement.getAttribute('data-root') || '').match(/\.\.\//g) || []).length);
   }
 
+  // A link to a path of the site (team/schedule/x/index.html), resolved where it lives: on this site, or on the site that
+  // serves that section (assets/route.js), as the build's links are after the partition.
+  function link(path) {
+    var u = root() + path;
+    try { return window.P2S_URL ? window.P2S_URL(u) : u; } catch (e) { return u; }
+  }
+
+  // The build's table(): a <div class="tw"> around a table with the given class, header cells and rows of cells.
+  function table(headers, rows, cls) {
+    var head = el('tr', {}, headers.map(function (h) { return el('th', {}, [h]); }));
+    var body = el('tbody', {}, rows.map(function (r) { return el('tr', {}, r.map(function (c) { return el('td', {}, Array.isArray(c) ? c : [c]); })); }));
+    return el('div', { class: 'tw' }, [el('table', { class: cls || 't' }, [el('thead', {}, [head]), body])]);
+  }
+
+  // Replace a live container's contents with nodes.
+  function fill(box, nodes) {
+    while (box.firstChild) box.removeChild(box.firstChild);
+    (Array.isArray(nodes) ? nodes : [nodes]).forEach(function (n) { if (n) box.appendChild(n); });
+  }
+
   function json(path) {
     return fetch(root() + path, { cache: 'no-cache', credentials: 'omit' }).then(function (r) {
       if (!r.ok) throw new Error(path + ': HTTP ' + r.status);
@@ -71,5 +91,5 @@
     return p;
   }
 
-  window.P2S_LIVE = { el: el, href: href, pill: pill, json: json, root: root, stamp: stamp };
+  window.P2S_LIVE = { el: el, href: href, pill: pill, json: json, root: root, stamp: stamp, link: link, table: table, fill: fill };
 })();
