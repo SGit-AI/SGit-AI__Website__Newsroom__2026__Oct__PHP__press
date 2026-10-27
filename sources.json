@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "2dd7a1ba7807386ff7b7008dab9e10906f0da626",
-  "site_version": "0.22.38"
+  "commit": "854639a5cab857b470500ba7f3b79bdc83bc1b03",
+  "site_version": "0.22.39"
  },
  "sources": {
   "assets/": "assets/",
@@ -15,11 +15,9 @@
   "vault-app/": "vault-app/"
  },
  "kept": [
-  "assets/briefs/centers-of-gravity.png",
-  "assets/briefs/flow-one-article.png",
-  "assets/briefs/flow-one-fact-many-pages.png",
-  "assets/briefs/inside-a-page-frame.png",
-  "assets/briefs/the-chain-before-and-after.png"
+  "assets/sherpa/claude-brief.js",
+  "assets/site.js",
+  "build/build.py"
  ],
  "files": {
   "assets/articles/has-anyone-been-hacked/deck.html": "4d767c9f3a710a5d28987a72ec114e04306f73f17be880cda720aa6f3e3d4b49",
@@ -97,8 +95,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "a72a9bb70f779274727bd87f971683ca6830382c3133449c8d70ab4dc95af4df",
-  "assets/design/line/copy.json": "d8509b8350670d4ad88ac38c7d5f1f2d3ebb8a42f712ed2dda61de8d7bcf53af",
+  "assets/design/line/config.js": "34a29fb3d057d09ee6fa59112e0376be8b485aef3b5f8c6aa0a4ded46c551217",
+  "assets/design/line/copy.json": "aac7a6c99275237b43ee80213fa5aa6e4fbffe087c389186ac7a1bedca659a37",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -139,6 +137,7 @@
   "assets/reader-state.js": "33c5116c49d406cfb73a8a00506a34cc7d46eab7da5584117c8ec37bb475954e",
   "assets/review-nav.js": "e6ae22967e71f0f4530a60c3c26ff56f3f91ced0e4ed12102201073be2568196",
   "assets/route.js": "b0d90c6a8ef3820bf36ede9edc3bd69d1c02fb4dbbbd1b4bbd6b35d09f213d75",
+  "assets/sherpa/claude-brief.js": "205ffe236213c14daebdd4f34f53abc76c42486a8ff455627770063d9aeacc2d",
   "assets/sherpa/uf-001/reader-screenshot.jpg": "68e1905170101509809c4f8a75a59acef79527bf18988f17842fb058398cac5a",
   "assets/sherpa/uf-001/replicated-hover-card.png": "eb95a06c406fa775a36a3f6233a176ab2c049e6eda215ca0edd90cbcde540ea6",
   "assets/sherpa/uf-001/replicated-tiles-1024-dark.png": "b782f9f4468e33fc94004a5d06508b108cda2a8eb742fff773d0100a3ef85f13",
@@ -155,7 +154,7 @@
   "assets/sherpa/viewer.js": "bb1fb50e39d2abf403bc480186d9109162d2278000cca48cd2e52b748b5b7647",
   "assets/site-tools.js": "932d0b3ca05093231146a4996b3c45fa76499e74d8298283a7ba2be25a5e5275",
   "assets/site.css": "ba095cbde5d2063dcff8fe9a19429345f43314ef5ce723e92f43d2fc1d4eb826",
-  "assets/site.js": "89e90ee3661e84ccb5c1bfb17651cbed65926f2e4063366e664f7ea0d53b3838",
+  "assets/site.js": "833d309cef66e574ea859b2f11fd0e8060d244abe34b7ca4353a5a4396e15a9f",
   "assets/stack.js": "7774d8e12b52797b5b8c9500deb06a36262e3f29bde93900907a9153fea093d2",
   "assets/subscribe.js": "d9a110fcdc4d60eef99a2a4617932d23c929fc3ce4a58cd2ae308c947ad569e8",
   "assets/telemetry.js": "82c1de90604492ab3f52118f0c5dc9ea8b4f6c714cb4c334d2ed47b54ede52cb",
@@ -182,7 +181,7 @@
   "assets/vendor/sg-vault/v0.2.3/sg-vault/sg-vault.js": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26",
   "assets/vendor/vault-ui-embed.js": "fb2c5766b0fdd1eddfbfc810d7c5ed76a650fc1e07f6ae28659f19d97a790d25",
   "build/agents.py": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05",
-  "build/build.py": "29f91e5f51e98881f28470cbcac7852fdc51e34a9d27bb4864e5234680085942",
+  "build/build.py": "85c6712f4a4fe0700a3292b22b08267adbb968afa02a8dfea293c681eb10cbc0",
   "build/collaborators_drain.py": "dbad852284408dbea8708bec3fbf3f0ffe8c088cfe79d124e072dce7b27d728e",
   "build/conductor_drain.py": "750b8f448cd479f74a452d38995962c5743f58b2bb93ee48daec87d7e4dc7ca6",
   "build/contributors.py": "3ec4b8db116bb33e1bae1070437748858519525b440d3fcd4b52e5651a84484e",
@@ -200,7 +199,7 @@
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969",
   "build/newsroom_paths.py": "dea7967e26286dd09a599ce7bc5f629f8463d06a34b3a4430f3f2c9b0eaa032e",
-  "build/outputs.txt": "3f20623be55f3116fce1c622ef5d5c67a102689cb5ef10b8c8404e844ec5d1ad",
+  "build/outputs.txt": "20799028e7aa1e50c7ecb3c40efbe055b76111f6abc87b30804f280fc62483ee",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",

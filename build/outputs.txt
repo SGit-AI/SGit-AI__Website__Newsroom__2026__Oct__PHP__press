@@ -1187,6 +1187,10 @@ review/index.md
 review/ui/index.html
 review/ui/index.md
 robots.txt
+sherpa/for-your-claude/brief/index.html
+sherpa/for-your-claude/brief/index.md
+sherpa/for-your-claude/index.html
+sherpa/for-your-claude/index.md
 sherpa/ideas/ci-001/index.html
 sherpa/ideas/ci-001/index.md
 sherpa/ideas/ci-002/index.html
