@@ -2984,7 +2984,7 @@ def vault_removed_page(path, title, what):
     up = '../' * path.count('/')
     body = f"""
 <h1>{E(title)}</h1>
-<div class="caveat"><p><b>Removed on 27 October 2026.</b> {what} It went at the editor's word: the evidence vault it opened is decommissioned,
+<div class="caveat"><p><b>Removed on 27 October 2026.</b> {what[:1].upper() + what[1:]} It went at the editor's word: the evidence vault it opened is decommissioned,
 and the newsroom's main vaults are now pack vaults, which the vault UI does not open.</p></div>
 <p>Which vault each agent made or holds, by id only and never a key, is on <a href="{up}team/vaults/index.html">the vault register</a>. Every
 captured source, with its capture times and hashes, is on <a href="{up}sources/index.html">every source</a>; the source watch is on
