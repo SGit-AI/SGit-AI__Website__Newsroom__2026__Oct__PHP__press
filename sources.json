@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "854639a5cab857b470500ba7f3b79bdc83bc1b03",
-  "site_version": "0.22.39"
+  "commit": "14bb9d64372660573ba48e0b2e191e972ef9a3a0",
+  "site_version": "0.22.40"
  },
  "sources": {
   "assets/": "assets/",
@@ -14,11 +14,7 @@
   "rules/SECURITY.md": "SECURITY.md",
   "vault-app/": "vault-app/"
  },
- "kept": [
-  "assets/sherpa/claude-brief.js",
-  "assets/site.js",
-  "build/build.py"
- ],
+ "kept": [],
  "files": {
   "assets/articles/has-anyone-been-hacked/deck.html": "4d767c9f3a710a5d28987a72ec114e04306f73f17be880cda720aa6f3e3d4b49",
   "assets/articles/has-anyone-been-hacked/deck.pdf": "8e38847c00b6712594ae0f2a41c3ad290d9ab670f1f5d2be99d166f437e62de3",
@@ -95,8 +91,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "34a29fb3d057d09ee6fa59112e0376be8b485aef3b5f8c6aa0a4ded46c551217",
-  "assets/design/line/copy.json": "aac7a6c99275237b43ee80213fa5aa6e4fbffe087c389186ac7a1bedca659a37",
+  "assets/design/line/config.js": "fcef7f62570c2f6c64f3da152f657541743b96ca35ed05aef409b42794ef2584",
+  "assets/design/line/copy.json": "abf40ee0a1c124ce0b53ad5da541d03a42f3384abca77a883aa76c67aa93239f",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -154,7 +150,7 @@
   "assets/sherpa/viewer.js": "bb1fb50e39d2abf403bc480186d9109162d2278000cca48cd2e52b748b5b7647",
   "assets/site-tools.js": "932d0b3ca05093231146a4996b3c45fa76499e74d8298283a7ba2be25a5e5275",
   "assets/site.css": "ba095cbde5d2063dcff8fe9a19429345f43314ef5ce723e92f43d2fc1d4eb826",
-  "assets/site.js": "833d309cef66e574ea859b2f11fd0e8060d244abe34b7ca4353a5a4396e15a9f",
+  "assets/site.js": "89e90ee3661e84ccb5c1bfb17651cbed65926f2e4063366e664f7ea0d53b3838",
   "assets/stack.js": "7774d8e12b52797b5b8c9500deb06a36262e3f29bde93900907a9153fea093d2",
   "assets/subscribe.js": "d9a110fcdc4d60eef99a2a4617932d23c929fc3ce4a58cd2ae308c947ad569e8",
   "assets/telemetry.js": "82c1de90604492ab3f52118f0c5dc9ea8b4f6c714cb4c334d2ed47b54ede52cb",

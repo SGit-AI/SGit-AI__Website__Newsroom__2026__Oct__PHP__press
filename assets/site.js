@@ -102,14 +102,17 @@
   window.addEventListener('scroll', hideTip, { passive: true });
 })();
 
-// The version in the bar is the one the site serves now, read from its /VERSION, which the site's CI writes (CI owns the
-// version, 27 October 2026). The page's content is read when it opens, so there is no older copy to reload for.
+// A note in the bar when this page is older than the release the site now serves (one same-origin read of /VERSION).
 (function () {
   var v = document.querySelector('nav.site .ver'), root = '../'.repeat(((document.documentElement.getAttribute('data-root') || '').match(/\.\.\//g) || []).length);
   if (v && window.fetch) fetch(root + 'VERSION?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (t) {
-    var live = (t || '').trim();
+    var live = (t || '').trim(), mine = v.textContent.replace(/^v/, '');
     if (!/^\d+\.\d+\.\d+$/.test(live)) return;
-    v.textContent = 'v' + live;
-    v.title = 'The version this site serves now, numbered by its CI.';
+    var a1 = live.split('.').map(Number), b1 = mine.split('.').map(Number), d = 0;
+    for (var i = 0; i < 3 && !d; i++) d = a1[i] - (b1[i] || 0);
+    if (d <= 0) return;
+    var a = document.createElement('a'); a.className = 'ver newer'; a.href = root + 'status/index.html';
+    a.title = 'This page is v' + mine + '; the site now serves v' + live + '. Reload for the new release; the pipeline page shows what changed and what is deploying.';
+    a.textContent = 'v' + live + ' is live: reload'; v.insertAdjacentElement('afterend', a);
   }).catch(function () {});
 })();
