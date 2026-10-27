@@ -6632,7 +6632,7 @@ ONT, ENT, ATT = load('ontology'), load('entities'), load('attribution')
 ENTITIES = OrderedDict((e['id'], e) for e in ENT['entities'])
 ALIAS = {a: e['id'] for e in ENT['entities'] for a in e.get('aliases', [])}
 UNMAPPED_PUBLISHERS = {}  # publisher -> source slugs, for the ontologist; filled by the graph build
-SG_GRAPH_JS = 'assets/components/sg-graph/v1/v1.0/v1.0.0/sg-graph.js'
+SG_GRAPH_JS = 'assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.js'
 SG_GRAPH_FILES = ['sg-graph.js', 'sg-graph-core.js', 'sg-graph.tpl', 'sg-graph.css']
 
 def sg_graph(path, src=None, data=None, focus=None, view=None, depth=None, height=None, max_nodes=None, verbs=None, controls=None, fallback=''):
@@ -7612,7 +7612,7 @@ def _state_hashes():
     return out
 
 # ----------------------------------------------------------------------------- Wikipedia, as a graph (ontologist@php.newsroom)
-# Brief: admin/content/briefs/2026-10-25__brief__wikipedia-as-an-anchor.md. The fetch (admin/wikipedia/fetch.py) writes
+# Brief: admin/content/briefs/2026-10-25__brief__wikipedia-as-an-anchor.md. The fetch (records/desks/wikipedia/fetch.py in team) writes
 # data/wikipedia/<article>/; this block reads it, never the web. The parser is admin/build/wikitext.py: one statement per
 # sentence, classed by wording; references resolved to this site's sources by URL and to parties by host. The text is
 # Wikipedia's (CC BY-SA 4.0, by its contributors; the revision id is the attribution) and reaches a page only as text.
@@ -8030,7 +8030,7 @@ def build_wikipedia_more(slug, w, L):
 {section("item", "The Wikidata item, over time", wiki_item_section(w) or '<p class="small">No item history fetched.</p>')}
 <p class="small">The text is Wikipedia&#39;s, CC BY-SA 4.0, by its contributors.</p>
 '''
-    page(base + 'evolution/index.html', f'The evolution of Wikipedia&#39;s {art["title"]} article', f'Every statement ever written into the article as a lifeline from the edit that added it to the edit that removed it, with the size, references and statements over all {len(w["revs"])} revisions, and the Wikidata item\'s own history.', body, kind='evidence', topics=f'wikipedia {slug} evolution')
+    page(base + 'evolution/index.html', f'The evolution of Wikipedia’s {art["title"]} article', f'Every statement ever written into the article as a lifeline from the edit that added it to the edit that removed it, with the size, references and statements over all {len(w["revs"])} revisions, and the Wikidata item’s own history.', body, kind='evidence', topics=f'wikipedia {slug} evolution')
     talk = wiki_talk(slug)
     if not talk:
         return
@@ -8053,7 +8053,7 @@ def build_wikipedia_more(slug, w, L):
 {secs}
 <p class="small">The posts are their authors&#39;, CC BY-SA 4.0, shown as text.</p>
 '''
-    page(base + 'talk/index.html', f'What Wikipedia&#39;s editors discuss about the {art["title"]} article', f'The talk page of the article as threads: {len(threads)} discussions and {posts} posts, including the edit requests outside parties made with a disclosed conflict of interest.', body, kind='evidence', topics=f'wikipedia {slug} talk')
+    page(base + 'talk/index.html', f'What Wikipedia’s editors discuss about the {art["title"]} article', f'The talk page of the article as threads: {len(threads)} discussions and {posts} posts, including the edit requests outside parties made with a disclosed conflict of interest.', body, kind='evidence', topics=f'wikipedia {slug} talk')
 
 STRENGTH_WORD = {'high': ('The article should change', 'contradicted'), 'medium': ('The article should attribute or qualify', 'disputed'), 'low': ('Housekeeping', 'unverified'), 'confirmed': ('Holds against this site\'s evidence', 'confirmed')}
 
@@ -8116,7 +8116,7 @@ def build_wikipedia_review(slug, w, L):
 {section("limits", "What this review cannot see", f'<p>{T(R["not_held_here"])} The review is of one revision; the article changes several times a day, and a finding is matched to its statement by its opening words, so a finding whose statement has since been reworded is marked as such above rather than dropped. The next pass of this site&#39;s ontologist re-reads the article against the same findings.</p>')}
 <p class="small">The text quoted is Wikipedia&#39;s, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, by its contributors; the findings are this site&#39;s, CC BY 4.0. The data is <a href="../../../data/wikipedia/{U(slug)}/review.json">review.json</a>.</p>
 '''
-    page(base + 'review/index.html', f'Wikipedia&#39;s {art["title"]} article, read as one of its reviewers would', f'{len(R["findings"])} findings on the article against this site\'s captured evidence, each with the Wikipedia policy it rests on and a change proposed for a human to put to the talk page; nothing is posted by an agent.', body, kind='evidence', topics=f'wikipedia {slug} review')
+    page(base + 'review/index.html', f'Wikipedia’s {art["title"]} article, read as one of its reviewers would', f'{len(R["findings"])} findings on the article against this site’s captured evidence, each with the Wikipedia policy it rests on and a change proposed for a human to put to the talk page; nothing is posted by an agent.', body, kind='evidence', topics=f'wikipedia {slug} review')
     return len(R['findings'])
 
 def build_wikipedia_editors(cards):
@@ -8135,7 +8135,7 @@ def build_wikipedia_editors(cards):
 {section("articles", "The articles read", table(["Article", "References captured here", "Findings", "History"], rows))}
 <p class="small">The attribution Wikipedia asks of reusers, as this site gives it on each page of this section: <i>This page uses material from the Wikipedia article &ldquo;PHP2Shell&rdquo;, which is released under the Creative Commons Attribution-Share-Alike License 4.0.</i> The text here that is this site&#39;s own is CC BY 4.0.</p>
 '''
-    page('wikipedia/for-editors/index.html', 'For the editors of Wikipedia&#39;s articles on this story', 'What this site is in Wikipedia\'s terms, what it offers the article\'s editors (dated, hashed captures of the cited pages, a reviewer\'s reading, answers from the captures), and the rules it holds itself to: no agent edits Wikipedia, nothing written by a model is posted, no request to be cited.', body, kind='evidence', topics='wikipedia editors collaboration')
+    page('wikipedia/for-editors/index.html', 'For the editors of Wikipedia’s articles on this story', 'What this site is in Wikipedia’s terms, what it offers the article’s editors (dated, hashed captures of the cited pages, a reviewer’s reading, answers from the captures), and the rules it holds itself to: no agent edits Wikipedia, nothing written by a model is posted, no request to be cited.', body, kind='evidence', topics='wikipedia editors collaboration')
 
 def wiki_sister_section(cards):
     """Wikidata and DBpedia: what each holds for the articles read, and what has changed in them."""
@@ -8197,7 +8197,7 @@ def build_wikipedia():
 {section("links", "What links here", f'<p>{L["links_in"]} other articles link to this one, which is how a reader of Wikipedia arrives: from <i>PHP</i>, <i>2026</i>, the lists of security incidents, the pages of the companies named. The list is in <a href="../../data/wikipedia/{U(slug)}/links-in.json">links-in.json</a>.</p>')}
 {section("trust", "Towards a measure of trust", f'<p>The editor&#39;s working view is that Wikipedia is a trusted source, and that this should be shown rather than assumed: by how often its statements are later corrected, against how often other publications are. This page does not compute a score; it keeps the counts a proof would start from, and the fact-check desk grades statements, not pages. For this article: {L["cited"]} of {L["statements"]} statements cited ({100 * L["cited"] // max(1, L["statements"])}%); {L["captured"]} of {L["with_url"]} references captured here, {L["primary"]} of those primary sources; {L["reverts"]} reverts in {L["revisions"]} revisions; {len(L["contradictions"])} of this site&#39;s contradictions touch evidence the article also cites.</p><p class="small">The text is Wikipedia&#39;s, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, by its contributors; the revision ids are the attribution, and this site&#39;s pages and data that carry it are under the same licence: this page uses material from the Wikipedia article &ldquo;{E(art["title"])}&rdquo; (<a href="{U(art["url"])}" rel="noopener">link</a>), released under the <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">Creative Commons Attribution-Share-Alike License 4.0</a>. It is republished so it can be read as a graph, diffed and followed to its evidence; nothing here is Wikipedia&#39;s view, and nothing on Wikipedia is this site&#39;s.</p>')}
 '''
-        page(base + 'index.html', f'Wikipedia&#39;s {art["title"]} article, as a graph', f'The English Wikipedia article on {art["title"]} read as a fractal semantic graph: {L["statements"]} statements classed as facts, attributions and quotes, {L["references"]} references and which are captured here, {L["revisions"]} revisions, and where it meets this site\'s claims.', body, kind='evidence', topics=f'wikipedia {slug} graph')
+        page(base + 'index.html', f'Wikipedia’s {art["title"]} article, as a graph', f'The English Wikipedia article on {art["title"]} read as a fractal semantic graph: {L["statements"]} statements classed as facts, attributions and quotes, {L["references"]} references and which are captured here, {L["revisions"]} revisions, and where it meets this site’s claims.', body, kind='evidence', topics=f'wikipedia {slug} graph')
         # ---- statements
         secs = ''
         for sec in X['sections']:
@@ -8207,12 +8207,12 @@ def build_wikipedia():
         body = f'''
 <p class="crumb"><a href="../../index.html">Wikipedia, as a graph</a> / <a href="../index.html">{E(art["title"])}</a> / Every statement</p>
 <h1>Every statement in Wikipedia&#39;s {E(art["title"])} article, with its evidence</h1>
-<p class="lead">One statement per sentence of revision <code>{E(str(art["latest_revid"]))}</code>, in the article&#39;s order, each classed by its wording and followed by its references, the capture this site holds of them, and the claims of this site that rest on the same page. Read by a parser (<code>admin/build/wikitext.py</code>), never by a model.</p>
+<p class="lead">One statement per sentence of revision <code>{E(str(art["latest_revid"]))}</code>, in the article&#39;s order, each classed by its wording and followed by its references, the capture this site holds of them, and the claims of this site that rest on the same page. Read by a parser (<code>build/wikitext.py</code> in the press), never by a model.</p>
 <p class="small">{legend}</p>
 {secs}
 <p class="small">The text is Wikipedia&#39;s, CC BY-SA 4.0, by its contributors.</p>
 '''
-        page(base + 'statements/index.html', f'Every statement in Wikipedia&#39;s {art["title"]} article, with its evidence', f'All {L["statements"]} statements of the article, classed as record, stated, attributed, quote or hedged by their wording, with their references, the captures this site holds and the claims that share them.', body, kind='evidence', topics=f'wikipedia {slug} statements')
+        page(base + 'statements/index.html', f'Every statement in Wikipedia’s {art["title"]} article, with its evidence', f'All {L["statements"]} statements of the article, classed as record, stated, attributed, quote or hedged by their wording, with their references, the captures this site holds and the claims that share them.', body, kind='evidence', topics=f'wikipedia {slug} statements')
         # ---- references
         rows = []
         for r in X['references']:
@@ -8228,7 +8228,7 @@ def build_wikipedia():
 <p class="lead">{L["references"]} references at revision <code>{E(str(art["latest_revid"]))}</code>: {L["captured"]} are pages this site&#39;s evidence vault holds, {L["with_url"] - L["captured"]} are not yet captured, and {L["resolved"]} resolve to a party this site knows. A reference this site has captured is evidence this site can cite as its own, with the capture&#39;s hash; a reference it has not is a request to the collectors (board). The publisher is read from the page&#39;s address first, so the Y Combinator forum is not The Hacker News.</p>
 {table(["#", "Reference", "Publisher", "Here", "Cited by", "Our claims on it"], rows)}
 '''
-        page(base + 'references/index.html', f'Every reference in Wikipedia&#39;s {art["title"]} article', f'All {L["references"]} references of the article: which this site has captured, who publishes each, which statements cite it and which of this site\'s claims rest on the same page.', body, kind='evidence', topics=f'wikipedia {slug} references')
+        page(base + 'references/index.html', f'Every reference in Wikipedia’s {art["title"]} article', f'All {L["references"]} references of the article: which this site has captured, who publishes each, which statements cite it and which of this site’s claims rest on the same page.', body, kind='evidence', topics=f'wikipedia {slug} references')
         # ---- history
         revs, deltas = w['revs'], w['deltas']
         by_hour = Counter(r['timestamp'][:13] for r in revs)
@@ -8262,7 +8262,7 @@ def build_wikipedia():
 <ol class="whistory" reversed>{"".join(reversed(items))}</ol>
 <p class="small">Edit summaries and text are Wikipedia&#39;s, CC BY-SA 4.0, by its contributors, shown as text.</p>
 '''
-        page(base + 'history/index.html', f'Every edit of Wikipedia&#39;s {art["title"]} article, as what it changed', f'All {L["revisions"]} revisions of the article as the statements each one added, removed or reworded, with the editor, the size and the reverts.', body, kind='evidence', topics=f'wikipedia {slug} history')
+        page(base + 'history/index.html', f'Every edit of Wikipedia’s {art["title"]} article, as what it changed', f'All {L["revisions"]} revisions of the article as the statements each one added, removed or reworded, with the editor, the size and the reverts.', body, kind='evidence', topics=f'wikipedia {slug} history')
         build_wikipedia_more(slug, w, L)
         build_wikipedia_review(slug, w, L)
         cards.append((slug, art, L))
@@ -8270,9 +8270,9 @@ def build_wikipedia():
     rows = [[f'<a href="{U(slug)}/index.html">{E(art["title"])}</a>', E(str(L['statements'])), f'{L["cited"]} ({100 * L["cited"] // max(1, L["statements"])}%)', f'{L["captured"]} of {L["with_url"]}', E(str(L['shared'])), E(str(L['revisions'])), E(str(L['editors'])), E(str(L['reverts'])), E(fmt_at(L['last']))] for slug, art, L in cards]
     body = f'''
 <h1>Wikipedia, as a graph</h1>
-<p class="lead">Wikipedia is one of the largest bodies of checked fact there is, and one of the hardest to use as one: an article is long, its edits are diffs of markup, its references are a list at the bottom, and nothing tells a reader what they have already seen. This section reads each article this site watches as a fractal semantic graph: one statement per sentence, each classed by its wording (a fact stated, a view attributed, a quote), each joined to the references it cites, and those to the captures this site holds of the same pages, which is where the article&#39;s facts and this site&#39;s claims meet. Every revision is kept, so an edit reads as what it changed. Kept by the ontologist; fetched by <code>admin/wikipedia/fetch.py</code> on the daily pass.</p>
+<p class="lead">Wikipedia is one of the largest bodies of checked fact there is, and one of the hardest to use as one: an article is long, its edits are diffs of markup, its references are a list at the bottom, and nothing tells a reader what they have already seen. This section reads each article this site watches as a fractal semantic graph: one statement per sentence, each classed by its wording (a fact stated, a view attributed, a quote), each joined to the references it cites, and those to the captures this site holds of the same pages, which is where the article&#39;s facts and this site&#39;s claims meet. Every revision is kept, so an edit reads as what it changed. Kept by the ontologist; fetched by <code>records/desks/wikipedia/fetch.py in team</code> on the daily pass.</p>
 {table(["Article", "Statements", "Cited", "References captured here", "Shared with our claims", "Revisions", "Editors", "Reverts", "Latest revision"], rows)}
-{section("how", "How it is made", '<ul><li><b>Fetch.</b> Every revision of the article, with its wikitext, time, editor and edit summary; the Wikidata item; the articles that link in. Anonymous editors are recorded as anonymous, never by address.</li><li><b>Parse.</b> A parser (<code>admin/build/wikitext.py</code>, no model) lifts the references out, turns the markup into text, and splits it into sentences. One sentence is one statement; its id is a hash of its words, so the same sentence keeps its id across revisions and an edit is a set difference.</li><li><b>Class.</b> By wording only: a <i>record</i> (a number, a date, an identifier), a plain <i>stated</i> fact, an <i>attributed</i> statement (a named party said, reported or estimated it), a <i>quote</i>, or <i>hedged</i> wording. The class says how the article speaks, not whether it is right.</li><li><b>Join.</b> A reference is matched to this site&#39;s sources by its address and to a party by its host. A statement there and a claim here that cite the same captured page meet at that page.</li><li><b>Keep.</b> The data is <code>data/wikipedia/</code>; the graph of each article is in the ontology&#39;s <code>wikipedia</code> scope (<a href="../data/ontology.json">data/ontology.json</a>), with its own kinds and verbs, joined to the story graph by <code>captured_as</code>.</li></ul>')}
+{section("how", "How it is made", '<ul><li><b>Fetch.</b> Every revision of the article, with its wikitext, time, editor and edit summary; the Wikidata item; the articles that link in. Anonymous editors are recorded as anonymous, never by address.</li><li><b>Parse.</b> A parser (<code>build/wikitext.py</code> in the press, no model) lifts the references out, turns the markup into text, and splits it into sentences. One sentence is one statement; its id is a hash of its words, so the same sentence keeps its id across revisions and an edit is a set difference.</li><li><b>Class.</b> By wording only: a <i>record</i> (a number, a date, an identifier), a plain <i>stated</i> fact, an <i>attributed</i> statement (a named party said, reported or estimated it), a <i>quote</i>, or <i>hedged</i> wording. The class says how the article speaks, not whether it is right.</li><li><b>Join.</b> A reference is matched to this site&#39;s sources by its address and to a party by its host. A statement there and a claim here that cite the same captured page meet at that page.</li><li><b>Keep.</b> The data is <code>files/wikipedia/</code> in the data repository; the graph of each article is in the ontology&#39;s <code>wikipedia</code> scope (<a href="../data/ontology.json">data/ontology.json</a>), with its own kinds and verbs, joined to the story graph by <code>captured_as</code>.</li></ul>')}
 {section("sisters", "Wikidata and DBpedia", wiki_sister_section(cards))}
 {section("editors", "For Wikipedia&#39;s editors", '<p>This site does not edit Wikipedia and does not ask to be cited by it. What it offers the article&#39;s editors, and the rules it holds itself to, are on <a href="for-editors/index.html">one page</a>; its reading of the article as a reviewer would read it, finding by finding against the captures, is on each article&#39;s <a href="php2shell/review/index.html">review page</a>.</p>')}
 {section("next", "What this is for", '<p>Three things. A reader who wants the facts of a story, each with its evidence and without the markup, the edit wars and the list at the bottom. A newsroom that can see what Wikipedia says, what it rests on, and what changed since it last looked, in one view. And, in time, a measure: a source&#39;s trust shown by how often its statements are corrected, against other publications&#39;, rather than assumed.</p><p class="small">The text of each article is Wikipedia&#39;s, <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener">CC BY-SA 4.0</a>, by its contributors, with the revision id as the attribution; the pages and data of this section that carry it are under the same licence.</p>')}
