@@ -64,6 +64,8 @@ actors/zelenka/index.html
 actors/zelenka/index.md
 admin/agents/abp/index.html
 admin/agents/abp/index.md
+admin/agents/breaking/index.html
+admin/agents/breaking/index.md
 admin/agents/briefing-writer/index.html
 admin/agents/briefing-writer/index.md
 admin/agents/collector-gov/index.html
@@ -396,6 +398,10 @@ admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.html
 admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.md
 admin/briefs/2026-10-27__brief__the-story-as-days/index.html
 admin/briefs/2026-10-27__brief__the-story-as-days/index.md
+admin/briefs/2026-10-27__decision__which-model-each-agent-runs/index.html
+admin/briefs/2026-10-27__decision__which-model-each-agent-runs/index.md
+admin/briefs/2026-10-27__report__the-kev-listing-run/index.html
+admin/briefs/2026-10-27__report__the-kev-listing-run/index.md
 admin/briefs/2026-10-27__runbook__breaking-desk-onboarding/index.html
 admin/briefs/2026-10-27__runbook__breaking-desk-onboarding/index.md
 admin/briefs/index.html
@@ -1082,6 +1088,8 @@ numbers/as/security/index.html
 numbers/as/security/index.md
 numbers/index.html
 numbers/index.md
+on/index.html
+on/index.md
 ops/index.html
 ops/index.md
 outreach/index.html
