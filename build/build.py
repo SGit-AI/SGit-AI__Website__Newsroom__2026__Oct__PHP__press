@@ -814,7 +814,8 @@ def build_claim_review():
         for c in cs:
             r = rv.get(c['id'])
             verdict = (f'<b>{E(r["verdict"])}</b><div class="note">{E(r["reason"])}</div>' + (f'<div class="refs">{src_links(r["sources"], 2)}</div>' if r.get('sources') else '')
-                       + (f'<div class="small"><a href="../../{E(r["where"])}">where it was reviewed</a>, {E(r["reviewed"])}, {E(r["by"])}</div>' if r.get('where') else '')) if r else '<span class="small">not yet reviewed</span>'
+                       + (f'<div class="small"><a href="../../{E(r["where"])}">where it was reviewed</a>, {E(r["reviewed"])}, {E(r["by"])}</div>' if r.get('where') and re.fullmatch(r'[a-z0-9][a-z0-9/._-]*\.html(#[A-Za-z0-9_.-]+)?', r['where'])
+                          else f'<div class="small">reviewed: {E(r["where"])}, {E(r.get("reviewed", ""))}, {E(r.get("by", ""))}</div>' if r.get('where') else '')) if r else '<span class="small">not yet reviewed</span>'   # a where that is not a page (free text) is shown, not linked
             out.append([f'<span id="{E(c["id"])}"><b>{E(c["claim"])}</b></span><div class="small"><code>{E(c["id"])}</code> &middot; {E(c.get("topic") or "")}</div>',
                         E(c.get('by') or ''), pill(c['status']), f'{E(c.get("note") or "")}<div class="small">{E(c.get("agent") or "")}</div>', src_links(c['sources'], 2), verdict])
         return table(['Claim, as the agent recorded it', 'Said by', 'Agent\'s status', 'Agent\'s note', 'Sources', 'Journalist\'s review'], out, 'rv')
@@ -5537,8 +5538,11 @@ def build_grc_changes():
     tot = {v: t for v, _, t in rels}
     dates = {x['version']: x['date'] for x in D['versions']['versions']}
     changed = [(v, c) for v, c, _ in rels if c]
+    def at_or_before(v):   # a release the history has no word for (the first edition built in CI records none): the last totals before it
+        known = [x for x in tot if grc_vkey(x) <= grc_vkey(v)]
+        return tot[max(known, key=grc_vkey)] if known else {'nodes': 0, 'edges': 0, 'basis': {}, 'gaps': {}}
     def pair(c):
-        before = tot.get(c['against']) if c['against'] else {'nodes': 0, 'edges': 0, 'basis': {}, 'gaps': {}}
+        before = (tot.get(c['against']) or at_or_before(c['against'])) if c['against'] else {'nodes': 0, 'edges': 0, 'basis': {}, 'gaps': {}}
         return dict(c, **{'from': c['against'], 'to': c['version'], 'before': before, 'after': c['totals']})
     lv, lc = changed[-1]
     rows = ''.join(f'<tr><td><a href="#from={E(c["against"] or "")}&amp;to={E(v)}">v{E(v)}</a> <span class="small">{E(dates.get(v, ""))}</span></td><td>{"v" + E(c["against"]) if c["against"] else "the first graph"}</td>'
@@ -5883,7 +5887,7 @@ def build_sherpa_feedback(r, FB, CI):
 def build_feedback_section(FB, CI, FL):
     d = 1; up = '../'
     ST = sherpa_load('collab-stats')
-    opn = [f for f in FL['frictions'] if f['status'] != 'closed']
+    opn = [f for f in FL['frictions'] if f.get('status') != 'closed']
     pts = [p for r in FB if r.get('tester') != 'internal' for p in r['points']]
     stats = ''.join(stat(n, l) for n, l in [(sum(r.get('tester') != 'internal' for r in FB), 'pieces of feedback'), (len(pts), 'points answered'), (sum(p['replicated'] == 'yes' for p in pts), 'reproduced by the Sherpa'),
         (len(opn), 'frictions open'), (ST['power_users_joined'], 'power users joined'), (ST['signed_messages'], 'signed messages received'), (len(CI), 'conversations of ideas')])
@@ -5984,10 +5988,11 @@ def build_sherpa():
     me = [m for m in TEAM['members'] if m['id'] == 'sherpa'][0]
     fbrows = [[f'<a href="../feedback/{E(r["id"].lower())}/index.html">{E(r["id"])}</a>', E(r['received']), 'v' + E(r['site_version']), E(r['reader']), E(r['progress']),
                str(len(r['points'])), str(sum(p['replicated'] == 'yes' for p in r['points'])), E(r['summary'])] for r in FB]
-    frows = [[E(f['id']), E(f['page']), E(f['stage']), sherpa_pill(SHERPA_SEVERITY[f['severity']], f['severity']), sherpa_who(f['owner'], 1), E(f['status']),
-              f'v{E(f["first_seen"])} to v{E(f["last_seen"])}', E(f.get('proposal', f.get('expected', '')))] for f in FL['frictions']]
-    opn = [f for f in FL['frictions'] if f['status'] != 'closed']
-    stats = ''.join(stat(n, l) for n, l in [(len(FB), 'reader messages'), (sum(len(r['points']) for r in FB), 'points answered'), (len(opn), 'frictions open'), (sum(f['severity'] == 'high' for f in opn), 'of them high')])
+    # a friction row's fields past its id are the Sherpa's to fill as it learns them (F040 came without a stage): drawn blank, never a stop
+    frows = [[E(f['id']), E(f.get('page', '')), E(f.get('stage', '')), sherpa_pill(SHERPA_SEVERITY.get(f.get('severity'), SHERPA_SEVERITY.get('low')), f.get('severity', '')), sherpa_who(f.get('owner', 'sherpa'), 1), E(f.get('status', '')),
+              f'v{E(f.get("first_seen", "?"))} to v{E(f.get("last_seen", "?"))}', E(f.get('proposal', f.get('expected', '')))] for f in FL['frictions']]
+    opn = [f for f in FL['frictions'] if f.get('status') != 'closed']
+    stats = ''.join(stat(n, l) for n, l in [(len(FB), 'reader messages'), (sum(len(r['points']) for r in FB), 'points answered'), (len(opn), 'frictions open'), (sum(f.get('severity') == 'high' for f in opn), 'of them high')])
     help_ = '''<ul>
 <li><b>Not sure where to start?</b> <a href="../start/index.html">Tell the site who you are</a> and it gives you a short reading path for your job and the time you have.</li>
 <li><b>New to the story?</b> <a href="../explained/index.html">It is explained from scratch</a>, and <a href="../glossary/index.html">the glossary</a> has every specialist word.</li>
@@ -6740,7 +6745,9 @@ def story_graph():
             edge(nid, 'names', 'cve:' + cve)
 
     def stated(nid, row, att, where):
-        if not att: sys.exit(f'data/attribution.json: no attribution for {where}')
+        if not att:   # a row its writer added and the ontologist has not attributed yet: no one states it until then; it still cites its sources
+            print(f'warn: data/attribution.json: no attribution for {where} yet (the ontologist keeps it); drawn with no party stating it')
+            att = {'states': []}
         for eid in att['states']:
             if eid not in ENTITIES: sys.exit(f'data/attribution.json: {where} names unknown entity {eid!r}')
             edge('party:' + eid, 'states', nid)

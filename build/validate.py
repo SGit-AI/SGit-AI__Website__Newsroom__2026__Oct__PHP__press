@@ -40,8 +40,9 @@ for p in pages:
     # 3. markdown twin
     md = re.sub(r'\.html$', '.md', p)
     if not os.path.exists(md): fails.append(f'{rel(p)}: no markdown twin')
-    # 6. em-dash in the site's prose (sources page exempt: third-party titles)
-    if os.sep + 'sources' + os.sep not in p and os.sep + 'actors' + os.sep not in p and os.sep + 'facts' + os.sep not in p and os.sep + 'versions' + os.sep not in p and os.sep + 'interview' + os.sep not in p and not p.endswith(os.path.join('affected', 'software.html')) and not p.endswith(os.path.join('brief', 'index.html')) and not re.search(r'readings/[^/]+/index\.html$', p.replace(os.sep, '/')):
+    # 6. em-dash in the site's prose (sources page exempt: third-party titles; the claims waiting for review show the vault
+    # agents' notes verbatim, with the words they quote)
+    if os.sep + 'sources' + os.sep not in p and not p.endswith(os.path.join('claims', 'review', 'index.html')) and os.sep + 'actors' + os.sep not in p and os.sep + 'facts' + os.sep not in p and os.sep + 'versions' + os.sep not in p and os.sep + 'interview' + os.sep not in p and not p.endswith(os.path.join('affected', 'software.html')) and not p.endswith(os.path.join('brief', 'index.html')) and not re.search(r'readings/[^/]+/index\.html$', p.replace(os.sep, '/')):
         body = re.sub(r'<q>.*?</q>', '', s, flags=re.S)
         body = re.sub(r'title="[^"]*"', '', body)
         if '—' in body:

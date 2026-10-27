@@ -70,7 +70,7 @@ echo "== 1. the box"
 rm -rf "$BOX"
 FRESH=1
 if [ -f "$PREV/box.tar.gz" ]; then
-  mkdir "$BOX" && tar -xzf "$PREV/box.tar.gz" -C "$BOX"
+  mkdir "$BOX" && tar --no-same-owner -xzf "$PREV/box.tar.gz" -C "$BOX"
   git -C "$BOX" init -q -b main && git -C "$BOX" add -A
   git -C "$BOX" commit -q --no-verify -m "v$(cat "$BOX/VERSION"): the edition before (the box as the last edition left it)"
   FRESH=0
