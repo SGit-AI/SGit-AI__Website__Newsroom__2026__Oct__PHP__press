@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "c58d392324bf68ad0b48426380f1e4b8fa79b261",
-  "site_version": "0.22.45"
+  "commit": "9ea22e8422dc02f7cc6cc6edffbe58ddb6386a34",
+  "site_version": "0.22.46"
  },
  "sources": {
   "assets/": "assets/",
@@ -15,11 +15,8 @@
   "vault-app/": "vault-app/"
  },
  "kept": [
-  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph-core.js",
-  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.css",
-  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.js",
-  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.tpl",
-  "build/build.py"
+  "build/build.py",
+  "build/validate.py"
  ],
  "files": {
   "assets/articles/has-anyone-been-hacked/deck.html": "4d767c9f3a710a5d28987a72ec114e04306f73f17be880cda720aa6f3e3d4b49",
@@ -114,8 +111,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "9d3a1292e68002dba9bfa8148d25a6ad400c8c9d4c72ae41dd838982143c2a4b",
-  "assets/design/line/copy.json": "d527c5e5acb5e43e82c3a76ef484ce7e56c52dc8a5abedae08014ec5f800eeb4",
+  "assets/design/line/config.js": "52c4865caa11bcd90dd2488fb2386dded840a345c2f83f0cd6d0ca5725938b2b",
+  "assets/design/line/copy.json": "f680f717ce4b7aa7db92ffc60b99f25557d14bf2c3c04dda9f9b3724fde18d76",
   "assets/design/line/copy.src.json": "0403f2f45844e27f6930bb0697cfca3b3994ff0477f7db4e18d7677ab0f9c45b",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -152,7 +149,7 @@
   "assets/now/now.css": "a0112b13a1463989ee0eb08dc04e611034de7c75e9d29331e04eb61e51765d5f",
   "assets/now/now.js": "0314f8519a89cbb0ed0ca3f24d3e82bbc0b455844031285d15fa8442701f72e6",
   "assets/og-card.png": "4671d5f86fe609797050ffb1e957c1fdf30df664ba60438144c814106cefd1ad",
-  "assets/personas.js": "877b726a461b2628e118da05f906c758b46a0ba31f641660ade6ddd4f58de3de",
+  "assets/personas.js": "3e972741bc1521fc3f7e7fd192ffbcc0bdb5320d7fbd494723c8508935f142cf",
   "assets/pipeline.js": "3190862f78878c982b3e70d1837e6ea94e939288a9d68ab871fcacb2e57cd716",
   "assets/reader-state.js": "33c5116c49d406cfb73a8a00506a34cc7d46eab7da5584117c8ec37bb475954e",
   "assets/review-nav.js": "e6ae22967e71f0f4530a60c3c26ff56f3f91ced0e4ed12102201073be2568196",
@@ -201,7 +198,7 @@
   "assets/vendor/sg-vault/v0.2.3/sg-vault/sg-vault.js": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26",
   "assets/vendor/vault-ui-embed.js": "fb2c5766b0fdd1eddfbfc810d7c5ed76a650fc1e07f6ae28659f19d97a790d25",
   "build/agents.py": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05",
-  "build/build.py": "c01616a4c9eea73c0c8a8dd1899c49b8a23357426b382b88ae71cf193e9b0a8a",
+  "build/build.py": "febd53e20342264df074c5546028ee2c4eca6b3c7a1a1175887463d1f526a38e",
   "build/collaborators_drain.py": "dbad852284408dbea8708bec3fbf3f0ffe8c088cfe79d124e072dce7b27d728e",
   "build/conductor_drain.py": "750b8f448cd479f74a452d38995962c5743f58b2bb93ee48daec87d7e4dc7ca6",
   "build/contributors.py": "3ec4b8db116bb33e1bae1070437748858519525b440d3fcd4b52e5651a84484e",
@@ -219,7 +216,7 @@
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "6166a494c1d7caf8491945d001c782ff3cc41d4a23c6d31a6bf1dd0381751406",
   "build/newsroom_paths.py": "dea7967e26286dd09a599ce7bc5f629f8463d06a34b3a4430f3f2c9b0eaa032e",
-  "build/outputs.txt": "eb1f712e579c42583c11e7ae55916c4b45fb93f49be938b0ed974ae56ef865a2",
+  "build/outputs.txt": "599d694cd780e8fca22f85ec3b9e509f4000d24afc5c3a8021504a9055d342ca",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",
@@ -232,7 +229,7 @@
   "build/telemetry_flow.sh": "94a0af1aaf3f8d4bd6c6389d34e061775a8da410f2a008eb7622c1105ea332c7",
   "build/telemetry_publish.py": "505ab0908e3affd4bc143f1af9589ea77d976a6d0b29e60f33efd06045750d95",
   "build/updates_digest.py": "b24e7620a91fb992eb62ad86c34018777e155f38d0ee2dbb911303b76d675832",
-  "build/validate.py": "d618775096e5c1c528889b164c5c8eb7a10b8305ae292d3d26b42cd451d41684",
+  "build/validate.py": "9c784a3a75de45eeaca83b209eef7e490e22a35e6d4106124f88f7ae3c4928ed",
   "build/wikitext.py": "621448cd260e69dbf50f3a0031ba7644b30f5a0fd19fe83e31abc61d6254a714",
   "rules/AGENTS.md": "77b98a8d792db5ce60344add26921c76c6a3c618cfc99fd5063a69a7a07b418d",
   "rules/CLAUDE.md": "6e5df1da6e56af87361c0613bfd9c92d9ce858b4f45879635b6f8026c2a01dd7",
