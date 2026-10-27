@@ -11,8 +11,10 @@
   var el = L.el, s = function (v) { return v == null ? '' : String(v); };
   var built = [].slice.call(box.querySelectorAll('tbody tr')), article = {};
   built.forEach(function (tr) { var c = tr.cells; if (c.length > 6 && c[2].textContent === 'Scheduled wake') article[c[3].textContent] = c[6]; });
-  Promise.all([L.json('records/index/runs.json'), L.json('records/data/team.json').catch(function () { return { members: [] }; })]).then(function (d) {
-    var runs = (d[0] && d[0].runs) || [], members = {};
+  Promise.all([L.json('records/index/runs.json'), L.json('records/data/team.json').catch(function () { return { members: [] }; }),
+               L.json('records/index/schedule.json').catch(function () { return null; })]).then(function (d) {
+    var runs = (d[0] && d[0].runs) || [], members = {}, cards = null;
+    if (d[2] && Array.isArray(d[2].cards)) { cards = {}; d[2].cards.forEach(function (c) { cards[c.agent] = 1; }); }
     (d[1].members || []).forEach(function (m) { members[m.id] = m; });
     var who = function (mid) { return members[mid] ? el('a', { href: L.link('team/' + encodeURIComponent(mid) + '/index.html') }, [s(members[mid].name)]) : s(mid); };
     var rows = built.filter(function (tr) { return !(tr.cells.length > 2 && tr.cells[2].textContent === 'Scheduled wake'); })
@@ -23,7 +25,7 @@
       else if (r.article) art = [el('a', { href: L.link('articles/' + encodeURIComponent(r.article) + '/index.html') }, ['the article'])];
       else art = [changed ? el('span', { class: 'st st-disputed' }, ['missing']) : el('span', { class: 'small' }, ['no changes, none needed'])];
       var cells = [s(r.started), [who(r.agent)], 'Scheduled wake', [el('code', {}, [s(r.run)])], s(r.summary), changed ? 'yes' : 'no', art,
-                   [el('a', { href: L.link('team/schedule/' + encodeURIComponent(r.agent) + '/index.html') }, ['output'])]];
+                   [el('a', { href: L.link(!cards || cards[r.agent] ? 'team/schedule/' + encodeURIComponent(r.agent) + '/index.html' : 'team/schedule/index.html') }, ['output'])]];   // a new agent's first run can come before its card
       rows.push({ when: s(r.started), run: s(r.run), tr: el('tr', {}, cells.map(function (c) { return el('td', {}, Array.isArray(c) ? c : [c]); })) });
     });
     rows.sort(function (a, b) { return a.when < b.when ? 1 : a.when > b.when ? -1 : a.run < b.run ? 1 : a.run > b.run ? -1 : 0; });

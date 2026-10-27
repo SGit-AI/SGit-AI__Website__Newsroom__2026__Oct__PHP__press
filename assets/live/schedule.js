@@ -20,6 +20,7 @@
     return isNaN(a) || isNaN(b) ? '' : Math.round((b - a) / 60000) + ' min';
   }
 
+  var hasCard = {};   // a run's agent links to its schedule page only when it has a card (a new agent's first run can come before it)
   function runsTable(runs, agentCol) {
     if (!runs.length) return el('p', { class: 'small' }, ['No run recorded yet.']);
     var rows = runs.map(function (r) {
@@ -30,7 +31,7 @@
       if (typeof r.cost_usd === 'number') model.push(note('$' + r.cost_usd.toFixed(2)));
       var row = [utc(r.started), [st(OUT[r.outcome] || 'other', r.outcome)], took(r), summary,
                  r.article ? [el('a', { href: L.link('articles/' + encodeURIComponent(r.article) + '/index.html') }, ['the article'])] : '', msg, model];
-      return agentCol ? [[el('a', { href: L.link('team/schedule/' + encodeURIComponent(r.agent) + '/index.html') }, [r.agent])]].concat(row) : row;
+      return agentCol ? [hasCard[r.agent] ? [el('a', { href: L.link('team/schedule/' + encodeURIComponent(r.agent) + '/index.html') }, [r.agent])] : r.agent].concat(row) : row;
     });
     return L.table((agentCol ? ['Agent'] : []).concat(['Started', 'Outcome', 'Took', 'Summary', 'Left', 'Messages', 'Model, cost']), rows, 'board');
   }
@@ -80,7 +81,7 @@
   Promise.all([L.json('records/index/schedule.json'), L.json('records/index/runs.json'), L.json('records/index/messages.json')]).then(function (d) {
     var cards = d[0].cards || [], runs = d[1].runs || [], messages = d[2].messages || [], byRun = {}, byAgent = {};
     runs.forEach(function (r) { byRun[r.run] = r; });
-    cards.forEach(function (c) { byAgent[c.agent] = c; });
+    cards.forEach(function (c) { byAgent[c.agent] = c; hasCard[c.agent] = 1; });
     var last = null;
     boxes.forEach(function (box) { try {
       var kind = box.getAttribute('data-live'), a = box.getAttribute('data-agent') || '', n = parseInt(box.getAttribute('data-limit') || '0', 10) || Infinity, c = byAgent[a];

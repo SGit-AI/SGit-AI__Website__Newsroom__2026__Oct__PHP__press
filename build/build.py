@@ -4854,7 +4854,8 @@ def all_runs(S):
                          f'admin/synthetic/{p["id"]}/{h["run"]}/index.html'))
     for fn in glob.glob(os.path.join(DATA, 'runs', '*', '*.json')):
         r = json.load(open(fn, encoding='utf-8'))
-        runs.append((r['started'], r['agent'], 'Scheduled wake', r['run'], r['outcome'] in ('ok', 'partial'), r['summary'], f'team/schedule/{r["agent"]}/index.html'))
+        card = os.path.exists(os.path.join(DATA, 'schedule', f'{r["agent"]}.json'))   # a new agent's first run can come before its card
+        runs.append((r['started'], r['agent'], 'Scheduled wake', r['run'], r['outcome'] in ('ok', 'partial'), r['summary'], f'team/schedule/{r["agent"]}/index.html' if card else 'team/schedule/index.html'))
     return sorted(runs, key=lambda r: (r[0], r[3]), reverse=True)
 
 def build_runs():
@@ -6315,7 +6316,8 @@ def sched_runs_table(runs, depth, agent_col=True):
         log = f'<details><summary>log</summary><pre class="msg">{E(r["log"])}</pre></details>' if r.get('log') else ''
         msg = ' '.join(x for x in [f'{len(r["read"])} read' if r.get('read') else '', f'{len(r["sent"])} sent' if r.get('sent') else ''] if x)
         cost = f'<div class="note">${r["cost_usd"]:.2f}</div>' if r.get('cost_usd') is not None else ''
-        rows.append(([f'<a href="{"../" * depth}team/schedule/{U(r["agent"])}/index.html">{E(r["agent"])}</a>'] if agent_col else []) +
+        card = os.path.exists(os.path.join(DATA, 'schedule', f'{r["agent"]}.json'))   # a new agent's first run can come before its card
+        rows.append(([f'<a href="{"../" * depth}team/schedule/{U(r["agent"])}/index.html">{E(r["agent"])}</a>' if card else E(r['agent'])] if agent_col else []) +
                     [E(r['started'].replace('T', ' ')[:16]) + ' UTC', f'<span class="st st-{RUN_OUT[r["outcome"]]}">{E(r["outcome"])}</span>', E(sched_took(r)),
                      E(r['summary']) + log, art, E(msg), E(r.get('model', '')) + cost])
     if not rows:
