@@ -1,4 +1,0 @@
-{
- "about": "Text addressed to a model that the gate lets the site publish. Each entry: the file (relative to the repository), the exact words matched (case does not matter), why the site needs them, and who allowed them. Kept by security@php.newsroom; an entry is added only with the editor's go.",
- "allowed": []
-}

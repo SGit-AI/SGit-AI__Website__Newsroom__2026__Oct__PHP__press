@@ -2,8 +2,9 @@
 """The press's own gate. Seconds. Exits non-zero on any failure.
 
 1. Every tool compiles; sites.json is valid, every section belongs to one site only, and exactly one site takes the rest.
-2. Every published version matches its manifest, and nothing already committed under v/ has changed.
-3. latest/ is the newest version.
+2. The version CI will publish builds from this tree (tools/package.py's list: sites.json, the tools, assets/, build/,
+   rules/, vault-app/), every file readable. CI owns the version: VERSION and the tags are written by CI after this gate,
+   and every published version is served from its tag or from the last commit that held v/ (tools/package.py).
 """
 import hashlib, json, os, subprocess, sys
 
@@ -28,23 +29,16 @@ for n, c in cfg['sites'].items():
             if s in seen:
                 fails.append(f'sites.json: section "{s}" belongs to {seen[s]} and {n}')
             seen[s] = n
-try:   # against the last commit (a staged change is still a change), and a published file removed is a change too
-    for line in subprocess.run(['git', '-C', ROOT, 'ls-tree', '-r', 'HEAD', '--', 'v'], capture_output=True, text=True, check=True).stdout.splitlines():
-        _, _, blob, path = line.replace('\t', ' ').split(None, 3)
-        if not os.path.exists(os.path.join(ROOT, path)) or subprocess.run(['git', '-C', ROOT, 'hash-object', path], capture_output=True, text=True).stdout.strip() != blob:
-            fails.append(f'{path}: a published file changed or went; a version is immutable')
-except (subprocess.CalledProcessError, FileNotFoundError):
-    pass
-vdir = os.path.join(ROOT, 'v')
-vs = sorted((d for d in os.listdir(vdir) if os.path.isfile(os.path.join(vdir, d, 'manifest.json'))), key=lambda v: tuple(map(int, v.split('.')))) if os.path.isdir(vdir) else []
-for v in vs:
-    for f in json.load(open(os.path.join(vdir, v, 'manifest.json')))['files']:
-        p = os.path.join(vdir, v, f['name'])
-        if not os.path.exists(p) or hashlib.sha256(open(p, 'rb').read()).hexdigest() != f['sha256']:
-            fails.append(f'v/{v}/{f["name"]}: does not match the manifest')
-if vs and os.path.exists(os.path.join(ROOT, 'latest', 'manifest.json')):
-    if open(os.path.join(ROOT, 'latest', 'manifest.json')).read() != open(os.path.join(vdir, vs[-1], 'manifest.json')).read():
-        fails.append(f'latest/: is not v{vs[-1]}')
+# 2. what CI will publish at the tag it writes after this gate
+import importlib.util
+_spec = importlib.util.spec_from_file_location('package', os.path.join(ROOT, 'tools', 'package.py'))
+_pkg = importlib.util.module_from_spec(_spec); _spec.loader.exec_module(_pkg)
+nxt = _pkg.published(ROOT)
+for f in nxt:
+    if not os.path.isfile(os.path.join(ROOT, f)):
+        fails.append(f'{f}: listed for the next version but not a file')
+if 'sites.json' not in nxt or not any(f.startswith('assets/') for f in nxt):
+    fails.append('the next version would hold no sites.json or no assets')
 # every HTML page the press serves (a deck, a figure page under assets/) carries a Content-Security-Policy, as every page
 # of the sites does; refused here, at the writer's own release, not later in the build every other writer waits on
 import re as _re
@@ -59,4 +53,4 @@ for f in fails:
     print('FAIL:', f)
 if fails:
     sys.exit(f'{len(fails)} failure(s)')
-print(f'gate passed: {len(cfg["sites"])} sites, {len(seen)} sections assigned, {len(vs)} version(s) published')
+print(f'gate passed: {len(cfg["sites"])} sites, {len(seen)} sections assigned; the next version holds {len(nxt)} files (CI numbers it)')
