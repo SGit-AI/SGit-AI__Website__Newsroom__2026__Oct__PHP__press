@@ -206,6 +206,10 @@ admin/appsec/advisories/SA-2026-040/index.html
 admin/appsec/advisories/SA-2026-040/index.md
 admin/appsec/advisories/SA-2026-041/index.html
 admin/appsec/advisories/SA-2026-041/index.md
+admin/appsec/advisories/SA-2026-042/index.html
+admin/appsec/advisories/SA-2026-042/index.md
+admin/appsec/advisories/SA-2026-043/index.html
+admin/appsec/advisories/SA-2026-043/index.md
 admin/appsec/advisories/index.html
 admin/appsec/advisories/index.md
 admin/appsec/bounty/index.html
@@ -378,8 +382,16 @@ admin/briefs/2026-10-26__decision__the-curator-writes-data/index.html
 admin/briefs/2026-10-26__decision__the-curator-writes-data/index.md
 admin/briefs/2026-10-26__proposal__curator-data-files/index.html
 admin/briefs/2026-10-26__proposal__curator-data-files/index.md
+admin/briefs/2026-10-27__brief__five-lanes-and-a-cap-per-tab/index.html
+admin/briefs/2026-10-27__brief__five-lanes-and-a-cap-per-tab/index.md
+admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.html
+admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.md
+admin/briefs/2026-10-27__runbook__breaking-desk-onboarding/index.html
+admin/briefs/2026-10-27__runbook__breaking-desk-onboarding/index.md
 admin/briefs/index.html
 admin/briefs/index.md
+admin/briefs/view/index.html
+admin/briefs/view/index.md
 admin/build/outputs.txt
 admin/design/a/index.html
 admin/design/a/index.md
@@ -2380,6 +2392,8 @@ team/schedule/journalist/index.html
 team/schedule/journalist/index.md
 team/schedule/librarian/index.html
 team/schedule/librarian/index.md
+team/schedule/observability/index.html
+team/schedule/observability/index.md
 team/schedule/ontologist/index.html
 team/schedule/ontologist/index.md
 team/schedule/pulse/index.html
