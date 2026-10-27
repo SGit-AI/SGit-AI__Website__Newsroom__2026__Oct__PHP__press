@@ -366,9 +366,29 @@
    "sha256": "03414946b26f2b7e3a96f54b39825eeeea60a3a1e025da3ddf0fb431aa5a8ceb"
   },
   {
+   "bytes": 374397,
+   "name": "assets/briefs/centers-of-gravity.png",
+   "sha256": "1cd04fa8148e704cb009bdbac3af2894b281c458aa0e37171d7538b4d5a5e75a"
+  },
+  {
+   "bytes": 338703,
+   "name": "assets/briefs/flow-one-article.png",
+   "sha256": "da7bb70525e1dafc1e78825960262dd282a59c6469e2c369dbcf0ac2ff7a6ae7"
+  },
+  {
+   "bytes": 199904,
+   "name": "assets/briefs/flow-one-fact-many-pages.png",
+   "sha256": "d91a73f1de087241c03af631678617110ed56194f14b80c94d1f7403834e8faf"
+  },
+  {
    "bytes": 46507,
    "name": "assets/briefs/grossman-post.png",
    "sha256": "e0af62c0ac154caa784960e9651c1d8d4d014580bf3571ac5cfa0b7b52bfcd86"
+  },
+  {
+   "bytes": 254531,
+   "name": "assets/briefs/inside-a-page-frame.png",
+   "sha256": "7f48e185adc7a6c3581a4b4b4d0263e1aae3750815bffa469f31a01f6f4b5ed4"
   },
   {
    "bytes": 175131,
@@ -414,6 +434,11 @@
    "bytes": 117052,
    "name": "assets/briefs/split-team-front.png",
    "sha256": "16abff029b18aea19984b51154ed954215d1f1655d425671c59d03f92bb7c15e"
+  },
+  {
+   "bytes": 236756,
+   "name": "assets/briefs/the-chain-before-and-after.png",
+   "sha256": "b15a223edf92b08481f2e249ae5330eda7a9a36c4744fa2bd845b6701ced1947"
   },
   {
    "bytes": 4333,
@@ -1106,6 +1131,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.53",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.53/"
+ "press": "1.0.54",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.54/"
 }
