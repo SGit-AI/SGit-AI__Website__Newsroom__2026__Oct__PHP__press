@@ -187,7 +187,7 @@ def _flow(E, L, D, runs):
     sw = D['source-watch']
     rows = [
         ('researcher', 'Researcher', n.get('researcher', {}), 'reads the live websites', f'the source-watch vault 7r83qic5 ({sw.get("pages")} pages, {sw.get("snapshots")} snapshots at its last export)'),
-        ('curator', 'Curator', n.get('curator', {}), 'reads only the source watch, each capture', f'the evidence vault 3ytzxm3g ({vs["sources"]} sources, {vs["captures"]} captures, {len(L["vault"])} commits)'),
+        ('curator', 'Curator', n.get('curator', {}), 'reads only the source watch, each capture', f'the evidence vault nnd3i8iw ({vs["sources"]} sources, {vs["captures"]} captures, {len(L["vault"])} commits)'),
         ('journalist', 'Journalist', n.get('journalist', {}), 'reads only the evidence vault', 'the site: export, verdicts, compromise and as-of lines, a release to dev'),
         ('correspondent', 'Correspondent', n.get('correspondent', {}), 'reads what went live, against the captures', 'corrections (catches), the state of affairs, readers\' answers, the rules'),
     ]

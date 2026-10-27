@@ -6,7 +6,7 @@ Usage: admin/build/export_loops.py [--vault <clone of the evidence vault>] [--sg
 The build never reads git history or a vault (CI clones shallow and holds no vault), so the times the
 loops page needs are gathered here, by the correspondent at each wake, and committed as data:
 
-  vault      every commit of the evidence vault (3ytzxm3g): when, by whom, what it promoted, and the
+  vault      every commit of the evidence vault (nnd3i8iw, a pack vault, since 27 October 2026; 3ytzxm3g before, decommissioned): when, by whom, what it promoted, and the
              source-watch queue time the curator names (the only trace of the researcher's runs that
              this repository can see). Kept from the previous export when --vault is not given.
   releases   every release on origin/dev: version, time, the Agent line, and the evidence vault head and
