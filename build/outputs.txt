@@ -368,6 +368,8 @@ admin/briefs/2026-10-25__report__one-repository-into-six-the-first-day/index.htm
 admin/briefs/2026-10-25__report__one-repository-into-six-the-first-day/index.md
 admin/briefs/2026-10-25__report__one-source-for-every-file/index.html
 admin/briefs/2026-10-25__report__one-source-for-every-file/index.md
+admin/briefs/2026-10-25__review__the-line-and-the-router-on-the-live-site/index.html
+admin/briefs/2026-10-25__review__the-line-and-the-router-on-the-live-site/index.md
 admin/briefs/2026-10-25__review__the-split-as-served/index.html
 admin/briefs/2026-10-25__review__the-split-as-served/index.md
 admin/briefs/2026-10-26__brief__every-release-is-live-again/index.html
@@ -390,6 +392,8 @@ admin/briefs/2026-10-27__brief__five-lanes-and-a-cap-per-tab/index.html
 admin/briefs/2026-10-27__brief__five-lanes-and-a-cap-per-tab/index.md
 admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.html
 admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.md
+admin/briefs/2026-10-27__brief__the-story-as-days/index.html
+admin/briefs/2026-10-27__brief__the-story-as-days/index.md
 admin/briefs/2026-10-27__runbook__breaking-desk-onboarding/index.html
 admin/briefs/2026-10-27__runbook__breaking-desk-onboarding/index.md
 admin/briefs/index.html
@@ -517,6 +521,8 @@ articles/the-risk-graph-before-and-after/index.html
 articles/the-risk-graph-before-and-after/index.md
 articles/the-telemetry-tools/index.html
 articles/the-telemetry-tools/index.md
+articles/view/index.html
+articles/view/index.md
 articles/what-changed-in-a-day/index.html
 articles/what-changed-in-a-day/index.md
 articles/what-wikipedia-knows-about-being-right/index.html
