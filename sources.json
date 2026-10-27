@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "0354d385cf84e25ef8980362713da3fec116928e",
-  "site_version": "0.22.44"
+  "commit": "c58d392324bf68ad0b48426380f1e4b8fa79b261",
+  "site_version": "0.22.45"
  },
  "sources": {
   "assets/": "assets/",
@@ -15,20 +15,11 @@
   "vault-app/": "vault-app/"
  },
  "kept": [
-  "assets/briefs/kev-listing-run-architecture.png",
-  "assets/briefs/kev-listing-run-commits-ci.png",
-  "assets/briefs/kev-listing-run-gantt.png",
-  "assets/briefs/kev-listing-run-latency.png",
-  "assets/briefs/kev-listing-run-sgit.png",
-  "assets/briefs/kev-listing-run-spread.png",
-  "assets/briefs/kev-listing-run-step-cost.png",
-  "assets/design/days/days-live.css",
-  "assets/design/days/days-live.js",
-  "assets/design/line/copy.src.json",
-  "assets/design/line/line.js",
-  "assets/design/router/router.js",
-  "build/build.py",
-  "build/design.py"
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph-core.js",
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.css",
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.js",
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.tpl",
+  "build/build.py"
  ],
  "files": {
   "assets/articles/has-anyone-been-hacked/deck.html": "4d767c9f3a710a5d28987a72ec114e04306f73f17be880cda720aa6f3e3d4b49",
@@ -98,6 +89,10 @@
   "assets/components/sg-graph/v1/v1.0/v1.0.0/sg-graph.css": "77c37a82ab4d5dd04bb46b6dcc8b312de702e947d487238fe6ffa9d0e1981daf",
   "assets/components/sg-graph/v1/v1.0/v1.0.0/sg-graph.js": "dd7211a9487648721cea673a075f1517be8b6fdaa72ac3625a4a090141b871a0",
   "assets/components/sg-graph/v1/v1.0/v1.0.0/sg-graph.tpl": "bbd946187fbf18a9cc2691851fefa6f3955084ae92374eb0346acdf3bc8ff15c",
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph-core.js": "5bc4f0168d383f7e1d807e98116be10753fd61451d5cef4372ab8d415be7b106",
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.css": "54e2b43e419c89749423659d384b31d9aa64d89729ba66479a0836507f632a01",
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.js": "bd12aa8adafcb37b6e152ea8b2822eaa38a11332992ed17a0d3eb24d8bf66607",
+  "assets/components/sg-graph/v1/v1.0/v1.0.1/sg-graph.tpl": "bbd946187fbf18a9cc2691851fefa6f3955084ae92374eb0346acdf3bc8ff15c",
   "assets/components/sg-meter/v1/v1.3/v1.3.1/sg-meter-core.js": "5b1c703a90fa32bc3a8e5f9c89dd38cfba17fa09f06f408bb6684c6b1968b227",
   "assets/components/sg-meter/v1/v1.3/v1.3.1/sg-meter.css": "192b7813a223f2e457381e9e97feea8921fb961a18c17eeede7284337f684859",
   "assets/components/sg-meter/v1/v1.3/v1.3.1/sg-meter.js": "29158d9336823ab69eadbbc5a7ab79b53c3b6426c1702678ba2375748b8c6bf8",
@@ -119,8 +114,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "e83505ba56f65adc40aa072415ca7aed7cd9d9a63a35f89c7d43e8ef847b2dfa",
-  "assets/design/line/copy.json": "c10754ee8a0630521f64d0988548ed49624795db3adc58de3755097ac2567980",
+  "assets/design/line/config.js": "9d3a1292e68002dba9bfa8148d25a6ad400c8c9d4c72ae41dd838982143c2a4b",
+  "assets/design/line/copy.json": "d527c5e5acb5e43e82c3a76ef484ce7e56c52dc8a5abedae08014ec5f800eeb4",
   "assets/design/line/copy.src.json": "0403f2f45844e27f6930bb0697cfca3b3994ff0477f7db4e18d7677ab0f9c45b",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -206,7 +201,7 @@
   "assets/vendor/sg-vault/v0.2.3/sg-vault/sg-vault.js": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26",
   "assets/vendor/vault-ui-embed.js": "fb2c5766b0fdd1eddfbfc810d7c5ed76a650fc1e07f6ae28659f19d97a790d25",
   "build/agents.py": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05",
-  "build/build.py": "82dcce1c240e0b2eb76d1f0516b573f90fa5281cff3d8dcdd2ce1efb2cd589a1",
+  "build/build.py": "c01616a4c9eea73c0c8a8dd1899c49b8a23357426b382b88ae71cf193e9b0a8a",
   "build/collaborators_drain.py": "dbad852284408dbea8708bec3fbf3f0ffe8c088cfe79d124e072dce7b27d728e",
   "build/conductor_drain.py": "750b8f448cd479f74a452d38995962c5743f58b2bb93ee48daec87d7e4dc7ca6",
   "build/contributors.py": "3ec4b8db116bb33e1bae1070437748858519525b440d3fcd4b52e5651a84484e",
@@ -224,7 +219,7 @@
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "6166a494c1d7caf8491945d001c782ff3cc41d4a23c6d31a6bf1dd0381751406",
   "build/newsroom_paths.py": "dea7967e26286dd09a599ce7bc5f629f8463d06a34b3a4430f3f2c9b0eaa032e",
-  "build/outputs.txt": "40ee7104e1d85f3fda1289902c9693b0297d61623029a856d978586d5f44defd",
+  "build/outputs.txt": "eb1f712e579c42583c11e7ae55916c4b45fb93f49be938b0ed974ae56ef865a2",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",
