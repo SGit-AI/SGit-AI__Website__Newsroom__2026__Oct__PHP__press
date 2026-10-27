@@ -645,6 +645,7 @@ def build_index():
     tracks = D['personas'].get('tracks', {})
     trackcards = ''.join(f'<a class="card" href="{U(t["home"])}" style="text-decoration:none;color:inherit"><p class="eyebrow">{E(t["label"])}</p><p style="margin:.3rem 0 .5rem;color:var(--ink-2)">{E(t["text"])}</p><div class="chips">' + ''.join(f'<span class="chip">{E(pp["label"])}</span>' for pp in PERSONAS.values() if pp.get('track') == k) + '</div></a>' for k, t in tracks.items())
     body = f"""<div class="v2">
+{DZ.days_front(globals())}
 <section class="band"><div class="shell hero">
   <div><p class="eyebrow"><span class="live">{E(s["status"])}</span> &nbsp;&middot;&nbsp; PHP news, October 2026 &nbsp;&middot;&nbsp; <a href="#checked" style="color:inherit">latest evidence {E(human_time(s["checked_at"]))}</a> &nbsp;&middot;&nbsp; <a href="views/loops/index.html" style="color:inherit">last agent run {E(human_time(LAST_RUN[0]))}</a></p>
     <h1 class="display">{E(pl["headline"])}</h1>

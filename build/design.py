@@ -385,8 +385,44 @@ def build(ns):
           [('Today', 0), ('What to do', 0), ('The incident', 0), ('The evidence', 0), ('Team console', 0)])
     made += build_lens(ns)
     made += build_line(ns)
+    made += build_days(ns)
     made += build_router(ns)
     return made
+
+
+# =========================================================================== the story as days (27 October 2026)
+# The editor's decisions of 27 October (brief records/briefs/2026-10-27__brief__the-story-as-days.md in team): the front
+# page leads with the last 24 hours and the strip of days; each day of the story is a page at /on/<date>/, read as a
+# role at /on/<date>/as/<role>/. The days are site's content (content/days/<date>.json), closed by the desk; the build
+# writes only frames, and assets/design/days/days-live.js draws them when the page opens.
+DAY_FRAMES = ('on/index.html',)
+DAYS_DIR = 'assets/design/days'
+
+
+def days_tags(up):
+    return (f'<link rel="stylesheet" href="{up}{DAYS_DIR}/days-live.css">'
+            f'<script src="{up}assets/live/live.js" defer></script><script src="{up}{DAYS_DIR}/days-live.js" defer></script>')
+
+
+def days_front(ns):
+    """The front page's first part: the strip of days and the last 24 hours, drawn when the page opens. Hidden until it
+    is drawn, so a reader without scripts, or a failed fetch, sees the front page as it was."""
+    return ('<div data-live="days-now" hidden><p><a href="on/index.html">Every day of the story</a></p></div>' + days_tags(''))
+
+
+def build_days(ns):
+    """/on/index.html: the frame every day page is drawn in (the router opens it for /on/<date>/)."""
+    page = ns['page']
+    title = 'The story, day by day'
+    desc = ('Each day of the php2shell story as its own page, written for the reader you are: what changed that day, how '
+            'much, and where it stood when the day ended. The front page is the last 24 hours.')
+    body = ('<div data-live="day"><h1>The story, day by day</h1>'
+            '<p class="lead">Each day of the story, from the warning on 20 October, with what changed that day for the reader '
+            'you are and where it stood when the day ended. The days are drawn when the page opens; the front page has '
+            '<a href="../index.html">the last 24 hours</a>.</p></div>' + days_tags('../'))
+    page('on/index.html', title, desc, body, kind='story', topics='php2shell days timeline')
+    return [('on/index.html', title, desc)]
+
 
 def llms_lines(made, BASE_URL):
     views = [x for x in made if x[0] == '404.html' or '/as/' in '/' + x[0]]
@@ -1631,7 +1667,7 @@ LINE_BAND = ('<div class="ln" data-size="line" data-tone="calm" aria-live="polit
 
 def check_reserved(ns):
     """No real page may have a path segment that is a reserved word, or the router could not tell page from view."""
-    bad = [p for p, *_ in ns['PAGES'] if any(seg in RESERVED_WORDS for seg in p.split('/')[:-1])]
+    bad = [p for p, *_ in ns['PAGES'] if p not in DAY_FRAMES and any(seg in RESERVED_WORDS for seg in p.split('/')[:-1])]
     if bad:
         raise SystemExit('build: these pages use a reserved word (%s) as a directory, which the router reads as a view: %s'
                          % (', '.join(RESERVED_WORDS), ', '.join(bad[:6])))

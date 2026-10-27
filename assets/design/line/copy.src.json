@@ -180,6 +180,9 @@
     },
     "untagged": {
       "_": "{pageTitle}. This page reads the same for every view; yours, {name}, is kept for the next page."
+    },
+    "days": {
+      "_": "Each day of the story, written for you: what changed that day, and where it stood when the day ended."
     }
   },
   "pictures": {

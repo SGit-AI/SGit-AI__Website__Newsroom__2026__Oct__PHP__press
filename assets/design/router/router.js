@@ -4,6 +4,7 @@
      /agencies/as/security/        the agencies page, for Security
      /as/executive/                the front page, for an Executive
      /playbook/as/cfo/deep/        the playbook, for a CFO, at the deepest wording
+     /on/2026-10-26/as/security/   Day 6 of the story, for Security (the day page, on/index.html)
 
    The page is everything before the first reserved word (as, on, vs, since); what follows is the view. The view
    is handed to the line for this visit only (sessionStorage), never saved over the reader's own, and the page is
@@ -45,6 +46,8 @@
     sessionStorage.setItem('p2s.lens.session', JSON.stringify(s));
   } catch (e) {}
 
+  // /on/<date>/ is a day of the story (the editor, 27 October): the day page reads the date from its address
+  if (at === 0 && segs[0] === 'on' && /^\d{4}-\d{2}-\d{2}$/.test(segs[1] || '')) { location.replace('/on/index.html' + location.search + '#' + segs[1]); return; }
   var base = '/' + segs.slice(0, at).join('/') + (at ? '/' : '');
   location.replace(base + location.search + location.hash);
 })();

@@ -11,7 +11,7 @@
     var el = document.getElementById('line-page');
     if (el) { try { var p = JSON.parse(el.textContent); for (var k in p) C[k] = p[k]; } catch (e) {} return; }
     var path = document.documentElement.getAttribute('data-path') || 'index.html';
-    var PAGES = { 'index.html': 'front', 'agencies/index.html': 'agencies', 'numbers/index.html': 'numbers', 'playbook/index.html': 'playbook' };
+    var PAGES = { 'index.html': 'front', 'agencies/index.html': 'agencies', 'numbers/index.html': 'numbers', 'playbook/index.html': 'playbook', 'on/index.html': 'days' };
     C.page = PAGES[path] || 'other';
     C.pageTitle = (document.title || '').split(' \u00b7 ')[0];
     C.root = '../'.repeat((path.match(/\//g) || []).length);   // a count, never page text (as the site's other scripts)
@@ -263,7 +263,7 @@
     if (!history.replaceState) return;
     var real = new URL(REAL);
     if (!/\/(index\.html)?$/.test(real.pathname)) return;   // a page that is a file (admin/versions.html): no view address leads back to it
-    var dir = real.pathname.replace(/index\.html$/, '');
+    var dir = h.getAttribute('data-view-base') || real.pathname.replace(/index\.html$/, '');   // a day page names its own (/on/<date>/)
     var view = dir + 'as/' + word(st.role, st.reader) + '/';
     if (st.depth && st.r.depthSet && st.depth !== L.chooseDepth(st.role, st.reader, null, ROLES)) view += st.depth + '/';
     if (location.pathname === view) return;
