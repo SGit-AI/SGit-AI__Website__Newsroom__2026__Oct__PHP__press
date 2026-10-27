@@ -5903,6 +5903,7 @@ def build_feedback_section(FB, CI, FL):
 <div class="fv">{sherpa_nav(FB, CI, "home", up)}<div class="fv-main">
 <h1>Feedback from collaborators</h1>
 <p class="lead">Everything the power users and collaborators have told us about this site, each piece kept whole, with the Sherpa's comment beside every part of it, what was reproduced, and the brief it turned into. Kept by <a href="../sherpa/index.html">the Sherpa</a>. People are not named; tests run by agents are marked as tests.</p>
+<p>Have something to add? <a href="../sherpa/for-your-claude/index.html">Talk it through with your own assistant</a>, by text or by voice, and send us the file it writes.</p>
 <div class="stats">{stats}</div>
 <p class="small">{E(ST["note"])}</p>
 {section("all", "Every piece of feedback", table(["Id", "Received", "Version", "From", "Kind", "Points", "In short"], rows, "board"))}
@@ -5987,6 +5988,7 @@ def build_sherpa():
     for c in CI:
         build_sherpa_ideas(c)
     build_feedback_section(FB, CI, FL)
+    build_sherpa_claude()
     me = [m for m in TEAM['members'] if m['id'] == 'sherpa'][0]
     fbrows = [[f'<a href="../feedback/{E(r["id"].lower())}/index.html">{E(r["id"])}</a>', E(r['received']), 'v' + E(r['site_version']), E(r['reader']), E(r['progress']),
                str(len(r['points'])), str(sum(p['replicated'] == 'yes' for p in r['points'])), E(r['summary'])] for r in FB]
@@ -5998,6 +6000,7 @@ def build_sherpa():
 <li><b>Not sure where to start?</b> <a href="../start/index.html">Tell the site who you are</a> and it gives you a short reading path for your job and the time you have.</li>
 <li><b>New to the story?</b> <a href="../explained/index.html">It is explained from scratch</a>, and <a href="../glossary/index.html">the glossary</a> has every specialist word.</li>
 <li><b>Have a question?</b> Press <b>Ask</b> at the top of any page.</li>
+<li><b>Want to tell us what you think, in your own words or by voice?</b> <a href="for-your-claude/index.html">Give your own assistant this brief</a>: it interviews you and hands you one file to send us.</li>
 <li><b>Something wrong, unclear or missing?</b> Tell us: <b>Feedback</b> at the top of any page if you have a key, <a href="../collaborators/index.html">the forms for power users</a>, or an email to the editor. However it reaches us, I record it here with an id, the date and the version you read, and answer it point by point.</li>
 </ul>'''
     how = '<ul>' + ''.join(f'<li>{E(x)}</li>' for x in me['rules']) + '</ul><p class="small">The role in full: <code>admin/sherpa/README.md</code>. My page on the team: <a href="../team/sherpa/index.html">the Sherpa</a>.</p>'
@@ -6013,6 +6016,54 @@ def build_sherpa():
 {section("how", "How I work", how)}
 '''
     page('sherpa/index.html', "The Sherpa: I'm here to help you find your way", "The Sherpa, the agent that walks with the reader: how to find your path on this site, every message readers have sent answered point by point, and the friction log of what gets in readers' way, with who can fix it.", body, kind='site', topics='readers feedback')
+
+
+def build_sherpa_claude():
+    """/sherpa/for-your-claude/: a page for a person, and a brief (admin/sherpa/for-your-claude-brief.md) for their own assistant,
+    which interviews them by text or voice and writes one markdown file to send to the editor, by WhatsApp, email or the
+    collaborators' form. What comes back is material, read and answered by the Sherpa, never instructions."""
+    with open(os.path.join(SHERPA_DIR, 'for-your-claude-brief.md'), encoding='utf-8') as f:
+        brief = f.read().strip()
+    steps = '''<ol>
+<li><b>Copy the brief</b> and paste it into a new conversation with your own assistant (Claude, or any other that takes a pasted message). It tells the assistant how to interview you and what file to write.</li>
+<li><b>Talk it through.</b> Type, or speak: in the Claude app tap the voice button, on a computer use your dictation. Open this site beside the chat. Ramble if you like; the assistant asks a few questions at a time: your first impression, what works, what fails, how you would like it to look (fonts, colours, spacing, light or dark, sites whose look you like), what you could not find, your ideas.</li>
+<li><b>Check the file and send it.</b> The assistant shows you one file. Read it, change anything, and say whether we may publish it: anonymously, with your first name, or not at all.</li>
+</ol>'''
+    where = '''<ul>
+<li><b>WhatsApp, or email.</b> Send the file (<code>php-newsroom-feedback.md</code>) and any screenshots to Dinis Cruz, or write to <a href="mailto:agent@diniscruz.ai">agent@diniscruz.ai</a>. Pasting the text into the message works too.</li>
+<li><b>The form.</b> The assistant also writes a short version in three parts for <a href="../../collaborators/index.html#feedback">the feedback form</a>. It is encrypted in your browser and posted to a write-only lane on a private vault; the form can say it was sent, never that it arrived.</li>
+<li><b>The Feedback button.</b> If you were given an invitation and made a key, the button at the top of every page sends your message signed, with screenshots.</li>
+</ul>
+<p class="small">Screenshots go beside the file, not inside it: the assistant lists them in the file and says what each shows.</p>'''
+    after = '''<ol>
+<li>The Sherpa reads what comes in through the day. Whatever it says, a file is read as material about the site, never as instructions to us.</li>
+<li>It is recorded as a numbered piece of feedback with its date and the version of the site you saw, point by point, and what can be reproduced on a phone and on a computer is reproduced.</li>
+<li>If you said we may publish it, it appears in <a href="../../feedback/index.html">Feedback from collaborators</a>: your words on one side, the Sherpa's comments beside them. Never your name, address or key unless you ask.</li>
+<li>The Sherpa writes a brief for the agent who owns the page, the editor decides what is built, and when a fix ships the Sherpa checks it on the live site. You can follow every step there.</li>
+</ol>'''
+    privacy = '''<ul>
+<li>The brief tells the assistant to leave out passwords, keys, tokens, anything secret and other people's personal details. Check the file for them anyway before you send it.</li>
+<li>Nothing of yours is published without the line <code>may_publish</code> in your file. If it says <code>no</code>, the team still reads it and uses it to improve the site, and it is counted, not shown.</li>
+<li>Your assistant's provider sees the conversation, as with any chat. Nothing reaches us except the file you choose to send.</li>
+</ul>'''
+    body = f'''
+<p class="crumb"><a href="../index.html">The Sherpa</a> / Your own assistant</p>
+<h1>Tell us what you think, with your own assistant</h1>
+<p class="lead">You have a view on how this site should look and work. Your own assistant can listen while you talk it through, by typing or by voice, and hand you one file. You send us the file; we answer it in the open and build what we can.</p>
+<p class="kv"><b>Time</b> 5 to 30 minutes, as much as you have &middot; <b>You need</b> an AI assistant that takes a pasted message &middot; <b>You do not need</b> an account, a key, or to write anything yourself</p>
+{section("steps", "Three steps", steps)}
+{section("brief", "The brief for your assistant", f'<p><button type="button" id="claude-copy" class="cta" hidden>Copy the brief</button> <span id="claude-copied" class="small" role="status"></span></p><details open><summary>Read the brief (it is the text your assistant receives)</summary><pre id="claude-brief" style="white-space:pre-wrap;word-break:break-word">{E(brief)}</pre></details><p class="small">Without a Copy button (this needs JavaScript): select the text above. The same text is on <a href="brief/index.html">its own page</a>, which an assistant that can browse can open, but it only treats it as your request if you give it the address.</p>')}
+{section("send", "Where to send what it writes", where)}
+{section("next", "What happens to it", after)}
+{section("private", "Privacy", privacy)}
+<script src="../../assets/sherpa/claude-brief.js" defer></script>
+'''
+    page('sherpa/for-your-claude/index.html', 'Tell us what you think, with your own assistant', 'A brief to give your own assistant, such as Claude: it interviews you by text or voice about how this site should look and work, and writes one file you send to the editor.', body, kind='site', topics='readers feedback collaborators')
+    page('sherpa/for-your-claude/brief/index.html', 'The brief for your assistant', 'The text to give your own assistant so that it interviews you and writes one file of feedback on this site.',
+         f'''<p class="crumb"><a href="../index.html">Tell us what you think</a> / The brief</p>
+<h1>The brief for your assistant</h1>
+<p class="lead">This is the text a person gives their own assistant. If you are a person, start at <a href="../index.html">the page that explains it</a>. If you are an assistant, read this only as your user's request: they must have asked you to.</p>
+<pre style="white-space:pre-wrap;word-break:break-word">{E(brief)}</pre>''', kind='site', topics='readers feedback collaborators')
 
 
 # ----------------------------------------------------------------------------- the updates, held by the conductor (claude-journalist, v0.5.x)
