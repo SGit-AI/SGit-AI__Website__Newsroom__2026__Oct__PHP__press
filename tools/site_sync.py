@@ -4,8 +4,9 @@
     python3 tools/pages_sync.py import --from ../sgit-ai__website__newsroom__2026__oct__php   # v1 -> here, never over a change made here
     python3 tools/pages_sync.py export --into ../sgit-ai__website__newsroom__2026__oct__php   # here -> v1, what changed here since the last import
 
-press.json 'sources' maps each folder of this repository's own sources to its v1 path (from sites.json): the site's
-`content/` is v1's `admin/content/articles/`, and so on. The rule: **what is written here wins.** sources.json keeps
+press.json 'sources' maps each folder (ending in /) or single file of this repository's own sources to its v1 path (from
+sites.json): the site's `content/articles/` is v1's `admin/content/articles/`, its `content/data/glossary.json` is v1's
+`data/glossary.json`, and so on. The rule: **what is written here wins.** sources.json keeps
 the sha256 of every file the last import wrote; a file whose sha256 differs was written here since, so the import
 leaves it alone and the export carries it into v1, where its gate, build and release take it to the pages. A file not in
 the record is new here: kept, exported. After v1 releases, the next import records the same bytes, and the two agree.
@@ -38,16 +39,21 @@ def record():
     return json.load(open(RECORD, encoding='utf-8')) if os.path.exists(RECORD) else {}
 
 
+def covered(here):
+    """The files of this repository one mapping covers: a folder (ending in /) every file in it, a file itself."""
+    top = os.path.join(ROOT, here.rstrip('/'))
+    if here.endswith('/'):
+        return files_under(top) if os.path.isdir(top) else []
+    return [here] if os.path.isfile(top) else []
+
+
 def changed_here(rec, src):
     known = rec.get('files', {})
     if not known:   # no record yet (the first import): nothing counts as written here
         return []
     out = []
     for here in src:
-        top = os.path.join(ROOT, here.rstrip('/'))
-        if not os.path.isdir(top):
-            continue
-        for p in files_under(top):
+        for p in covered(here):
             if known.get(p) != sha(os.path.join(ROOT, p)):
                 out.append(p)
     return out
@@ -63,6 +69,13 @@ def do_import(v1):
     rec = record(); keep = set(changed_here(rec, src)); kept, wrote = [], {}
     for here, there in src.items():
         top = os.path.join(v1, there.rstrip('/'))
+        if not here.endswith('/'):                    # one file (the readers' copy: content/data/glossary.json, ...)
+            if not os.path.isfile(top):
+                sys.exit(f'import: {there} is not in v1')
+            if here in keep:
+                kept.append(here); wrote[here] = sha(os.path.join(ROOT, here)); continue
+            os.makedirs(os.path.dirname(os.path.join(ROOT, here)), exist_ok=True)
+            shutil.copyfile(top, os.path.join(ROOT, here)); wrote[here] = sha(os.path.join(ROOT, here)); continue
         if not os.path.isdir(top):
             sys.exit(f'import: {there} is not in v1')
         for d, dirs, fs in os.walk(top):
@@ -79,8 +92,7 @@ def do_import(v1):
         if p not in wrote and os.path.exists(q) and sha(q) == h:
             os.remove(q); gone += 1
     for here in src:                                  # written here, never imported: its own
-        top = os.path.join(ROOT, here.rstrip('/'))
-        for p in (files_under(top) if os.path.isdir(top) else []):
+        for p in covered(here):
             if p not in wrote:
                 wrote[p] = sha(os.path.join(ROOT, p))
     commit = subprocess.run(['git', '-C', v1, 'rev-parse', 'HEAD'], capture_output=True, text=True, check=True).stdout.strip()
@@ -98,7 +110,7 @@ def do_export(v1):
         sys.exit('export: no import record yet; import first')
     out = []
     for p in changed_here(rec, src):
-        here = next(h for h in src if p.startswith(h))
+        here = next(h for h in src if p == h or (h.endswith('/') and p.startswith(h)))
         dst = os.path.join(v1, src[here] + p[len(here):]); os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copyfile(os.path.join(ROOT, p), dst); out.append(src[here] + p[len(here):])
     print(f'exported to v1: {len(out)} file(s)' + ('; release v1, then import again' if out else ''))

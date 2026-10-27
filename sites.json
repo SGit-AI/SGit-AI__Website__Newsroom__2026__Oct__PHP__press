@@ -14,7 +14,13 @@
    "sources": {
     "content/articles/": "admin/content/articles/",
     "content/external/": "admin/content/external/",
-    "content/reviews/": "admin/content/reviews/"
+    "content/reviews/": "admin/content/reviews/",
+    "content/data/glossary.json": "data/glossary.json",
+    "content/data/plain.json": "data/plain.json",
+    "content/data/questions.json": "data/questions.json",
+    "content/data/interview.json": "data/interview.json",
+    "content/data/seo.json": "data/seo.json",
+    "content/data/billing.json": "data/billing.json"
    },
    "own": [
     "content/",
