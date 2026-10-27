@@ -58,9 +58,13 @@
 
   // A link to a path of the site (team/schedule/x/index.html), resolved where it lives: on this site, or on the site that
   // serves that section (assets/route.js), as the build's links are after the partition.
+  // A page of another site is named by its folder, as the partition writes it (x/index.html as x/).
   function link(path) {
     var u = root() + path;
-    try { return window.P2S_URL ? window.P2S_URL(u) : u; } catch (e) { return u; }
+    try {
+      var x = window.P2S_URL ? window.P2S_URL(u) : u;
+      return /^https?:/.test(x) && new URL(x).origin !== location.origin ? x.replace(/\/index\.html(?=$|[?#])/, '/') : x;
+    } catch (e) { return u; }
   }
 
   // The build's table(): a <div class="tw"> around a table with the given class, header cells and rows of cells.

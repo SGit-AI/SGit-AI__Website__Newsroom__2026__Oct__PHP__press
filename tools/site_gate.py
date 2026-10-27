@@ -9,6 +9,9 @@
 3. Every link to another of the newsroom's sites names a page that site serves, every link to the press an asset its
    pinned version publishes, every link to the data API a file its pinned version publishes (press.json lists them).
 4. CNAME names where this site is served; no credential shapes in any page, script or data file.
+5. Every article in content/articles/ (site's) has the front matter the build needs, a plain name and slug, closed
+   ```diff blocks, corrections as "<time> | <text>", the sources it cites in the data API and the figures it shows in
+   the press (read by URL; skipped with a note offline), sliders of two pictures the same size.
 """
 import hashlib, json, os, posixpath, re, sys
 
@@ -88,6 +91,94 @@ for p in sorted(files):
                 fails.append(f'{p}: links to {url}, which is not here')
 if broken > 20:
     fails.append(f'and {broken - 20} more links to files that are not here')
+
+# 5. the articles this site writes (content/articles/), checked at the writer's push: an article is drawn from its file
+# (assets/live/article.js) and the next build gives it a frame, so what would stop that build stops here. The sources it
+# cites must be in the data API's sources.json and its figures in the press, both read by URL (the versions press.json
+# pins); offline, those two checks are skipped with a note, and CI runs them.
+ART = os.path.join(ROOT, 'content', 'articles')
+if os.path.isdir(ART):
+    import struct, urllib.request
+    ORIGINS = ('house', 'guest', 'update', 'interview')
+    NEEDS = ('slug', 'title', 'dek', 'role', 'origin', 'author', 'written', 'as_of_version', 'vault_commit', 'data_as_of')
+    IMG = r'/(assets/articles/[a-z0-9-]+/[a-z0-9-]+\.png)'
+    def fetch(url, head=None):
+        req = urllib.request.Request(url, headers={'Range': f'bytes=0-{head - 1}'} if head else {})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return r.read()
+    remote, notes = {}, []
+    def published(kind):
+        """The data API's source slugs, or the press's files, read once; None when they cannot be read."""
+        if kind not in remote:
+            try:
+                if kind == 'sources':
+                    remote[kind] = {s['slug'] for s in json.loads(fetch(meta['data_base'] + 'sources.json')) if isinstance(s, dict) and 'slug' in s}
+                else:
+                    base = meta['assets'][:-len('assets/')]
+                    remote[kind] = {f['name'] for f in json.loads(fetch(base + 'manifest.json'))['files']}
+            except Exception as e:
+                remote[kind] = None
+                notes.append(f'{kind}: not read ({type(e).__name__}); skipped here, checked in CI')
+        return remote[kind]
+    slugs = {}
+    for fn in sorted(os.listdir(ART)):
+        if not fn.endswith('.md'):
+            continue
+        p = f'content/articles/{fn}'
+        text = open(os.path.join(ART, fn), encoding='utf-8').read().replace('\r\n', '\n')
+        if not re.fullmatch(r'[0-9a-z_.-]+\.md', fn):
+            fails.append(f'{p}: the name must be lower case letters, digits, "-", "_" and "." (<date>__<role>__<slug>.md)')
+        m = re.match(r'^---\n(.*?)\n---\n(.*)$', text, flags=re.S)
+        if not m:
+            fails.append(f'{p}: no front matter (--- key: value lines ---, then the article)')
+            continue
+        fm = {}
+        for line in m.group(1).splitlines():
+            kv = re.match(r'^(\w+):\s*(.*)$', line)
+            if kv:
+                fm[kv.group(1)] = kv.group(2)
+            elif line.strip():
+                fails.append(f'{p}: front matter line is not "key: value": {line[:60]}')
+        for k in NEEDS:
+            if not fm.get(k):
+                fails.append(f'{p}: front matter has no {k}')
+        if fm.get('slug') and not re.fullmatch(r'[0-9a-z][0-9a-z-]*', fm['slug']):
+            fails.append(f'{p}: slug "{fm["slug"]}" must be lower case letters, digits and "-"')
+        if fm.get('slug') in slugs:
+            fails.append(f'{p}: slug "{fm["slug"]}" is also {slugs[fm["slug"]]}\'s')
+        slugs.setdefault(fm.get('slug'), p)
+        if fm.get('origin') and fm['origin'] not in ORIGINS:
+            fails.append(f'{p}: origin "{fm["origin"]}" is not one of {", ".join(ORIGINS)}')
+        if fm.get('written') and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', fm['written']):
+            fails.append(f'{p}: written "{fm["written"]}" is not a date (YYYY-MM-DD)')
+        for k, v in fm.items():
+            if re.fullmatch(r'correction\d+', k) and not re.match(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}Z \| \S', v):
+                fails.append(f'{p}: {k} must be "<YYYY-MM-DDTHH:MMZ> | <what was corrected>"')
+        body = m.group(2)
+        if len(re.findall(r'^```diff\s*$', body, flags=re.M)) > len(re.findall(r'^```\s*$', body, flags=re.M)):
+            fails.append(f'{p}: a ```diff block is not closed')
+        cites = [x.strip() for g in re.findall(r'\[\[([^\]]+)\]\]', body) for x in g.split(',')]
+        known = published('sources') if cites else set()
+        for c in dict.fromkeys(cites):
+            if known is not None and c not in known:
+                fails.append(f'{p}: cites [[{c}]], which is not in the data API\'s sources.json (a fact names a captured source)')
+        figs = re.findall(r'^!\[[^\]]+\]\(' + IMG, body, flags=re.M) + [x for t in re.findall(r'^!split\[[^\]]+\]\(' + IMG + r'\)\[[^\]]+\]\(' + IMG + r'\)', body, flags=re.M) for x in t]
+        pairs = re.findall(r'^!slider\[[^\]]+\]\(' + IMG + r'\)\(' + IMG + r'\)', body, flags=re.M)
+        files_there = published('assets') if (figs or pairs) else set()
+        for f in dict.fromkeys(figs + [x for t in pairs for x in t]):
+            if files_there is not None and f not in files_there:
+                fails.append(f'{p}: shows /{f}, which the press does not publish (add it to the press\'s assets/articles/ first)')
+        for a, b in pairs:
+            if files_there is None or a not in files_there or b not in files_there:
+                continue
+            try:
+                sizes = {struct.unpack('>II', fetch(meta['assets'] + x[len('assets/'):], head=24)[16:24]) for x in (a, b)}
+                if len(sizes) > 1:
+                    fails.append(f'{p}: the slider\'s /{a} and /{b} are not the same size')
+            except Exception as e:
+                notes.append(f'{p}: slider sizes not read ({type(e).__name__})')
+    for n in notes:
+        print('note:', n)
 
 # 4. where it is served, and no credentials
 cname = open(os.path.join(ROOT, 'CNAME'), encoding='utf-8').read().strip() if 'CNAME' in present else ''

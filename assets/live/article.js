@@ -69,7 +69,7 @@
   var drawn = { src: {}, cve: {}, img: {} };
   function learn(root) {
     root.querySelectorAll('a.src[href]').forEach(function (a) {
-      var m = a.getAttribute('href').match(/sources\/([^/]+)\/index\.html$/);
+      var m = a.getAttribute('href').match(/sources\/([^/?#]+)\/(?:index\.html)?$/);   // the partition names another site's page by its folder
       if (m) drawn.src[decodeURIComponent(m[1])] = { short: a.textContent, title: a.getAttribute('title') || '' };
     });
     root.querySelectorAll('a.cve-link[data-term]').forEach(function (a) { drawn.cve[a.getAttribute('data-term')] = a.getAttribute('href'); });
