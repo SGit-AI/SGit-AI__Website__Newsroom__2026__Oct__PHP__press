@@ -1442,13 +1442,32 @@ def render_md_file(path):
     if in_code: out.append('</pre>')
     return '\n'.join(out)
 
+INLINE_MD = [('code', re.compile(r'`([^`]+)`')), ('b', re.compile(r'\*\*([^*]+)\*\*')), ('i', re.compile(r'(?<![\w*])\*([^*\s][^*]*)\*(?![\w*])')),
+             ('a', re.compile(r'\[([^\]]+)\]\((https?://[^)\s"<>]+)\)'))]
+
 def inline_md(s):
-    s = E(s)
-    s = re.sub(r'`([^`]+)`', r'<code>\1</code>', s)
-    s = re.sub(r'\*\*([^*]+)\*\*', r'<b>\1</b>', s)
-    s = re.sub(r'(?<![\w*])\*([^*\s][^*]*)\*(?![\w*])', r'<i>\1</i>', s)
-    s = re.sub(r'\[([^\]]+)\]\((https?://[^)\s"<>]+)\)', r'<a href="\2" rel="noopener">\1</a>', s)
-    return s
+    """`code`, **bold**, *italic* and [text](http(s) link): the pattern that matches earliest wins; bold, italics and a
+    link's text are read again inside, code is kept as written (`sources/*/x/*` keeps its stars; **bold `code`** works).
+    The same rules as assets/live/live.js inline(), so a page drawn live and a page built read the same."""
+    out = []
+    while s:
+        best = None
+        for k, rx in INLINE_MD:
+            m = rx.search(s)
+            if m and (best is None or m.start() < best[1].start()):
+                best = (k, m)
+        if not best:
+            out.append(E(s)); break
+        k, m = best
+        out.append(E(s[:m.start()]))
+        if k == 'code':
+            out.append(f'<code>{E(m.group(1))}</code>')
+        elif k == 'a':
+            out.append(f'<a href="{E(m.group(2))}" rel="noopener">{inline_md(m.group(1))}</a>')
+        else:
+            out.append(f'<{k}>{inline_md(m.group(1))}</{k}>')
+        s = s[m.end():]
+    return ''.join(out)
 
 def build_brief():
     memos = []
@@ -1553,12 +1572,20 @@ def build_briefs():
     body = f"""
 <h1>Briefs</h1>
 <p class="lead">A brief is written before the work and published as written: what was asked, in whose words, what exists to build on, the design, what it cannot do, the deliverables and the open questions. The newsroom and the sgit.ai sites keep theirs the same way. The file is the record; every brief below is one file in <code>admin/content/briefs/</code> and has its own page and link. The written request and the two voice memos that started the site are on <a href="../../brief/index.html">the brief</a>.</p>
-<p class="small">{len(metas)} briefs, the most recently published first, with the time each was published (UTC). Each opens on its own page; the markdown twin of every page is one click from it. The times are kept in <a href="../../data/briefs-published.json">data/briefs-published.json</a>.</p>
-{rows}
+<p class="small"><span data-live-brief-count>{len(metas)}</span> briefs, the most recently published first, with the time each was published (UTC). Each opens on its own page; the markdown twin of every page is one click from it. The times are kept in <a href="../../data/briefs-published.json">data/briefs-published.json</a>.</p>
+<div data-live="briefs-index">{rows}</div>
+<script src="../../assets/live/live.js" defer></script>
+<script src="../../assets/live/briefs.js" defer></script>
 """
     page('admin/briefs/index.html', 'Briefs', f'Every build brief for this site, {len(metas)} of them, published in full before the work: the title, the date and who wrote it, each on its own page.', body, kind='site')
 
     BRIEF_PAGES.extend(metas)
+    # a brief written since this build: drawn from its own file in the team repository until the next round gives it a page
+    page('admin/briefs/view/index.html', 'A brief', 'A brief published since the last build, drawn from its file in the team repository.', """
+<div data-live="brief-view"><h1>A brief</h1><p>This page draws a brief published since the site was last built, from its own file in the team repository. It needs scripts; every brief is also a file in <a href="https://github.com/SGit-AI/SGit-AI__Website__Newsroom__2026__Oct__PHP__team/tree/dev/records/briefs">records/briefs/</a>.</p></div>
+<script src="../../../assets/live/live.js" defer></script>
+<script src="../../../assets/live/briefs.js" defer></script>
+""", kind='site')
     for i, m in enumerate(metas):
         nxt = metas[i - 1] if i > 0 else None               # metas is newest first
         prv = metas[i + 1] if i + 1 < len(metas) else None

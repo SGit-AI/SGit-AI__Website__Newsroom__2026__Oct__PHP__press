@@ -130,12 +130,57 @@
   // The build's stat(): a number over its label.
   function stat(n, label) { return el('div', { class: 'stat' }, [el('b', {}, [String(n)]), el('span', {}, [label])]); }
 
-  function json(path) {
+  // The build's render_md_file(): tables, ``` code, headings (# is h2, ## h3, ### and deeper h4), lists, > quotes (one
+  // quote for consecutive lines), a picture only when it is a PNG under assets/briefs/ (served by the press), paragraphs.
+  function mdDoc(text) {
+    var f = document.createDocumentFragment(), ul = null, pre = null, rows = [], quote = null;
+    var flush = function () {
+      if (rows.length) { f.appendChild(table(rows[0].map(inline), rows.slice(1).map(function (r) { return r.map(inline); }))); rows = []; }
+    };
+    String(text == null ? '' : text).split(/\r?\n/).forEach(function (line) {
+      var t = line.trim();
+      if (!pre && t.indexOf('|') === 0) {
+        ul = null; quote = null;
+        var cells = t.replace(/^\|+|\|+$/g, '').split('|').map(function (c) { return c.trim(); });
+        if (!cells.every(function (c) { return /^:?-+:?$/.test(c); })) rows.push(cells);
+        return;
+      }
+      flush();
+      if (t.indexOf('```') === 0) {
+        if (pre) pre = null; else { pre = el('pre'); f.appendChild(pre); ul = null; quote = null; }
+        return;
+      }
+      if (pre) { pre.appendChild(document.createTextNode(line + '\n')); return; }
+      var h = line.match(/^(#{1,4})\s+(.*)$/);
+      if (h) { ul = null; quote = null; f.appendChild(el('h' + Math.min(h[1].length + 1, 4), {}, [h[2]])); return; }
+      if (/^\s*[-*]\s+/.test(line)) {
+        quote = null;
+        if (!ul) { ul = el('ul'); f.appendChild(ul); }
+        var li = el('li'); li.appendChild(inline(line.replace(/^\s*[-*]\s+/, ''))); ul.appendChild(li); return;
+      }
+      ul = null;
+      var img = t.match(/^!\[([^\]]+)\]\((assets\/briefs\/[a-z0-9-]+\.png)\)$/);
+      if (img) { quote = null; f.appendChild(el('figure', { class: 'shot' }, [el('img', { src: link(img[2]), alt: img[1], loading: 'lazy' })])); return; }
+      if (line.indexOf('>') === 0) {
+        var q = inline(line.replace(/^>\s?/, ''));
+        if (quote) { quote.appendChild(document.createTextNode(' ')); quote.appendChild(q); }
+        else { quote = el('p'); quote.appendChild(q); f.appendChild(el('blockquote', {}, [quote])); }
+        return;
+      }
+      if (t) { quote = null; var p = el('p'); p.appendChild(inline(line)); f.appendChild(p); }   // a blank line appends nothing: a quote after it joins the one before
+    });
+    flush();
+    return f;
+  }
+
+  function get(path) {
     return fetch(root() + path, { cache: 'no-cache', credentials: 'omit' }).then(function (r) {
       if (!r.ok) throw new Error(path + ': HTTP ' + r.status);
-      return r.json();
+      return r;
     });
   }
+  function json(path) { return get(path).then(function (r) { return r.json(); }); }
+  function text(path) { return get(path).then(function (r) { return r.text(); }); }
 
   // A line under a live view: where it was read from, and when.
   function stamp(after, what) {
@@ -145,5 +190,5 @@
     return p;
   }
 
-  window.P2S_LIVE = { el: el, href: href, pill: pill, json: json, root: root, stamp: stamp, link: link, table: table, fill: fill, inline: inline, md: md, pyStr: pyStr, stat: stat };
+  window.P2S_LIVE = { el: el, href: href, pill: pill, json: json, root: root, stamp: stamp, link: link, table: table, fill: fill, inline: inline, md: md, mdDoc: mdDoc, text: text, pyStr: pyStr, stat: stat };
 })();
