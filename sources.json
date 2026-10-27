@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "9ea22e8422dc02f7cc6cc6edffbe58ddb6386a34",
-  "site_version": "0.22.46"
+  "commit": "b5afe22d517aaca4126a16da1a7b8d836930c59e",
+  "site_version": "0.22.49"
  },
  "sources": {
   "assets/": "assets/",
@@ -14,10 +14,7 @@
   "rules/SECURITY.md": "SECURITY.md",
   "vault-app/": "vault-app/"
  },
- "kept": [
-  "build/build.py",
-  "build/validate.py"
- ],
+ "kept": [],
  "files": {
   "assets/articles/has-anyone-been-hacked/deck.html": "4d767c9f3a710a5d28987a72ec114e04306f73f17be880cda720aa6f3e3d4b49",
   "assets/articles/has-anyone-been-hacked/deck.pdf": "8e38847c00b6712594ae0f2a41c3ad290d9ab670f1f5d2be99d166f437e62de3",
@@ -111,8 +108,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "52c4865caa11bcd90dd2488fb2386dded840a345c2f83f0cd6d0ca5725938b2b",
-  "assets/design/line/copy.json": "f680f717ce4b7aa7db92ffc60b99f25557d14bf2c3c04dda9f9b3724fde18d76",
+  "assets/design/line/config.js": "4d5da1c04958a860d3e26f2d577dc8bb34f1b2709a3619b7969fbfdc86dfaf00",
+  "assets/design/line/copy.json": "e7d2c440e6acc5a6e7102616ccc5e29eefcabe7e91b6e3ac440e6abc3b2e7f01",
   "assets/design/line/copy.src.json": "0403f2f45844e27f6930bb0697cfca3b3994ff0477f7db4e18d7677ab0f9c45b",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
