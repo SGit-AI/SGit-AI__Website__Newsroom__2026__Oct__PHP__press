@@ -102,7 +102,7 @@
   ]
  },
  "never": {
-  "about": "v1's sources: the build, its content, the security notes, the agents' tools and the repository's own documents. They stay in v1 (and move to their own repositories in pass two); no site serves them.",
+  "about": "v1's sources: the build, its content, the security notes, the agents' tools and the repository's own documents. They stay in v1 (and move to their own repositories in pass two); no site serves them. vault-app/ (the evidence vault's own app, for the vault UI) is not served since 27 October 2026: the vault it opened is decommissioned, and the main vaults are pack vaults the vault UI does not open; its source stays in the press.",
   "paths": [
    ".git/",
    ".github/",
@@ -128,7 +128,8 @@
    "sitemap.xml",
    "robots.txt",
    "assets/",
-   "data/"
+   "data/",
+   "vault-app/"
   ]
  },
  "elsewhere": {

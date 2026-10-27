@@ -249,10 +249,10 @@ NAV = [
     ('The analysis', [('claims/index.html', 'Every claim'), ('claims/review/index.html', 'Claims waiting for review'), ('factcheck/index.html', 'Fact-check: how sure we are'), ('outreach/index.html', 'Corrections we have asked for'), ('numbers/index.html', 'The numbers'), ('agencies/index.html', 'The agencies'),
                       ('affected/index.html', 'Affected systems'), ('actors/index.html', 'Who says what'), ('graph/index.html', 'As a graph'), ('graph/parties/index.html', 'Every party'), ('wikipedia/index.html', 'Wikipedia, as a graph'), ('wikipedia/php2shell/index.html', 'Wikipedia: the PHP2Shell article'), ('wikipedia/php2shell/statements/index.html', 'Wikipedia: every statement'), ('wikipedia/php2shell/references/index.html', 'Wikipedia: every reference'), ('wikipedia/php2shell/history/index.html', 'Wikipedia: every edit'), ('wikipedia/php2shell/evolution/index.html', 'Wikipedia: the evolution'), ('wikipedia/php2shell/talk/index.html', 'Wikipedia: the talk page'), ('wikipedia/php2shell/review/index.html', 'Wikipedia: a reviewer\'s reading'), ('wikipedia/for-editors/index.html', 'Wikipedia: for its editors'), ('fractal/index.html', 'From a line of code to a stakeholder'), ('fractal/ui/index.html', 'Walk the whole graph'),
                       ('readings/index.html', 'From outside: other models and sites')] + [(f'readings/{r["id"]}/index.html', f'{r["model"]}\'s notes, in full') for r in D['readings']['readings']]),
-    ('The evidence', [('sources/index.html', 'Every source'), ('affected/software.html', 'Software inventory'), ('admin/vault/index.html', 'The vault, opened'),
+    ('The evidence', [('sources/index.html', 'Every source'), ('affected/software.html', 'Software inventory'),
                       ('layers/index.html', 'Evidence, derived, authored'),
                       ('pipeline/index.html', 'The fact pipeline'), ('versions/index.html', 'How the story changed'),
-                      ('vaults/index.html', 'Every vault behind this site')] + [(x['page'], x['name']) for x in D['vaults']['vaults'] if x.get('nav', True)]),
+                      ('vaults/source-watch/index.html', 'The source watch')]),
     ('GRC', [('grc/index.html', 'GRC: risks, owners, standards'), ('grc/risks/index.html', 'The risk register'), ('grc/stakeholders/index.html', 'Stakeholders and their registers'),
              ('grc/frameworks/index.html', 'Frameworks: GDPR, NIS2, CRA, ISO, NIST'), ('grc/graph/index.html', 'The risk graph'), ('grc/explore/index.html', 'Explore the graph: from any node'), ('grc/gaps/index.html', 'What the graph is missing'), ('grc/changes/index.html', 'What changed in the graph'), ('grc/network/index.html', 'From the sgit network')]),
     ('Views', [('views/index.html', 'Views: the journalist\'s reading'), ('views/state/index.html', 'The state of affairs, now'), ('views/state/history/index.html', 'Every version, and what changed'), ('views/desk/index.html', "The journalist's desk: what is still stale"), ('views/loops/index.html', 'Every loop: researcher to correspondent')]),
@@ -1605,6 +1605,11 @@ def build_briefs():
              body, kind='site')
 
 
+def vaults_llms_lines():
+    return (f'- [The evidence vault, opened]({BASE_URL}/admin/vault/index.md): removed on 27 October 2026 (the vault it opened is decommissioned)\n'
+            f'- [The vaults behind this site]({BASE_URL}/vaults/index.md): removed on 27 October 2026 (the main vaults are pack vaults, which the vault UI does not open)\n')
+
+
 def articles_llms_lines():
     return f'- [An article published since the last build]({BASE_URL}/articles/view/index.md): drawn from its file in the site repository, until the next build gives it its own page\n'
 
@@ -1927,7 +1932,7 @@ def main():
     # and what this release changed in the risk graph (grc_history.py), for /grc/changes/
     GRC_HISTORY.update(__import__('grc_history').for_build(VERSION, json.load(open(os.path.join(DATA, 'grc-graph.json'), encoding='utf-8')))); OUTPUTS.add('data/grc-history.json')
     build_grc_changes()
-    __import__('design').write_live_css(globals()); write('assets/design/dials.js', __import__('design').DIALS_JS); build_now(); build_llms(); _design_made = __import__('design').build(globals()); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(__import__('design').llms_lines(_design_made, BASE_URL)); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(briefs_llms_lines() + articles_llms_lines()); build_sitejs(); build_personas_js(); build_feed(); build_seo(); save_ledger(); build_feeds_xml(); build_stack_catalogue(); save_items()
+    __import__('design').write_live_css(globals()); write('assets/design/dials.js', __import__('design').DIALS_JS); build_now(); build_llms(); _design_made = __import__('design').build(globals()); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(__import__('design').llms_lines(_design_made, BASE_URL)); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(briefs_llms_lines() + articles_llms_lines() + vaults_llms_lines()); build_sitejs(); build_personas_js(); build_feed(); build_seo(); save_ledger(); build_feeds_xml(); build_stack_catalogue(); save_items()
     write('admin/build/outputs.txt', '\n'.join(sorted(OUTPUTS | {'admin/build/outputs.txt'})) + '\n')
     print(f'built {len(PAGES)} pages for v{VERSION}, data as of {STORY["data_as_of"]}, vault {D["vault"]["head"]["commit"]}')
 
@@ -2345,25 +2350,7 @@ def build_admin_section():
 """
     page('admin/roles/index.html', 'Roles and responsibilities', 'The roles on this site and its vault, who fills each, what it owns and the rules it enforces; how a new agent joins.', body, kind='site')
     build_briefs()
-    v = A['evidence_vault']; vt = D['vault']
-    body = f"""
-<h1>The evidence vault, opened</h1>
-<p class="crumb"><a href="../../vaults/index.html">Vaults</a> / The evidence vault</p>
-<p class="lead">The vault behind every claim on this site, {vt["sources"]} sources and {vt["captures"]} captures at commit <code>{E(vt["head"]["commit"] or "")}</code>, opens read-only in the browser with the key below, the way every published vault on sgit.ai and the newsroom does. The key is a read key: derived one way from the vault key, it decrypts and cannot write, and there is no privilege inside it to escalate. It is published on purpose, so treat it as you would the content.</p>
-<p class="kv"><b>Read key</b> <code>{E(v["read_key"])}</code></p>
-<p><a class="door" href="{U(v["open_url"])}" rel="noopener"><b>Open the vault in the browser &rarr;</b><span>dev.vault.sgraph.ai decrypts it in your tab; the server that stores it cannot read it</span></a></p>
-<pre>$ sgit clone {E(v["read_key"])}</pre>
-<p class="caveat">{E(v["note"])}</p>
-{vault_live(v["read_key"], True, 2, 'The vault opens in its own app first: sources, captures, claims, the timeline, memos and notes, read from the vault as it is now. The vault browser is under it.')}
-<h2>What is in it</h2>
-<ul>
-<li><code>sources/&lt;slug&gt;/</code>: one folder per source, with <code>source.json</code>, <code>notes.md</code>, dated <code>captures/</code> (page, rendered page, text, screenshot, headers, provenance with hashes) and <code>raw/</code> with <code>SHA256SUMS</code>.</li>
-<li><code>claims/&lt;agent&gt;.json</code> and <code>timeline/&lt;agent&gt;.json</code>: one file per agent.</li>
-<li><code>memos/</code>: the editor's voice memos; <code>notes/</code>: agents' working notes; <code>tools/</code>: the capture tool and the index builder.</li>
-</ul>
-<p>The manifest this site is built from, with every hash, is <a href="../../data/sources.json">data/sources.json</a>; the sources are listed on <a href="../../sources/index.html">every source</a>. The telemetry vault (<code>{E(A["telemetry_vault"]["id"])}</code>) is separate and private: {E(A["telemetry_vault"]["note"])}</p>
-"""
-    page('admin/vault/index.html', 'The evidence vault, opened', 'The read key to the evidence vault behind this site, the link that opens it in the browser, and what is in it.', body, kind='site')
+    vault_removed_page('admin/vault/index.html', 'The evidence vault, opened', 'this page gave the evidence vault\'s read key and opened the vault in the vault UI.')
     t = D['telemetry']; rep = TREP
     def tt(pairs, h):
         return table([h, 'Events'], [[E(str(k)), E(str(n))] for k, n in pairs]) if pairs else '<p class="small">Nothing yet.</p>'
@@ -2479,7 +2466,7 @@ def build_synthetic():
         if not k: return f'<p>Vault <code>{E(p["vault_id"] or "")}</code> (private).</p>'
         where = f'This run is in the folder <code>runs/{E(run)}/</code>: the served and rendered HTML, the text and the screenshots of every page, every request and console message, and what the reviewer was given.' if run else 'Every run is a folder under <code>runs/</code>.'
         return (f'<p class="kv"><b>Vault</b> <code>{E(p["vault_id"])}</code> &middot; <b>read key</b> <code>{E(k)}</code> (read-only, published on purpose)</p>'
-                f'<p><a href="{E(vault_open_url(k))}" rel="noopener" target="_blank">Open the vault read-only in a new tab &#8599;</a> &middot; <code>sgit clone {E(k)}</code></p><p>{where}</p>')
+                f'<p><code>sgit clone {E(k)}</code></p><p>{where}</p>')
 
     # one page per run
     for (pid, run), x in sorted(RUNS.items()):
@@ -2587,7 +2574,7 @@ def build_synthetic():
            '</ol>')
     vaults = ('<p>One vault per reader; its id is on that reader\'s page. Each holds <code>README.md</code> (the reader), <code>latest.json</code>, <code>history.jsonl</code>, <code>heartbeats.jsonl</code> and <code>runs/&lt;run&gt;/</code> with '
               '<code>run.json</code>, <code>requests.jsonl</code>, <code>console.jsonl</code>, <code>pages/</code> (served and rendered HTML, text, screenshots, measurements), <code>review-request.md</code>, <code>feedback.json</code> and <code>feedback.md</code>. '
-              'They hold nothing confidential: captures of this public site and the readers\' reviews, so their read keys are published, on each reader\'s page and on <a href="../../vaults/index.html">every vault behind this site</a>: anyone can open them read-only. Their vault keys are sealed to the editor\'s key; none is in this repository.</p>')
+              'They hold nothing confidential: captures of this public site and the readers\' reviews, so their read keys are published, on each reader\'s page: anyone can clone them read-only. Their vault keys are sealed to the editor\'s key; none is in this repository.</p>')
     body = f"""
 <h1>Synthetic readers</h1>
 <p class="lead">Six test readers, run by the agent synthetic@php.newsroom: a board member, a CTO, a project manager, a security lead, a developer and a designer. Each reads the live site in a real browser on its own device, follows its own reading path and the links that interest it, and then says, in its own voice, whether it got its answer, what worked, what did not and what it would change. Every review is published here; every request, page and screenshot is kept in that reader's own vault, which anyone can open read-only.</p>
@@ -2853,7 +2840,7 @@ def build_layers():
 <p class="lead">This site mixes kinds of material, and a reader should always be able to tell which one they are looking at. {E(L["note"])}</p>
 <p class="kv">{tally}</p>
 <ul>
-<li><b>Evidence</b> answers <i>what was captured?</i> The pages that show it are <a href="../sources/index.html">every source</a>, <a href="../affected/software.html">the software inventory</a> and <a href="../admin/vault/index.html">the vault, opened</a>.</li>
+<li><b>Evidence</b> answers <i>what was captured?</i> The pages that show it are <a href="../sources/index.html">every source</a>, and <a href="../affected/software.html">the software inventory</a>.</li>
 <li><b>Derived</b> answers <i>what does the evidence say?</i> The story pages and the analysis (<a href="../claims/index.html">claims</a>, <a href="../numbers/index.html">numbers</a>, <a href="../agencies/index.html">agencies</a>) are built from it, and change when it changes.</li>
 <li><b>Authored</b> answers <i>what did someone conclude, and when?</i> <a href="../articles/index.html">Articles</a> and <a href="../brief/index.html">the brief</a> are signed and dated.</li>
 </ul>
@@ -2988,55 +2975,42 @@ def build_status():
 
 # ----------------------------------------------------------------------------- the vaults (v0.2.13)
 
+VAULTS_REMOVED = ('the editor, 27 October 2026: the evidence vault these pages opened is decommissioned, and the newsroom\'s main vaults '
+                  'are pack vaults, which the vault UI does not open')
+
+def vault_removed_page(path, title, what):
+    """Where a page that opened a vault in the vault UI was: what it was, why it went, and where the vault ids are now. The
+    address stays, so an article written against it (kept as written) still leads somewhere true."""
+    up = '../' * path.count('/')
+    body = f"""
+<h1>{E(title)}</h1>
+<div class="caveat"><p><b>Removed on 27 October 2026.</b> {what} It went at the editor's word: the evidence vault it opened is decommissioned,
+and the newsroom's main vaults are now pack vaults, which the vault UI does not open.</p></div>
+<p>Which vault each agent made or holds, by id only and never a key, is on <a href="{up}team/vaults/index.html">the vault register</a>. Every
+captured source, with its capture times and hashes, is on <a href="{up}sources/index.html">every source</a>; the source watch is on
+<a href="{up}vaults/source-watch/index.html">its own page</a>.</p>
+"""
+    page(path, title, f'Removed on 27 October 2026: {what}', body, kind='site')
+
 def vault_open_url(read_key):
     """The official UI's read-only link for a published read key: the key travels in the fragment, never to a server."""
     rk, vid = read_key.rsplit(':', 1)
     return f'https://dev.vault.sgraph.ai/en-gb/#{rk}%3A{vid}'
 
 def vault_note(read_key):
-    """The note box every published vault gets on sgit.ai: the key, the link that opens it, the clone command."""
+    """The note box every published vault gets on sgit.ai: the key and the clone command (no link into the vault UI since 27 October 2026)."""
     return f"""<div class="vnote"><b>Open it yourself. The read key is the whole credential, and it is published on purpose.</b><br>
 Read key: <code>{E(read_key)}</code><br>
-In the official UI: <a href="{E(vault_open_url(read_key))}" rel="noopener" target="_blank">open it read-only in a new tab &#8599;</a> &middot; From the command line: <code>sgit clone {E(read_key)}</code><br>
+From the command line: <code>sgit clone {E(read_key)}</code><br>
 <span class="small">A read key decrypts and cannot write; it is derived one way from the vault key, which is not published and never will be.</span></div>"""
 
 def vault_live(read_key, app, depth, lead):
-    """The embedded vault: the official SG/Vault UI in a frame, handed the read key over postMessage (assets/vendor/vault-ui-embed.js)."""
-    rk, vid = read_key.rsplit(':', 1)
-    up = '../' * depth
-    return f"""<h2>See it live, here</h2>
-<p class="openrow"><a class="btn-open" href="{E(vault_open_url(read_key))}" rel="noopener" target="_blank">Open the vault in a new tab &#8599;</a> <span class="small">{lead}</span></p>
-<div class="sgv-uiembed" data-vault="{E(vid)}" data-readkey="{E(rk.replace("sgit_public_read_", ""))}" data-app="{1 if app else 0}"></div>
-<script src="{up}assets/vendor/vault-ui-embed.js" defer></script>"""
+    """The embedded vault UI, retired on 27 October 2026 (VAULTS_REMOVED): it draws nothing. Kept so its callers read as they did."""
+    return ''
 
 def build_vaults():
-    VS = D['vaults']['vaults']; W = D['source-watch']; ev = D['admin']['evidence_vault']; vt = D['vault']; tl = D['telemetry']
-    keys = {'evidence': ev['read_key'], 'source-watch': W.get('read_key'), 'schedule': load('schedule-vault')['read_key']}
-    facts = {'evidence': f'{vt["sources"]} sources, {vt["captures"]} captures, {vt["hashed_files"]} hashed files; head <code>{E(vt["head"]["commit"] or "")}</code>',
-             'source-watch': f'{W["pages"]} pages from {W["publishers"]} publishers in {len(W["country"])} countries and {len(W["lang"])} languages; {W["snapshots"]} snapshots, {len(W["runs"])} runs, as of the export of 23 October 2026',
-             'telemetry': f'lane <code>{E(tl["vault_id"])}</code> on <code>{E(tl["endpoint"])}</code>; events encrypted to <code>{E(tl["recipient"]["fingerprint"])}</code>',
-             'subscriptions': f'lane <code>{E(D["subscriptions"]["vault_id"])}</code> on <code>{E(D["subscriptions"]["endpoint"])}</code>; requests encrypted to <code>{E(D["subscriptions"]["recipient"]["fingerprint"])}</code>'}
-    lanes = {'telemetry': tl['append_token'], 'subscriptions': D['subscriptions']['append_token'], 'collaborators': load('collaborators')['lane']['append_token']}
-    cards = ''
-    for x in VS:
-        k = keys.get(x['slug']) or x.get('read_key')
-        how = (f'<p class="kv"><b>Not published:</b> the vault key. {E(x.get("note", ""))}</p>' if not k and x['slug'] not in lanes else f'<p class="kv"><b>Read key</b> <code>{E(k)}</code></p><p><a href="{E(vault_open_url(k))}" rel="noopener" target="_blank">Open read-only in a new tab &#8599;</a> &middot; <code>sgit clone {E(k)}</code></p>' if k else
-               f'<p class="kv"><b>Not published:</b> the vault key, the lane\'s enum key and the key pair\'s passphrase. <b>Published:</b> the write-only append token <code>{E(lanes.get(x["slug"], ""))}</code>, which adds rows and reads nothing.</p>')
-        cards += f"""<section class="vcard" id="{E(x["slug"])}">
-<h2><a href="../{E(x["page"])}">{E(x["name"])}</a> <span class="st {'st-confirmed' if k else ''}">{E(x["access"])}</span></h2>
-<p class="kv"><b>Vault</b> <code>{E(x["id"])}</code> &middot; {facts.get(x["slug"], E(x.get("facts", "")))}{' &middot; opens in its own app' if x["app"] else ''}</p>
-<p>{E(x["holds"])}</p>
-<p class="small"><b>Written by</b> {E(x["writers"])}. Data on this site: <a href="../{E(x["data"])}">{E(x["data"])}</a>.</p>
-{how}
-</section>"""
-    body = f"""
-<h1>The vaults behind this site</h1>
-<p class="lead">This site is rebuilt from vaults, never written by hand. {len(VS)} vaults sit behind it. Two are public and open read-only in your browser with the keys below (the evidence, and the public face of the telemetry, its curated counts); one, the source watch, is a pack-mode vault, private until the vault UI can open pack vaults; two are private and receive through write-only lanes, one the site's anonymous telemetry, one subscription requests; one is private and is an application only, the telemetry app, versioned in its own vault, which the telemetry vault links inside itself and opens as its dashboard (an earlier dashboard vault, linked the other way round, is superseded); one is private and never published, because it holds other people's pages; and three are the team's own, private, through which <a href="../team/channels/index.html">the team talks</a>: the conductor vault, the issues and the mail. Every vault is encrypted in the client; the server that stores it holds ciphertext and nothing else.</p>
-<div class="caveat"><p>{E(D["vaults"]["about"])}</p></div>
-{cards}
-<p class="small">The list is <a href="../data/vaults.json">data/vaults.json</a>. The other vaults of the sgit.ai network, published the same way, are at <a href="https://sgit.ai/demos/vaults/index.html">sgit.ai's vaults</a>.</p>
-"""
-    page('vaults/index.html', 'The vaults behind this site', 'Every vault this site is built from: the evidence vault and the source watch, both public with their read keys, and the private telemetry vault with its write-only lane; what each holds, who writes to it and how to open it.', body, kind='site')
+    W = D['source-watch']
+    vault_removed_page('vaults/index.html', 'The vaults behind this site', 'this page listed every vault behind the site, with the published read keys and links that opened them in the vault UI.')
 
     # the source watch, published the way sgit.ai publishes a vault
     acc = {a['id']: a['means'] for a in W['access_classes']}
@@ -3058,7 +3032,7 @@ def build_vaults():
     hero = (f"""<figure class="shot"><a href="{E(vault_open_url(W["read_key"]))}" rel="noopener" target="_blank"><img src="../../{shot}" alt="The source-watch vault open in the official SG/Vault UI, read-only." width="1280" height="800" loading="eager"></a>
 <figcaption>The vault in the official UI, opened read-only with the published key. <b>Click the image to open the real one &#8599;</b></figcaption></figure>""" if W.get('read_key') and os.path.exists(os.path.join(ROOT, shot)) else '')
     body = f"""
-<p class="crumb"><a href="../index.html">Vaults</a> / The source watch</p>
+<p class="crumb">The source watch</p>
 <h1>The source watch: every outside source on php2shell, watched and snapshotted</h1>
 <p class="lead">A vault that does one thing. It watches every outside source on the story, {W["pages"]} pages from {W["publishers"]} publishers in {len(W["country"])} countries, and on each run records what access it had and keeps a new snapshot whenever the content changed: the text, a screenshot, the HTML as served and as rendered, the headers and the sha256 of each, and a graph of what the page says and what changed since the last look. A small, focused Wayback Machine whose diffs are graphs. Run by <b>researcher@php.newsroom</b>.</p>
 <div class="caveat"><p><b>Vault <code>{E(W["vault_id"])}</code>, in pack mode.</b> {E(SWV["note"])} The counts below are from the export of 23 October 2026, read before the watch moved into pack mode; the next export reads this vault. <a href="../../admin/pack-mode/index.html">Pack mode, measured</a>.</p></div>
@@ -3109,7 +3083,7 @@ index/  state/  taxonomy/  tips/  tools/</pre></div>
 python3 tools/discover.py scan            # feeds to candidate publishers
 python3 tools/discover.py promote --limit 30
 python3 tools/watch.py add &lt;url&gt; --cc gb --sector news --publisher bbc</pre>
-<p class="small">The other vaults behind this site are on <a href="../index.html">the vaults</a>. The evidence vault, where the story was assembled by hand on the morning of 22 October, is <a href="../../admin/vault/index.html">opened here</a>.</p>
+<p class="small">Which vault each agent made or holds, by id only, is on <a href="../../team/vaults/index.html">the vault register</a>.</p>
 """
     page('vaults/source-watch/index.html', 'The source watch: every outside source on php2shell, watched and snapshotted', f'The source-watch vault: {W["pages"]} pages from {W["publishers"]} publishers in {len(W["country"])} countries, re-read on a schedule, a snapshot kept on every change and every snapshot a graph. What is in it, and how it is watched.', body, kind='evidence', topics='php2shell vault source watch')
 
@@ -5777,7 +5751,7 @@ def build_vault_register():
 <li><b>Seal every key to the root</b> (<code>sha256:db7f79fdd87e030a</code>) with pki.sgit.ai's agent tool before your session ends, and record the date.</li>
 <li><b>Asked for a key, or a QR code of it?</b> Seal it and send the sealed link and its QR code; never the key itself, in a page, a file, a commit, a chat or a message. The steps are in <code>AGENTS.md</code>, section 7, and on <a href="../../admin/agents/index.html">guidance for agents</a>.</li>
 </ul>''')}
-<p class="small">What each vault is for, and the published read keys and write-only lanes, are on <a href="../../vaults/index.html">the vaults behind this site</a>.</p>
+<p class="small">The pages that opened the vaults in the vault UI (<a href="../../vaults/index.html">every vault behind this site</a> and <a href="../../admin/vault/index.html">the evidence vault, opened</a>) were removed on 27 October 2026: the evidence vault they opened is decommissioned, and the main vaults are pack vaults, which the vault UI does not open.</p>
 '''
     page('team/vaults/index.html', 'Vaults: who made each one', 'Every vault the team\'s agents have made, listed by agent, by ID only, with whether its key is sealed to the editor; the rules for making a vault and handing over its key.', body, kind='site', topics='team agents')
 
