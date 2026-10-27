@@ -158,9 +158,9 @@ if os.path.isdir(ART):
         if len(re.findall(r'^```diff\s*$', body, flags=re.M)) > len(re.findall(r'^```\s*$', body, flags=re.M)):
             fails.append(f'{p}: a ```diff block is not closed')
         cites = [x.strip() for g in re.findall(r'\[\[([^\]]+)\]\]', body) for x in g.split(',')]
-        known = published('sources') if cites else set()
+        captured = published('sources') if cites else set()
         for c in dict.fromkeys(cites):
-            if known is not None and c not in known:
+            if captured is not None and c not in captured:
                 fails.append(f'{p}: cites [[{c}]], which is not in the data API\'s sources.json (a fact names a captured source)')
         figs = re.findall(r'^!\[[^\]]+\]\(' + IMG, body, flags=re.M) + [x for t in re.findall(r'^!split\[[^\]]+\]\(' + IMG + r'\)\[[^\]]+\]\(' + IMG + r'\)', body, flags=re.M) for x in t]
         pairs = re.findall(r'^!slider\[[^\]]+\]\(' + IMG + r'\)\(' + IMG + r'\)', body, flags=re.M)
