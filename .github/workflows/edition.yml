@@ -2,18 +2,16 @@
 # owner's release reaches the pages without anyone running a round. Two jobs:
 #   build    runs tools/edition.sh, read-only: the six repositories read at dev (public, no credential), the box the
 #            last edition left (its release asset), the build, the imports, the four partitions, every repository's gate.
-#            Builds only when someone other than CI has released since the last edition (a push to the press, or one of
-#            the others on the schedule). Its result is one patch per repository that changed, the box, edition.json.
+#            Runs on a push to the press, or by hand (no schedule: nothing runs on GitHub on a timer, the editor,
+#            27 October 2026); builds only when someone other than CI has released since the last edition. Its result is one patch per repository that changed, the box, edition.json.
 #   publish  makes them a release of the press, edition-<edition>, runs no repository code; keeps the newest twelve.
-# Each repository's own deploy (.github/workflows/pages.yml) takes the newest edition's patch for it on its schedule,
+# Each repository's own deploy (.github/workflows/pages.yml) takes the newest edition's patch for it on its next push,
 # gated by its own gate, as a commit of its own CI: nothing here writes to any other repository, and no token is shared.
 # Installed by the press; a change goes to security@php.newsroom's review and the editor's go.
 name: Build the edition
 on:
   push:
     branches: [dev]
-  schedule:
-    - cron: '3-59/10 * * * *'
   workflow_dispatch:
     inputs:
       force:
