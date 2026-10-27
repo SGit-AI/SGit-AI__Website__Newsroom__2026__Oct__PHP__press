@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "ce87f5860d476ba807c36dc00ac14a81995a1c58",
-  "site_version": "0.22.37"
+  "commit": "2dd7a1ba7807386ff7b7008dab9e10906f0da626",
+  "site_version": "0.22.38"
  },
  "sources": {
   "assets/": "assets/",
@@ -15,13 +15,11 @@
   "vault-app/": "vault-app/"
  },
  "kept": [
-  "assets/design/v2-live.css",
-  "assets/live/briefs.js",
-  "assets/live/live.js",
-  "assets/telemetry.js",
-  "build/build.py",
-  "build/design.py",
-  "rules/security/injection-allowlist.json"
+  "assets/briefs/centers-of-gravity.png",
+  "assets/briefs/flow-one-article.png",
+  "assets/briefs/flow-one-fact-many-pages.png",
+  "assets/briefs/inside-a-page-frame.png",
+  "assets/briefs/the-chain-before-and-after.png"
  ],
  "files": {
   "assets/articles/has-anyone-been-hacked/deck.html": "4d767c9f3a710a5d28987a72ec114e04306f73f17be880cda720aa6f3e3d4b49",
@@ -62,7 +60,11 @@
   "assets/articles/the-telemetry-tools/what-works-scatter.png": "8587d3183461cf522c079964ab447141bc5a244aecfe1ae0be98272dc5298865",
   "assets/articles/the-telemetry-tools/who.png": "2df25f21ff013d2893bece14667a8bb90130688d71e23595ca8892842c2632f4",
   "assets/ask/ask.js": "03414946b26f2b7e3a96f54b39825eeeea60a3a1e025da3ddf0fb431aa5a8ceb",
+  "assets/briefs/centers-of-gravity.png": "1cd04fa8148e704cb009bdbac3af2894b281c458aa0e37171d7538b4d5a5e75a",
+  "assets/briefs/flow-one-article.png": "da7bb70525e1dafc1e78825960262dd282a59c6469e2c369dbcf0ac2ff7a6ae7",
+  "assets/briefs/flow-one-fact-many-pages.png": "d91a73f1de087241c03af631678617110ed56194f14b80c94d1f7403834e8faf",
   "assets/briefs/grossman-post.png": "e0af62c0ac154caa784960e9651c1d8d4d014580bf3571ac5cfa0b7b52bfcd86",
+  "assets/briefs/inside-a-page-frame.png": "7f48e185adc7a6c3581a4b4b4d0263e1aae3750815bffa469f31a01f6f4b5ed4",
   "assets/briefs/one-repository-into-six.png": "4f8e6cfa545883aee07b760e25b0086c600b28b092e1cfb10e891fd4efe7ffc1",
   "assets/briefs/split-data-front.png": "65682b5ce4805dc98fd9cdf4e98ff2f36528b639bccc637245ed96d9843551fb",
   "assets/briefs/split-press-front.png": "9613b60fdff797697c086cf92405cc421f1ac37ba851cc9aef0237498205e4c1",
@@ -72,6 +74,7 @@
   "assets/briefs/split-site-ask.png": "3c98c7673999d236f1e1bb8a3f3239b51a55c855752c480143741d8df01c762c",
   "assets/briefs/split-team-control.png": "98d4e0502cf946adc387f8fba8306aff12b471975b4c38dcfcb013652a2a0680",
   "assets/briefs/split-team-front.png": "16abff029b18aea19984b51154ed954215d1f1655d425671c59d03f92bb7c15e",
+  "assets/briefs/the-chain-before-and-after.png": "b15a223edf92b08481f2e249ae5330eda7a9a36c4744fa2bd845b6701ced1947",
   "assets/collaborators.js": "47853b09a11a2c2294e3e400f272c61821153adfdeb99daee0daca2cddc5b1db",
   "assets/compare.js": "8a18a1d1e1bb0fecb9d54c52637e3ff2ce45515198fc8fee0dad3ca651ac9022",
   "assets/components/base/v1/v1.0/v1.0.0/sg-component.js": "e566a78ad98fbd184058eed2a6b435c2c386066a0743de5efdbd0ef99348e677",
@@ -94,8 +97,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "58a2de46e9d31c29ac10656adaeb070ed521e44e1b8bf84da5cbdfe5e4dd0026",
-  "assets/design/line/copy.json": "492fa78f229af6ebf2b753cee642e0aa6aa2e6c2775e8e5c0dd1401db7ec0f8d",
+  "assets/design/line/config.js": "a72a9bb70f779274727bd87f971683ca6830382c3133449c8d70ab4dc95af4df",
+  "assets/design/line/copy.json": "d8509b8350670d4ad88ac38c7d5f1f2d3ebb8a42f712ed2dda61de8d7bcf53af",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -178,7 +181,6 @@
   "assets/vendor/sg-vault/v0.2.3/sg-vault/sg-vault-ref-manager.js": "5b8ea87ace83d59e8954511d9932bd3968020c57070375194c7427a083fb729f",
   "assets/vendor/sg-vault/v0.2.3/sg-vault/sg-vault.js": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26",
   "assets/vendor/vault-ui-embed.js": "fb2c5766b0fdd1eddfbfc810d7c5ed76a650fc1e07f6ae28659f19d97a790d25",
-  "build/__pycache__/build.cpython-313.pyc": "544fae1b62c80e25ad63b4c92eab3cfa6f9f6477ebfdf2c70518bbf449d29363",
   "build/agents.py": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05",
   "build/build.py": "29f91e5f51e98881f28470cbcac7852fdc51e34a9d27bb4864e5234680085942",
   "build/collaborators_drain.py": "dbad852284408dbea8708bec3fbf3f0ffe8c088cfe79d124e072dce7b27d728e",
@@ -198,7 +200,7 @@
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969",
   "build/newsroom_paths.py": "dea7967e26286dd09a599ce7bc5f629f8463d06a34b3a4430f3f2c9b0eaa032e",
-  "build/outputs.txt": "a24a2fb265d252fb8b6b9cba579abe94754b4171027535899bf64b4742e48225",
+  "build/outputs.txt": "3f20623be55f3116fce1c622ef5d5c67a102689cb5ef10b8c8404e844ec5d1ad",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",
