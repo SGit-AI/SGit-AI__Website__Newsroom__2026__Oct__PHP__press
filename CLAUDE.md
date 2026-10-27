@@ -26,13 +26,15 @@ commit or publish a secret; never `--no-verify`, never force-push, never push to
   `tools/sync_v1.py export` carries a change made here into the box, and `import` brings back only what the build
   derives, never over a change made here.
 - **Editions are built in CI (27 October, board dev-0005): your release is all it takes.** The press's
-  `.github/workflows/edition.yml` runs `tools/edition.sh` every ten minutes and on every push here: when anyone but CI
-  has released in one of the six since the last edition, it builds the next one (the box the last edition left, the
+  `.github/workflows/edition.yml` runs `tools/edition.sh` on every push here and on its schedule (every ten minutes as
+  written; GitHub fires it only every few hours): when anyone but CI has released in one of the six since the last
+  edition, it builds the next one (the box the last edition left, the
   export, the build, the imports, the partitions, every repository's gate) and publishes it as the release
-  `edition-<edition>` of the press, one patch per repository. Each repository's deploy takes the newest edition on its
-  own schedule (every fifteen minutes; its `pages.yml`), gated by its own gate, as a commit of its own CI with the
-  trailer `Edition: <edition>`. Nothing writes to another repository and no token is shared. A release is on its
-  pages within about half an hour; an article or a record drawn live, at once. `tools/chain.sh` is the same steps by
+  `edition-<edition>` of the press, one patch per repository. Each repository's deploy takes the newest edition on every
+  push there and on its schedule (its `pages.yml`), gated by its own gate, as a commit of its own CI with the trailer
+  `Edition: <edition>`. Nothing writes to another repository and no token is shared. A change to the press is built at
+  once; one elsewhere waits for the next edition GitHub schedules (hours, not minutes, today: board dev-0006); an article,
+  a record or a brief drawn live is on its page at once. `tools/chain.sh` is the same steps by
   hand, kept for when CI is down; never run it while CI builds editions.
 - Security's review before release is for `tools/`, `rules/`, `build/validate.py`, `build/security_check.py`, `build/release.sh`,
   `build/agents.py` and `.github/` (code that runs in every session); a change to the rest of `assets/` and `build/`
