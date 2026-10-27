@@ -1604,6 +1604,10 @@ def build_briefs():
              body, kind='site')
 
 
+def articles_llms_lines():
+    return f'- [An article published since the last build]({BASE_URL}/articles/view/index.md): drawn from its file in the site repository, until the next build gives it its own page\n'
+
+
 def briefs_llms_lines():
     out = ['', '## Briefs, one page each (admin/content/briefs/)']
     out += [f'- [{m["title"]}]({BASE_URL}/admin/briefs/{m["slug"]}/index.md): published {m["published"]}'
@@ -1922,7 +1926,7 @@ def main():
     # and what this release changed in the risk graph (grc_history.py), for /grc/changes/
     GRC_HISTORY.update(__import__('grc_history').for_build(VERSION, json.load(open(os.path.join(DATA, 'grc-graph.json'), encoding='utf-8')))); OUTPUTS.add('data/grc-history.json')
     build_grc_changes()
-    __import__('design').write_live_css(globals()); write('assets/design/dials.js', __import__('design').DIALS_JS); build_now(); build_llms(); _design_made = __import__('design').build(globals()); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(__import__('design').llms_lines(_design_made, BASE_URL)); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(briefs_llms_lines()); build_sitejs(); build_personas_js(); build_feed(); build_seo(); save_ledger(); build_feeds_xml(); build_stack_catalogue(); save_items()
+    __import__('design').write_live_css(globals()); write('assets/design/dials.js', __import__('design').DIALS_JS); build_now(); build_llms(); _design_made = __import__('design').build(globals()); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(__import__('design').llms_lines(_design_made, BASE_URL)); open(os.path.join(ROOT, 'llms.txt'), 'a', encoding='utf-8').write(briefs_llms_lines() + articles_llms_lines()); build_sitejs(); build_personas_js(); build_feed(); build_seo(); save_ledger(); build_feeds_xml(); build_stack_catalogue(); save_items()
     write('admin/build/outputs.txt', '\n'.join(sorted(OUTPUTS | {'admin/build/outputs.txt'})) + '\n')
     print(f'built {len(PAGES)} pages for v{VERSION}, data as of {STORY["data_as_of"]}, vault {D["vault"]["head"]["commit"]}')
 
@@ -2788,8 +2792,10 @@ def build_articles():
         others = ''.join(f'<li><a href="../{E(b["slug"])}/index.html">{E(b["title"])}</a> <span class="small">{E(AUTHOR_ROLES.get(b["role"], b["role"]))}, {E(b["written"])}</span></li>' for b in ARTICLES if b is not a)
         cited = section("cited", "Sources cited", f'<p>{len(a["cites"])} captured sources, in the order this article first cites them. Each opens on its page with its capture times and hashes.</p><p class="refs">{src_links(a["cites"], 2)}</p>')
         more = section("more", "Other articles", f'<ul>{others}</ul>') if others else ''
+        # the frame: assets/live/article.js draws the article again from its file in site's content/articles/ when the page
+        # opens, so a correction a writer releases is on the page with no build (the brief on centers of gravity)
         body = f"""
-<article class="piece">
+<article class="piece" data-live="article" data-md="content/articles/{E(a["file"])}">
 <p class="kicker">Story &middot; {E(ORIGINS[a["origin"]]["short"])} &middot; {E(role)} &middot; {E(a["written"])}</p>
 <h1>{E(a["title"])}</h1>
 <p class="lead">{E(a["dek"])}</p>
@@ -2798,11 +2804,20 @@ def build_articles():
 {''.join(f'<div class="caveat correction" id="correction-{k[10:]}"><p><b>Correction, {E(human_time(v.split(" | ", 1)[0]))}.</b> {E(v.split(" | ", 1)[1])}</p></div>' for k, v in sorted(a.items()) if re.match(r'^correction\d+$', k))}
 {render_article(a["text"], 2)}
 </article>
+<script src="../../assets/live/live.js" defer></script>
+<script src="../../assets/live/article.js" defer></script>
 {cited}
 {more}
-<p class="small">Source file: <code>admin/content/articles/{E(a["file"])}</code>, in the authored layer; see <a href="../../layers/index.html">evidence, derived, authored</a>.</p>
+<p class="small">Source file: <code>content/articles/{E(a["file"])}</code> in the site repository, in the authored layer; see <a href="../../layers/index.html">evidence, derived, authored</a>.</p>
 """
         page(f'articles/{a["slug"]}/index.html', a['title'], a['dek'], body, kind='article', date=a['written'], topics=f'php2shell {a["role"]}', ld_type='NewsArticle', origin=a['origin'], byline=f'By the {role.lower()} {"roles, agents" if "," in a["author"] else "role, agent"} {a["author"]}')
+    # an article written since this build: drawn from its own file in site's content/articles/ until a build gives it a frame
+    page('articles/view/index.html', 'An article', 'An article published since the last build, drawn from its file in the site repository.', """
+<article class="piece" data-live="article"><p class="kicker">Story</p><h1>An article</h1><p class="lead">This page draws an article published since the site was last built, from its own file in the site repository. It needs scripts; every article is also a file in <a href="https://github.com/SGit-AI/SGit-AI__Website__Newsroom__2026__Oct__PHP__site/tree/dev/content/articles">content/articles/</a>.</p></article>
+<script src="../../assets/live/live.js" defer></script>
+<script src="../../assets/live/article.js" defer></script>
+<section id="cited"><h2>Sources cited</h2><p></p><p class="refs"></p></section>
+""", kind='site')
     def card(a):
         return f'<article class="rel">{it_story(a)}<h3><a href="{E(a["slug"])}/index.html">{E(a["title"])}</a></h3><p>{E(a["dek"])}</p><p class="small">{E(ORIGINS[a["origin"]]["short"])} &middot; {E(AUTHOR_ROLES.get(a["role"], a["role"]))} &middot; {E(a["written"])} &middot; <code>{E(a["author"])}</code> &middot; {article_stamp(a)} &middot; {len(a["cites"])} sources cited</p></article>'
     house = ''.join(card(a) for a in ARTICLES if a['origin'] == 'house')
@@ -2816,6 +2831,7 @@ def build_articles():
 {section("house", "House stories", f'<p>Written by this site\'s own roles: the <b>journalist</b> reports and follows the second stories; the <b>historian</b> sets events against what came before.</p>{house}')}
 {section("interviews", "Interviews", interviews)}
 {section("guests", "Guest writers and interviewers", guests)}
+<p class="small">An article released since this page was built is at its own address at once: <a href="view/index.html">the article view</a> draws it from its file in the site repository until the next build lists it here.</p>
 """
     page('articles/index.html', 'Stories: written here, signed and dated', f'{len(ARTICLES)} stories about the PHP flaws written for this site, plus the editor\'s interview: house stories by the journalist and historian, interviews, and guest pieces, each pinned to the evidence it was written against.', body, kind='site')
 

@@ -23,10 +23,13 @@
   window.P2S_URL = function (u) {
     var url = new URL(u, window.P2S_BASE);
     if (!route || url.origin !== location.origin) return url.href;
-    var path = url.pathname.replace(/^\//, ''), seg = path.split('/')[0], tail = url.search + url.hash;
+    var path = url.pathname.replace(/^\//, ''), parts = path.split('/'), seg = parts[0], tail = url.search + url.hash;
     if (seg === 'assets' && route.assets) return route.assets + path.slice('assets/'.length) + tail;
     if (seg === 'data' && route.data) return route.data + path.slice('data/'.length) + tail;   // every file a script fetches is in the API
-    var home = (route.sections && Object.prototype.hasOwnProperty.call(route.sections, seg) && route.sections[seg]) || route.rest;
+    // a folder two sites share the top of (site's content/articles/, updates' content/views/) is routed by its first two
+    // segments; anything else by its first
+    var S = route.sections || {}, at = function (k) { return Object.prototype.hasOwnProperty.call(S, k) && S[k]; };
+    var home = (parts.length > 2 && at(parts[0] + '/' + parts[1])) || at(seg) || route.rest;
     return home && home !== route.self ? home + '/' + path + tail : url.href;
   };
   // The 404 page, on a split site: an address of another site's section (a page, its markdown twin, a view address),
@@ -39,6 +42,15 @@
     var there = window.P2S_URL(location.pathname.replace(/^\/+/, '/') + location.search + location.hash), origin = '';
     try { origin = new URL(there).origin; } catch (e) { origin = ''; }
     if (origin && origin !== location.origin && hosts[origin]) { window.P2S_LEAVING = there; location.replace(there); }
+    // An item this site draws live, newer than its last deploy (no file at its address yet): opened by its kind's view,
+    // which draws it from its owner's files and puts this address back in the bar (the brief on centers of gravity).
+    var LIVE = [[/^\/admin\/briefs\/([0-9a-z][0-9a-z_.-]*)\/?(?:index\.html)?$/, '/admin/briefs/view/index.html#'],
+                [/^\/articles\/([0-9a-z][0-9a-z-]*)\/?(?:index\.html)?$/, '/articles/view/index.html#']];
+    if (!window.P2S_LEAVING) LIVE.some(function (k) {
+      var m = location.pathname.match(k[0]);
+      if (m && m[1] !== 'view' && !/\.(html|md)$/.test(m[1])) { window.P2S_LEAVING = k[1] + m[1]; location.replace(k[1] + encodeURIComponent(m[1])); return true; }
+      return false;
+    });
   }
   var f = window.fetch;
   if (f) window.fetch = function (input, init) {

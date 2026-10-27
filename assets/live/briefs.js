@@ -1,7 +1,8 @@
 /* The briefs, live: the index lists every brief in the team repository's records/briefs/ when the page opens
    (records/index/briefs.json, written by the team site's deploy), so a brief is listed a minute or two after its writer
-   releases it, with no build. A brief the last build has not seen yet has no page of its own: the index links it to
-   admin/briefs/view/#<slug>, which draws it from its own file (records/briefs/<slug>.md, served by the team site) with
+   releases it, with no build. A brief the last build has not seen yet has no page of its own: its address
+   (/admin/briefs/<slug>/) answers with the site's 404 page, whose route (route.js) opens admin/briefs/view/#<slug>, which
+   draws it from its own file (records/briefs/<slug>.md, served by the team site) with
    the build's markdown rules (live.js mdDoc). The next round gives it its own page. Draws the build's markup (build.py:
    build_briefs) into data-live="briefs-index" and "brief-view". Needs assets/live/live.js. */
 (function () {
@@ -12,8 +13,6 @@
   var s = function (v) { return v == null ? '' : String(v); };
 
   function drawIndex(briefs) {
-    var built = {};
-    index.querySelectorAll('li[id]').forEach(function (li) { built[li.id] = 1; });
     var out = [], month = null, ol = null, groups = {};
     briefs.forEach(function (m) { var k = s(m.published).slice(0, 7); groups[k] = (groups[k] || 0) + 1; });
     briefs.forEach(function (m) {
@@ -23,7 +22,7 @@
         out.push(el('h2', { class: 'brief-month' }, [mon + ' ' + k.slice(0, 4), el('span', {}, [n + ' brief' + (n !== 1 ? 's' : '')])]));
         ol = el('ol', { class: 'brief-list' }); out.push(ol);
       }
-      var slug = s(m.slug), href = built[slug] ? L.link('admin/briefs/' + encodeURIComponent(slug) + '/index.html') : L.link('admin/briefs/view/index.html') + '#' + encodeURIComponent(slug);
+      var slug = s(m.slug), href = L.link('admin/briefs/' + encodeURIComponent(slug) + '/index.html');   // newer than the build? its address answers through the 404 page and the view
       var t = [el('b', {}, [s(m.title)])];
       if (m.who) t.push(el('span', { class: 'w' }, [s(m.who).slice(0, 110)]));
       if (m.lead) t.push(el('span', { class: 'l' }, [s(m.lead).slice(0, 190)]));
@@ -45,6 +44,7 @@
     return L.text('records/briefs/' + encodeURIComponent(m.file)).then(function (md) {
       var p = s(m.published);
       document.title = s(m.title) + ' · Briefs';
+      try { history.replaceState(null, '', '/admin/briefs/' + encodeURIComponent(m.slug) + '/') } catch (e) {}   // the brief's own address, as the reader asked for it
       L.fill(view, [el('h1', {}, [s(m.title)]),
         el('p', { class: 'kicker' }, ['Published ', el('time', { datetime: p }, [p.slice(0, 10) + ' ' + p.slice(11, 16) + ' UTC']), ' · ', el('code', {}, [s(m.file)]), ' · ',
           el('a', { href: L.link('admin/briefs/index.html') }, ['all briefs'])]),

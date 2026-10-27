@@ -24,6 +24,7 @@ the 'own' list of its entry in sites.json) are never touched; the gate and relea
 in press.json with their sha256 like every other file it writes.
 """
 import argparse, hashlib, html, json, os, posixpath, re, shutil, subprocess, sys
+from collections import Counter
 
 PRESS = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 KEEP = {'README.md', 'CLAUDE.md', 'LICENSE', '.gitignore', 'press.json', 'tools/', '.git/', '.github/', 'VERSION'}   # VERSION: written by the site's own CI, never by the partition   # .github/: a deploy workflow, through security
@@ -142,8 +143,13 @@ class Plan:
     def route(self, site):
         sections = {s: self.home(n) for s, n in self.by_section.items()}
         sections.update({r.split('/')[0]: self.home(site) for r in self.cfg['runtime']['paths']})   # every site answers its own VERSION, 404, .well-known
-        sections.update({o.rstrip('/'): self.home(n) for n, c in self.sites.items() for o in c.get('own', [])
-                         if o.endswith('/') and '/' not in o.rstrip('/')})   # a folder a site writes itself (team's records/) is served by that site
+        own = [(o.rstrip('/'), n) for n, c in self.sites.items() for o in c.get('own', []) if o.endswith('/') and '/' not in o.rstrip('/')]
+        claims = Counter(o for o, _ in own)
+        sections.update({o: self.home(n) for o, n in own if claims[o] == 1})   # a folder a site writes itself (team's records/) is served by that site
+        # a folder two sites share the top of (site and updates both write content/) is routed by its first two segments,
+        # from each site's sources: content/articles/ to site, content/views/ to updates
+        sections.update({'/'.join(k.split('/')[:2]): self.home(n) for n, c in self.sites.items() for k in (c.get('sources') or {})
+                         if len(k.split('/')) > 2})
         return json.dumps({'self': self.home(site), 'assets': self.assets_base, 'data': self.data_base,
                            'sections': dict(sorted(sections.items())), 'rest': self.home('site')},
                           separators=(',', ':'), sort_keys=True)
@@ -298,7 +304,7 @@ def main():
     put('robots.txt', robots.encode())
     put('CNAME', (host + '\n').encode())
     put('.nojekyll', b'')
-    for t in ('site_gate.py', 'site_release.sh', 'site_sync.py'):   # the site's gate, release and sync, with their sha256 in press.json like every file
+    for t in ('site_gate.py', 'site_release.sh', 'site_sync.py', 'site_index.py'):   # the site's gate, release, sync and deploy's indexes, with their sha256 in press.json like every file
         dst = 'tools/' + t.replace('site_', 'pages_')
         put(dst, open(os.path.join(PRESS, 'tools', t), 'rb').read())
         os.chmod(os.path.join(into, dst), 0o755)

@@ -7,7 +7,9 @@
 (function () {
   'use strict';
   function el(tag, attrs, text) { var e = document.createElement(tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
-  document.querySelectorAll('[data-ba]').forEach(function (stage, n) {
+  // window.P2S_COMPARE(root) binds the stages under root not yet bound: assets/live/article.js calls it when it draws an
+  // article again from its Markdown
+  function bind(root) { (root || document).querySelectorAll('[data-ba]:not(.ba-live)').forEach(function (stage, n) {
     var oldImg = stage.querySelector('img.ba-old'), newImg = stage.querySelector('img.ba-new'), ctl = stage.parentNode.querySelector('[data-ba-ctl]');
     if (!oldImg || !newImg || !ctl) return;
     var mode = 'fade', line = el('span', { class: 'ba-line', 'aria-hidden': 'true' });
@@ -35,5 +37,7 @@
     ctl.appendChild(before); ctl.appendChild(range); ctl.appendChild(after); ctl.appendChild(fade); ctl.appendChild(wipe);
     stage.appendChild(line); stage.classList.add('ba-live'); ctl.classList.add('ba-live');
     apply();
-  });
+  }); }
+  window.P2S_COMPARE = bind;
+  bind(document);
 })();
