@@ -36,11 +36,38 @@
                  screen: w < 600 ? 'phone' : w < 1000 ? 'tablet' : 'desktop', tz: (Intl.DateTimeFormat().resolvedOptions().timeZone || '') }
     const agent = automation(); if (agent) ev.agent = agent
     const who = await role(root); if (who) ev.who = who
+    // At most 40 events from one tab (observability's brief of 27 October, board observability-0001): no reader reads 40
+    // pages in a tab; a crawler's renderer does (26 October: 960, and the lane refused everyone for 4 3/4 hours). Over the
+    // cap, a marker at the 1st, 10th, 100th and 1,000th page skipped (capped, skipped), so a capped tab is told from one
+    // that read 40 pages; then nothing. Checked before the location lookup, so a skipped page asks no one anything.
+    const countKey = key + '.n', capKey = key + '.skipped', lostKey = key + '.lost'
+    const num = k => { try { return parseInt(sessionStorage.getItem(k) || '0', 10) || 0 } catch (e) { return 0 } }
+    const put = (k, v) => { try { sessionStorage.setItem(k, String(v)) } catch (e) {} }
+    const sent = num(countKey)
+    if (sent >= 40) {
+      const skipped = num(capKey) + 1; put(capKey, skipped)
+      if (![1, 10, 100, 1000].includes(skipped)) return
+      ev.capped = 40; ev.skipped = skipped
+    }
+    const lost = num(lostKey); if (lost) ev.lost = lost                 // writes refused on every lane since this tab last got through
     const geo = await lookup(cfg.geo || ['https://ipapi.co/json/', 'https://ipwho.is/'])
     if (geo) { ev.country = geo.country || ''; ev.region = geo.region || ''; ev.city = geo.city || '' }
-    const payload = await envelope(cfg.recipient.encrypt, JSON.stringify(ev))
-    const r = await fetch(`${cfg.endpoint}/api/vault/append/write/${cfg.vault_id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ append_token: cfg.append_token, payload }), keepalive: true })
-    if (r.ok) { seen.push((window.P2S_REAL_PATH || location.pathname)); try { sessionStorage.setItem(seenKey, JSON.stringify(seen.slice(-50))) } catch (e) {} }
+    const payload = await envelope(cfg.recipient.encrypt, JSON.stringify(ev))   // encrypted once: a retry on another lane sends the same
+    // The lanes (data/telemetry.json, lanes; append_token is lane 1): start at one the session picks, so they fill evenly,
+    // and move on when a lane is full (507), unknown to this server instance yet (404: SG/Send caches each vault's lane
+    // configuration, board observability-0002) or failing (5xx). Anything else would not change on another lane.
+    const lanes = Array.isArray(cfg.lanes) && cfg.lanes.length ? cfg.lanes : [cfg.append_token]
+    const start = (parseInt(sid.slice(0, 8), 16) || 0) % lanes.length
+    for (let i = 0; i < lanes.length; i++) {
+      const r = await fetch(`${cfg.endpoint}/api/vault/append/write/${cfg.vault_id}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ append_token: lanes[(start + i) % lanes.length], payload }), keepalive: true })
+      if (r.ok) {
+        seen.push((window.P2S_REAL_PATH || location.pathname)); try { sessionStorage.setItem(seenKey, JSON.stringify(seen.slice(-50))) } catch (e) {}
+        put(countKey, sent + 1); put(lostKey, 0)
+        return
+      }
+      if (r.status !== 507 && r.status !== 404 && r.status < 500) return
+    }
+    put(lostKey, lost + 1)                                            // every lane refused: the next event that gets through says so
   } catch (e) { /* telemetry never surfaces */ }
 
   function automation() {

@@ -1608,6 +1608,7 @@ def briefs_llms_lines():
     out = ['', '## Briefs, one page each (admin/content/briefs/)']
     out += [f'- [{m["title"]}]({BASE_URL}/admin/briefs/{m["slug"]}/index.md): published {m["published"]}'
             + (f', {m["who"]}' if m['who'] else '') for m in BRIEF_PAGES]
+    out.append(f'- [A brief published since the last build]({BASE_URL}/admin/briefs/view/index.md): drawn from its file in the team repository, until the next round gives it its own page')
     return '\n'.join(out) + '\n'
 
 

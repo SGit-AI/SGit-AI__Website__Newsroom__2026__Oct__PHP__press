@@ -171,9 +171,9 @@
    "sha256": "d9a110fcdc4d60eef99a2a4617932d23c929fc3ce4a58cd2ae308c947ad569e8"
   },
   {
-   "bytes": 7830,
+   "bytes": 9898,
    "name": "assets/telemetry.js",
-   "sha256": "83b1a57e8e23145c3ae8ad0d3d0ace2e58df9d88989a78d54d5e34363a1fd862"
+   "sha256": "82c1de90604492ab3f52118f0c5dc9ea8b4f6c714cb4c334d2ed47b54ede52cb"
   },
   {
    "bytes": 33364,
@@ -851,9 +851,9 @@
    "sha256": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05"
   },
   {
-   "bytes": 815102,
+   "bytes": 815291,
    "name": "build/build.py",
-   "sha256": "40aa11a328a461bc5275b3068c1e546c56847fa1bba390a879e61b5f8604a4ab"
+   "sha256": "29f91e5f51e98881f28470cbcac7852fdc51e34a9d27bb4864e5234680085942"
   },
   {
    "bytes": 7630,
@@ -1046,9 +1046,9 @@
    "sha256": "c0088aa9d3ef95641440e3932f58df687fd00224986a3a4e511379479eab1eb3"
   },
   {
-   "bytes": 2527,
+   "bytes": 6208,
    "name": "rules/security/injection-allowlist.json",
-   "sha256": "a8eec6dbf3e3c64b299cb551418e56ccbaccddbbb7cc889ceb3b57d6675f5f66"
+   "sha256": "bcb00fdedeb1da5de957d9edcbc63dd564372c8a1c860e4372d841ea2585c3bf"
   },
   {
    "bytes": 3179,
@@ -1106,6 +1106,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.51",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.51/"
+ "press": "1.0.52",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.52/"
 }
