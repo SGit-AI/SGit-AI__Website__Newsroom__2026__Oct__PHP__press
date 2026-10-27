@@ -72,6 +72,7 @@ for p in sorted(files):
                     # the main site answers every v1 address (its own pages, a redirect for every other site's, the
                     # runtime), so a link to it only has to name something v1 served
                     serves = set().union(*pages.values()) | set(files) if h == meta['homes'].get('site') else pages[s]
+                    serves = set(serves) | {'VERSION'}   # every site serves its VERSION, written by its own CI
                     if not any(c in serves for c in cands) and not t.endswith(('.md', '.json', '.xml', '.txt')):
                         fails.append(f'{p}: links to {url}, which {s} does not serve')
             continue

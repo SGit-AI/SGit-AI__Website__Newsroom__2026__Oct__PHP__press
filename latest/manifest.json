@@ -1,9 +1,9 @@
 {
  "files": [
   {
-   "bytes": 5315,
+   "bytes": 5451,
    "name": "sites.json",
-   "sha256": "ea5a6b7c2f2f78b7d48e9b7ff97d008025261560c933627172d2e6a30d914b02"
+   "sha256": "503f51d8fd049d118b0f0919d9d613c8e19354c9e9292a74c31b05c813fbcc77"
   },
   {
    "bytes": 187,
@@ -11,14 +11,14 @@
    "sha256": "8a324dcb1ce24465dc4ff490bee1a670d79d9a8367ede4afb7f9531576fb6869"
   },
   {
-   "bytes": 18954,
+   "bytes": 19886,
    "name": "tools/partition.py",
-   "sha256": "bfa1f007b903eb50ff63c7b4077d6fbbb813d0ef332bce7a247063879f6352cf"
+   "sha256": "470ec4aaa5034c6c515ac671cd05ab46c5b12ad01b34a45fa8eeca91c8524252"
   },
   {
-   "bytes": 6247,
+   "bytes": 6359,
    "name": "tools/site_gate.py",
-   "sha256": "5d75181a8234d605ee96bc2453792c5946d62d50a791c371e9142cc2b41d944c"
+   "sha256": "5bd7cbd313538e78e1d76d6a479024a70fa5ddc6f6d325dd4f979c02c8134ad5"
   },
   {
    "bytes": 1702,
@@ -156,9 +156,9 @@
    "sha256": "ba095cbde5d2063dcff8fe9a19429345f43314ef5ce723e92f43d2fc1d4eb826"
   },
   {
-   "bytes": 8234,
+   "bytes": 7877,
    "name": "assets/site.js",
-   "sha256": "89e90ee3661e84ccb5c1bfb17651cbed65926f2e4063366e664f7ea0d53b3838"
+   "sha256": "833d309cef66e574ea859b2f11fd0e8060d244abe34b7ca4353a5a4396e15a9f"
   },
   {
    "bytes": 41058,
@@ -1136,6 +1136,6 @@
    "sha256": "1828ec5b2b4e41f8282369eb6bc0c358feff413f328d8fdb98285c61c250c053"
   }
  ],
- "press": "1.0.56",
- "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.56/"
+ "press": "1.0.57",
+ "url": "https://press.php.oct.2026.newsroom.sgit.ai/v/1.0.57/"
 }

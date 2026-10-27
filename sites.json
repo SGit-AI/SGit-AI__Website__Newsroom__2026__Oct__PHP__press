@@ -126,14 +126,14 @@
   ]
  },
  "elsewhere": {
-  "about": "Never copied into a site: served once, and every page's links, its route (<meta name=\"p2s-route\"> for assets/route.js) and its Content-Security-Policy name the host.",
+  "about": "Never copied into a site: served once, and every page's links, its route (<meta name=\"p2s-route\"> for assets/route.js) and its Content-Security-Policy name the host. Pages read both from /latest/ (the editor, 27 October 2026), so one release reaches every site; every version stays served at /v/<version>/.",
   "assets/": {
    "home": "https://press.php.oct.2026.newsroom.sgit.ai",
-   "path": "/v/{press}/assets/"
+   "path": "/latest/assets/"
   },
   "data/": {
    "home": "https://data.php.oct.2026.newsroom.sgit.ai",
-   "path": "/v/{data}/"
+   "path": "/latest/"
   }
  },
  "sources_about": "'sources': the folders of this repository's own sources and their v1 paths, while v1 still builds the pages; tools/pages_sync.py (installed by the press) carries them both ways, and what is written here wins. 'own': what the repository writes itself; the partition never touches it and the gate allows nothing else."

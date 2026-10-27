@@ -26,13 +26,31 @@ in press.json with their sha256 like every other file it writes.
 import argparse, hashlib, html, json, os, posixpath, re, shutil, subprocess, sys
 
 PRESS = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-KEEP = {'README.md', 'CLAUDE.md', 'LICENSE', '.gitignore', 'press.json', 'tools/', '.git/', '.github/'}   # .github/: a deploy workflow, through security
+KEEP = {'README.md', 'CLAUDE.md', 'LICENSE', '.gitignore', 'press.json', 'tools/', '.git/', '.github/', 'VERSION'}   # VERSION: written by the site's own CI, never by the partition   # .github/: a deploy workflow, through security
 LINK = re.compile(r'''(\s(?:href|src)=)(["'])((?:(?!\2).)*)\2''')
 MDLINK = re.compile(r'(\]\()([^)\s]+)(\))')   # a markdown link's target, in a page's markdown twin
 CSP = re.compile(r'''(<meta http-equiv="Content-Security-Policy" content=")([^"]*)(")''')
 SKIP = ('http:', 'https:', '//', '#', 'data:', 'mailto:', 'javascript:', 'tel:', 'blob:')
 BROKEN_IN_V1 = set()  # (page, link) pairs that do not resolve in v1 either: reported by the site's gate, not caused by the press
 TO_GITHUB = set()     # (page, path) pairs linked to v1's repository on GitHub: a source, or a data file the API does not publish
+
+
+def data_published(data_root):
+    """The names data serves at /latest/: every catalogue file (a folder entry: every file in it), its schema, the manifest."""
+    cat = json.load(open(os.path.join(data_root, 'tools', 'catalogue.json'), encoding='utf-8'))['files']
+    out = ['manifest.json']
+    for c in cat:
+        n = c['name']
+        if n.endswith('/'):
+            top = os.path.join(data_root, 'files', n.rstrip('/'))
+            for d, dirs, fs in os.walk(top):
+                out += [n + os.path.relpath(os.path.join(d, f), top).replace(os.sep, '/') for f in fs]
+        else:
+            out.append(n)
+            sch = n.replace('.json', '.schema.json')
+            if os.path.exists(os.path.join(data_root, 'schemas', sch)):
+                out.append('schemas/' + sch)
+    return out
 
 
 def sha256(path):
@@ -59,11 +77,14 @@ class Plan:
         tracked = subprocess.run(['git', '-C', v1, 'ls-files', '-z'], capture_output=True, check=True).stdout.decode().split('\0')
         outputs = set(open(os.path.join(v1, 'admin', 'build', 'outputs.txt'), encoding='utf-8').read().split())
         self.v1_assets = {f[len('assets/'):]: sha256(os.path.join(v1, f)) for f in tracked if f.startswith('assets/')}
-        # the press version must publish exactly this commit's assets
-        man = os.path.join(PRESS, 'v', press_version, 'manifest.json')
-        if not os.path.exists(man):
-            sys.exit(f'partition: press v{press_version} is not published here (v/{press_version}/manifest.json)')
-        press_assets = {f['name'][len('assets/'):]: f['sha256'] for f in json.load(open(man))['files'] if f['name'].startswith('assets/')}
+        # the pages load the press's assets and data's files from /latest/ (the editor, 27 October 2026): what this press
+        # clone holds under assets/ is what the press serves at its next deploy, and data's catalogue is what data serves
+        press_assets = {}
+        for d, dirs, fs in os.walk(os.path.join(PRESS, 'assets')):
+            dirs.sort()
+            for f in fs:
+                rel = os.path.relpath(os.path.join(d, f), os.path.join(PRESS, 'assets')).replace(os.sep, '/')
+                press_assets[rel] = sha256(os.path.join(d, f))
         missing = sorted(set(self.v1_assets) - set(press_assets))
         if missing:   # a page would load an asset the pinned press version does not serve
             sys.exit(f'partition: press v{press_version} does not serve {len(missing)} asset(s) the pages load (e.g. {missing[:3]}); release the press first')
@@ -72,10 +93,7 @@ class Plan:
         self.newer_assets = sorted(n for n in self.v1_assets if press_assets.get(n) != self.v1_assets[n])
         if self.newer_assets:
             print(f'partition: note: press v{press_version} holds a newer copy of {len(self.newer_assets)} asset(s) than the build used (e.g. {self.newer_assets[:3]}); the pages load those')
-        dman = os.path.join(data_root, 'v', data_version, 'manifest.json')
-        if not os.path.exists(dman):
-            sys.exit(f'partition: data v{data_version} is not published in {data_root}')
-        self.data_files = {f['name'] for f in json.load(open(dman))['files']}
+        self.data_files = set(data_published(data_root))
         self.runtime, self.files = [], {name: [] for name in self.sites}   # files: per site, its own pages and extras
         self.pages = {name: [] for name in self.sites}                     # per site, its own HTML pages
         self.sources = set()   # v1 files no site serves (its build, content, documents): linked on GitHub instead
@@ -257,6 +275,8 @@ def main():
         written[rel] = hashlib.sha256(data).hexdigest()
 
     for f in plan.runtime + plan.files[site]:
+        if f == 'VERSION':
+            continue   # each site's CI writes its own VERSION (CI owns the version); the route still sends VERSION here
         raw = open(os.path.join(v1, f), 'rb').read()
         if f.endswith(('.html', '.md')) and (f in plan.files[site] or f in ('404.html', '404.md')):
             raw = rewrite(plan, site, f, raw.decode('utf-8')).encode('utf-8')
