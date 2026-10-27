@@ -261,7 +261,9 @@
   }
   function rewriteAddress(st) {
     if (!history.replaceState) return;
-    var real = new URL(REAL), dir = real.pathname.replace(/index\.html$/, '');
+    var real = new URL(REAL);
+    if (!/\/(index\.html)?$/.test(real.pathname)) return;   // a page that is a file (admin/versions.html): no view address leads back to it
+    var dir = real.pathname.replace(/index\.html$/, '');
     var view = dir + 'as/' + word(st.role, st.reader) + '/';
     if (st.depth && st.r.depthSet && st.depth !== L.chooseDepth(st.role, st.reader, null, ROLES)) view += st.depth + '/';
     if (location.pathname === view) return;
