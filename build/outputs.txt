@@ -390,6 +390,8 @@ admin/briefs/2026-10-27__brief__centers-of-gravity/index.html
 admin/briefs/2026-10-27__brief__centers-of-gravity/index.md
 admin/briefs/2026-10-27__brief__five-lanes-and-a-cap-per-tab/index.html
 admin/briefs/2026-10-27__brief__five-lanes-and-a-cap-per-tab/index.md
+admin/briefs/2026-10-27__brief__sgit-0-26-0/index.html
+admin/briefs/2026-10-27__brief__sgit-0-26-0/index.md
 admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.html
 admin/briefs/2026-10-27__brief__the-breaking-news-desk/index.md
 admin/briefs/2026-10-27__brief__the-story-as-days/index.html
@@ -1366,6 +1368,8 @@ sources/chip-news-wifi-dsl-internet-bsi-schlaegt-alar/index.html
 sources/chip-news-wifi-dsl-internet-bsi-schlaegt-alar/index.md
 sources/ciol-iot-india-php2shell-attacks-ai-driven-cy/index.html
 sources/ciol-iot-india-php2shell-attacks-ai-driven-cy/index.md
+sources/cisa-alert-kev-20261026/index.html
+sources/cisa-alert-kev-20261026/index.md
 sources/cisa-alert-log4j-2021/index.html
 sources/cisa-alert-log4j-2021/index.md
 sources/cisa-alert-php-20261021/index.html
@@ -2554,8 +2558,12 @@ views/state/v2-v3/index.html
 views/state/v2-v3/index.md
 views/state/v2/index.html
 views/state/v2/index.md
+views/state/v3-v4/index.html
+views/state/v3-v4/index.md
 views/state/v3/index.html
 views/state/v3/index.md
+views/state/v4/index.html
+views/state/v4/index.md
 whatsnew/index.html
 whatsnew/index.md
 wikipedia/for-editors/index.html

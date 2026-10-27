@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "7dea40a2f585a2c71e646949bae15b83dea0d978",
-  "site_version": "0.22.42"
+  "commit": "b2180f62a08133c0b72e5f2b5640be07f211b42e",
+  "site_version": "0.22.43"
  },
  "sources": {
   "assets/": "assets/",
@@ -15,11 +15,8 @@
   "vault-app/": "vault-app/"
  },
  "kept": [
-  "assets/live/article.js",
-  "assets/live/live.js",
-  "assets/live/runs.js",
-  "assets/live/schedule.js",
-  "build/build.py"
+  "build/export_loops.py",
+  "build/loops.py"
  ],
  "files": {
   "assets/articles/has-anyone-been-hacked/deck.html": "4d767c9f3a710a5d28987a72ec114e04306f73f17be880cda720aa6f3e3d4b49",
@@ -101,8 +98,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "ed74de2d7674fd5b4cd4d60b36700cabc40890b2d1d8b837d78a00290f0f38d0",
-  "assets/design/line/copy.json": "77193bc3d93a6e743fdb0eccb95d76463f19cec9140ebee2cbe9fad24029524c",
+  "assets/design/line/config.js": "1ac97a112b99b752af231bf5598336f699f25852840702bdd0c69c3d38807035",
+  "assets/design/line/copy.json": "bbbfc9466d1ab4556da5433e8c08aef7b0b563cee7a6446151001f9c2d55ba5d",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -196,7 +193,7 @@
   "build/csp.py": "d1f32c5a8b2d5adb97e6532096e406cd7d4ab823cd803fe07c81fe65e1f933de",
   "build/design.py": "e41dbfb91ac8b1f0b06698f9274b5c5371696ab09c5eb3df62ee57444e778dd7",
   "build/diagram.py": "3ff4aebbf12115d7f305b20ffe840dee789a68c2aca1a54937a34c4ee9701498",
-  "build/export_loops.py": "a4c9c3312075ea137ebe11f872f2092e37e44b34adf3f3e08c0c315409bac2ca",
+  "build/export_loops.py": "0189b1e6fdf87be811d62021c6289c931867e22bfc0ffbed525b06af7fa73e37",
   "build/export_pulse.py": "ada1dc68ad6a9e041f3ab1bf851ec6459f91ccb5f9e5aa363f0afc1e00de18dc",
   "build/export_vault.py": "a71b4b31b88c65fce4401fa509060dddf0fc70096ca1d88ef1507bfcb7159b68",
   "build/export_watch.py": "e72e5b84d68f7e8dc7f1f277afbb41ce5f83f8666393935b5972c75b18cc02c2",
@@ -204,9 +201,9 @@
   "build/inventory_history.py": "7ff038112060e36a962e70a173db467bc51f0c6bd9ae74a8e0e412ca5efcf70b",
   "build/invite.py": "2e20a66a488f3055e1a3baca2630a8d3c77cd5e2429f7d9b220b55149862174f",
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
-  "build/loops.py": "74c6f333eaf9326dd55c4f3a91467bdf99b1cb3c88a78679f0e78d109249f969",
+  "build/loops.py": "6166a494c1d7caf8491945d001c782ff3cc41d4a23c6d31a6bf1dd0381751406",
   "build/newsroom_paths.py": "dea7967e26286dd09a599ce7bc5f629f8463d06a34b3a4430f3f2c9b0eaa032e",
-  "build/outputs.txt": "5e73e06acd59a4724ded95e9f843892173f3e9d3bfe51ff48464557e83b37039",
+  "build/outputs.txt": "8f2fcf29da8bafbcadd45c9a612ba015da77830fef2f671f2d4363871afce787",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",
