@@ -1,0 +1,109 @@
+/* The days mock-up (story-site, 27 October 2026). Built on the site's theme tokens, so it reads in every theme. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--sans)}
+a{color:var(--accent-dk)}
+.mock{margin:0;padding:.45rem 16px;background:var(--panel2,var(--panel));border-bottom:1px dashed var(--line2);font-size:.78rem;color:var(--dim)}
+.wrap,.bar,.strip,main{max-width:1180px;margin:0 auto;padding-left:16px;padding-right:16px}
+
+/* the bar: the brand, and who you are reading as */
+.bar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding-top:.7rem;padding-bottom:.7rem}
+.brand{font-family:var(--serif);font-weight:700;font-size:1.15rem}
+.brand span{color:var(--dim);font-weight:400}
+.who{display:flex;gap:.3rem;flex-wrap:wrap;margin-left:auto}
+.who button{font:inherit;font-size:.8rem;padding:.25rem .65rem;border-radius:999px;border:1px solid var(--line2);background:var(--panel);color:var(--fg);cursor:pointer}
+.who button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+
+/* the strip: every day of the story, its height the news it held for you */
+.strip{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:.4rem;padding-top:.3rem;padding-bottom:1rem;border-bottom:1px solid var(--line)}
+.strip a{display:flex;flex-direction:column;justify-content:flex-end;gap:.15rem;min-height:116px;padding:.45rem .5rem;border-radius:10px;border:1px solid var(--line);
+  background:var(--panel);color:var(--fg);text-decoration:none;position:relative;overflow:hidden}
+.strip a:hover{border-color:var(--accent)}
+.strip a[aria-current="page"]{border:2px solid var(--fg);padding:calc(.45rem - 1px) calc(.5rem - 1px)}
+.strip .n{font-family:var(--serif);font-weight:700;font-size:1.05rem;line-height:1.1}
+.strip .d{font-size:.72rem;color:var(--dim)}
+.strip .l{font-size:.74rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.strip .bars{display:flex;align-items:flex-end;gap:3px;height:46px;margin-bottom:.2rem}
+.strip .bars i{display:block;width:12px;border-radius:3px 3px 0 0;background:var(--accent)}
+.strip .bars i.cov{background:var(--line2);width:6px}
+.strip .bars i.zero{height:3px!important;background:var(--line2)}
+.strip a.now{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.strip a.now .d{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.strip a.now .bars i{background:var(--bg)}
+.strip a.now .bars i.zero{background:color-mix(in srgb,var(--bg) 40%,transparent)}
+.strip a.now .live{position:absolute;top:.45rem;right:.5rem;font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.strip a.now .live::before{content:"";display:inline-block;width:6px;height:6px;border-radius:9px;background:#e5484d;margin-right:.3rem;vertical-align:1px}
+.key{grid-column:1/-1;display:flex;gap:1.2rem;font-size:.72rem;color:var(--dim);margin-top:.1rem}
+.key i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:.3rem;vertical-align:-1px;background:var(--accent)}
+.key i.cov{background:var(--line2)}
+
+/* the day: big */
+.hero{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.4rem 1.6rem;padding:2rem 0 1.4rem;border-bottom:1px solid var(--line)}
+.dayno{font-family:var(--serif);font-weight:700;font-size:clamp(4.5rem,11vw,8.5rem);line-height:.85;letter-spacing:-.03em;grid-row:span 3}
+.dayno small{display:block;font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;font-family:var(--sans);font-weight:700;color:var(--dim);margin-bottom:.4rem}
+.when{font-size:.9rem;color:var(--dim);margin:0;font-weight:600}
+.when b{color:var(--fg)}
+.hero h1{font-family:var(--serif);font-size:clamp(1.6rem,3.2vw,2.5rem);line-height:1.15;margin:.1rem 0 .3rem;max-width:30ch}
+.size{margin:0;font-size:1rem;max-width:62ch}
+.size .pill{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.12rem .5rem;border-radius:6px;margin-right:.5rem;vertical-align:1px}
+.pill.huge,.pill.big{background:var(--fg);color:var(--bg)}
+.pill.small{background:var(--panel2,var(--panel));border:1px solid var(--line2)}
+.pill.quiet,.pill.none{background:transparent;border:1px dashed var(--line2);color:var(--dim)}
+
+.cols{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:2rem;padding:1.4rem 0 2rem}
+h2{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin:0 0 .7rem}
+section+section{margin-top:1.8rem}
+
+/* what changed, for you */
+.items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem}
+.items li{display:grid;grid-template-columns:3.6rem minmax(0,1fr);gap:.8rem;padding:.65rem 0;border-top:1px solid var(--line)}
+.items li:first-child{border-top:0}
+.items .t{font-family:var(--mono);font-size:.8rem;color:var(--dim);padding-top:.15rem}
+.items .tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.05rem .4rem;border-radius:5px;margin-right:.45rem;vertical-align:1px;
+  background:var(--panel2,var(--panel));border:1px solid var(--line2)}
+.items .tag[data-t="Changed"]{background:var(--warn-bg,#fdf1e2);color:var(--warn-ink,#7a4a05);border-color:transparent}
+.items .tag[data-t="Corrected"]{background:var(--danger-bg,#fde8e8);color:var(--danger-ink,#8a1c1c);border-color:transparent}
+.items .tag[data-t="Still"]{background:transparent;color:var(--dim)}
+.items li.big .x{font-size:1.12rem;font-weight:600}
+.items .ba{display:block;margin-top:.3rem;font-size:.85rem}
+.items .ba s{color:var(--dim)}
+.items .ba b{color:var(--fg)}
+.items .src{display:block;font-size:.74rem;color:var(--dim);margin-top:.15rem}
+.items .late{display:block;font-size:.74rem;color:var(--warn-ink,#7a4a05);margin-top:.15rem}
+.items li.midnight{grid-template-columns:1fr;padding:.35rem 0;border-top:2px solid var(--fg);font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.nothing{border:1px dashed var(--line2);border-radius:12px;padding:1rem 1.1rem;background:var(--panel)}
+.nothing p{margin:.2rem 0}
+.nothing .big{font-family:var(--serif);font-size:1.35rem;font-weight:700}
+
+/* where it stands */
+.tiles{display:grid;grid-template-columns:minmax(0,1fr);gap:.5rem}
+.tile{border:1px solid var(--line);border-radius:10px;padding:.55rem .75rem;background:var(--panel)}
+.tile .q{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--dim);font-weight:700}
+.tile .v{font-family:var(--serif);font-size:1.15rem;font-weight:700;line-height:1.2}
+.tile .was{font-size:.78rem;color:var(--dim)}
+.tile.moved{border:2px solid var(--fg);padding:calc(.55rem - 1px) calc(.75rem - 1px)}
+.tile.moved .was::before{content:"Changed this day · was ";font-weight:700;color:var(--fg)}
+.tile.same .v{color:var(--dim);font-weight:600}
+
+.others{display:flex;flex-wrap:wrap;gap:.35rem}
+.others button{font:inherit;font-size:.8rem;padding:.25rem .6rem;border-radius:8px;border:1px solid var(--line2);background:var(--panel);color:var(--fg);cursor:pointer}
+.others button b{font-weight:700}
+.others button[disabled]{opacity:.45;cursor:default}
+.cov p{margin:.2rem 0;font-size:.9rem}
+
+.pager{display:flex;justify-content:space-between;gap:1rem;padding:1rem 0 2.5rem;border-top:1px solid var(--line)}
+.pager a{display:flex;flex-direction:column;padding:.6rem .9rem;border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--fg);min-width:12rem;background:var(--panel)}
+.pager a small{color:var(--dim);font-size:.74rem}
+.pager a.next{text-align:right;margin-left:auto}
+.pager a[hidden]{display:none}
+.rule{font-size:.85rem;color:var(--dim);border-left:3px solid var(--line2);padding:.2rem 0 .2rem .8rem;max-width:70ch}
+
+@media (max-width:820px){
+  .strip{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:92px;overflow-x:auto;scroll-snap-type:x mandatory}
+  .strip a{scroll-snap-align:center;min-height:104px}
+  .key{grid-column:auto;display:none}
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .dayno{grid-row:auto;font-size:4.5rem}
+  .cols{grid-template-columns:minmax(0,1fr);gap:1.5rem}
+  .who{margin-left:0}
+  .pager a{min-width:0;flex:1}
+}
