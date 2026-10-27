@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "8310887f58934da4d9cc189dd32417cf2d6cc458",
-  "site_version": "0.22.41"
+  "commit": "7dea40a2f585a2c71e646949bae15b83dea0d978",
+  "site_version": "0.22.42"
  },
  "sources": {
   "assets/": "assets/",
@@ -15,15 +15,10 @@
   "vault-app/": "vault-app/"
  },
  "kept": [
-  "assets/compare.js",
-  "assets/design/days/days-data.js",
-  "assets/design/days/days.css",
-  "assets/design/days/days.js",
-  "assets/design/days/index.html",
-  "assets/design/line/line.js",
   "assets/live/article.js",
-  "assets/live/briefs.js",
-  "assets/route.js",
+  "assets/live/live.js",
+  "assets/live/runs.js",
+  "assets/live/schedule.js",
   "build/build.py"
  ],
  "files": {
@@ -106,8 +101,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "cde89cd993131343327cf61caea7787603be1a03190e8d27e8ac441b50daf782",
-  "assets/design/line/copy.json": "5e388b4040c0d344ee5b4a7f7f7f18076c1ff6236d02668059fe2674e1e4cda2",
+  "assets/design/line/config.js": "ed74de2d7674fd5b4cd4d60b36700cabc40890b2d1d8b837d78a00290f0f38d0",
+  "assets/design/line/copy.json": "77193bc3d93a6e743fdb0eccb95d76463f19cec9140ebee2cbe9fad24029524c",
   "assets/design/line/copy.src.json": "b8b658d2a0b1247f32ce270713fee68c174161fa9a7eed3d86b685b17882f3ec",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -129,13 +124,13 @@
   "assets/grc-changes.js": "01c15e38f6f0b138578cea525270d41767e25eb3fdf6032b549424969c03b28e",
   "assets/grc-explore.js": "80f83e3a0ab2a97306350d155ae994570818bd660e72bb04fa1b18c3224e0f26",
   "assets/keys/dev-php-newsroom.svg": "e007b808bba53e82a91cb8d338b08911e736cec4bec765669928bcb916bfddfb",
-  "assets/live/article.js": "15ccf8b97f3c694b1fb99867f6cb46675765f91241690e2602af14d58a6ca02e",
+  "assets/live/article.js": "63c5b203733afe5dc2920b4f8028358a2e110331ad7c58b030c97aff8528ab52",
   "assets/live/board.js": "52edf6d1c74b0746714e1c6d68ce8ef98843220beeb13a2f184a1e3ba5be870e",
   "assets/live/briefs.js": "c7ca494f4008e333cea613adabe21f639f63ea59fdbe3a18f54fcad86c6c6f1a",
-  "assets/live/live.js": "c4db7fd8afdd8c5112776ef155ec0c2bb12a5310a9dc73fc1a699d9c350a36b2",
+  "assets/live/live.js": "0c21c4b244d7ff4e34966981a791770d53a313b893f516053f41fa3013c3ac5b",
   "assets/live/members.js": "a70eda5d802f68dee0d36e4d556a19016d381517e3e498d80aa53724a155df95",
-  "assets/live/runs.js": "3318a86cc8f20b05c9e41ac2a584780390d081170cea6d5e59893e9caadd91b3",
-  "assets/live/schedule.js": "a968c425e4efb1e6b80de76b0737fb1e62695789ab119a362b6925aaff1ef5eb",
+  "assets/live/runs.js": "5e318adf997078e081ac8868a124fead7170a8871dcb519d39051c08fea816db",
+  "assets/live/schedule.js": "0d72c4ad75efa1f08cf842c53eb555910cb673eb9c461eccdaf652281cbd11ad",
   "assets/live/status.js": "862e496e607ece3e7cc6159361b79e328820ac05a54527e136e4e320d12c0fcd",
   "assets/live/tasks.js": "31b46b697d9db1152578c61e98ed78e50f8161c366afbac4ef0184837b6f4c7a",
   "assets/live/vaults.js": "8c21604803a9ed6a48a1b68f2945c59a2b22435f24515c92ca0031bfca393a01",
@@ -193,7 +188,7 @@
   "assets/vendor/sg-vault/v0.2.3/sg-vault/sg-vault.js": "0108884f9b8d539e4c9457190326d64adc5a92c808803f0dab14b9e772b3ad26",
   "assets/vendor/vault-ui-embed.js": "fb2c5766b0fdd1eddfbfc810d7c5ed76a650fc1e07f6ae28659f19d97a790d25",
   "build/agents.py": "7baacd06a7b83e7fa35af9789f5d94a0489c9d4c2ea793fb7f527230b96dbf05",
-  "build/build.py": "309d647e1659254fb89e0e519d1df00f1a8254bcfe952cc76a8dff10184472f6",
+  "build/build.py": "e21973b6adc62d71290594075505c6c94f50eb4777de46cb2cde7b9a138805c9",
   "build/collaborators_drain.py": "dbad852284408dbea8708bec3fbf3f0ffe8c088cfe79d124e072dce7b27d728e",
   "build/conductor_drain.py": "750b8f448cd479f74a452d38995962c5743f58b2bb93ee48daec87d7e4dc7ca6",
   "build/contributors.py": "3ec4b8db116bb33e1bae1070437748858519525b440d3fcd4b52e5651a84484e",
