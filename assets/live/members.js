@@ -1,8 +1,9 @@
-/* A member's page, live: "Where it is now" (its status.json) and its rounds (its debriefs), read from the team
-   repository's records when the page opens (records/index/agents.json, written by the team site's deploy), so a status
-   or a debrief a member releases is on its page a minute or two later, with no build. Draws the build's markup
-   (build.py: build_members, debrief_html) into data-live="member-status" and "member-debriefs"; the role, the policy and
-   the delta stay as built. A screenshot is drawn only from the member's own debriefs/img/ folder, as the build requires,
+/* A member's page, live: its role (ROLE.md), "Where it is now" (its status.json) and its rounds (its debriefs), read
+   from the team repository's records when the page opens (records/index/agents.json, written by the team site's deploy),
+   so a role, a status or a debrief a member releases is on its page a minute or two later, with no build. Draws the
+   build's markup (build.py: build_members, debrief_html) into data-live="member-role", "member-status" and
+   "member-debriefs"; the policy and the delta stay as built. The role is drawn only when the index carries it (a string);
+   otherwise the role the build drew stays. A screenshot is drawn only from the member's own debriefs/img/ folder, as the build requires,
    and is served by the team site. What the build drew stays when the fetch fails. Needs assets/live/live.js. */
 (function () {
   'use strict';
@@ -63,11 +64,12 @@
     boxes.forEach(function (box) { try {
       var a = by[box.getAttribute('data-agent')], kind = box.getAttribute('data-live');
       if (!a) return;
-      if (kind === 'member-status') L.fill(box, status(a.status));
+      if (kind === 'member-role') { if (typeof a.role !== 'string' || !a.role.trim()) return; L.fill(box, L.mdDoc(a.role)); }
+      else if (kind === 'member-status') L.fill(box, status(a.status));
       else if (kind === 'member-debriefs') L.fill(box, a.debriefs.length ? a.debriefs.map(function (db) { return debrief(db, a.agent); }) : el('p', { class: 'small' }, ['No debrief yet.']));
       else return;
-      last = box;
+      if (kind !== 'member-role') last = box;
     } catch (e) { /* this container keeps what the build drew */ } });
-    if (last) L.stamp(last, 'the status and the debriefs from records/agents/ in the team repository');
+    if (last) L.stamp(last, 'the role, the status and the debriefs from records/agents/ in the team repository');
   }).catch(function () { /* the page as built stays */ });
 })();

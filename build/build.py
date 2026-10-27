@@ -7311,7 +7311,7 @@ def build_members():
 <p class="kicker">Member &middot; {E(groups.get(p["group"], p["group"]))} &middot; policy {E(p["status"])} &middot; <code>{E(p["address"])}</code></p>
 <h1>{E(p["name"])}: {E(p["title"])}</h1>
 <p class="lead">The role definition, the agent behaviour policy and every round, from <code>admin/content/agents/{E(a)}/</code>. Who this member is on the team, and the tasks it holds, are on <a href="../../../team/index.html">the team</a>; every member's scope side by side is <a href="../roles/index.html">who owns what</a>.</p>
-{section("role", "The role", role)}
+{section("role", "The role", f'<div data-live="member-role" data-agent="{E(a)}">' + role + '</div>')}
 {section("delta", "The delta, computed", dtab) if dtab else ""}
 {section("status", "Where it is now", f'<div data-live="member-status" data-agent="{E(a)}">' + (stt or '<p class="small">No status file.</p>') + '</div>')}
 {section("debriefs", "Its rounds", f'<div data-live="member-debriefs" data-agent="{E(a)}">' + (dbh or '<p class="small">No debrief yet.</p>') + '</div>')}
