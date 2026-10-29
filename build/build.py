@@ -952,7 +952,7 @@ def build_compromise():
                   f'<figcaption>Each dot is one statement on this page, placed at the time the source gives (noon where it gives only a date). Hover a dot for who said it.</figcaption></figure>')
     # 3. the layers, as an infographic (not to scale)
     L = C['layers']; lh = 52
-    shapes = ''.join(f'<rect x="{10+i*25}" y="{i*lh}" width="{620-i*50}" height="{lh-8}" rx="4" style="fill:var(--panel);stroke:{["var(--warm)","var(--bad-ink)","var(--accent)","var(--fg)"][i]};stroke-width:2"/>'
+    shapes = ''.join(f'<rect x="{10+i*25}" y="{i*lh}" width="{620-i*50}" height="{lh-8}" rx="4" style="fill:var(--panel);stroke:{["var(--warm)","var(--bad-ink)","var(--accent)","var(--fg)"][i % 4]};stroke-width:2"/>'
                      f'<text x="320" y="{i*lh+19}" text-anchor="middle" style="font-size:13px;font-weight:700;fill:var(--fg)">{E(l["value"])} · {E(l["label"])}</text>'
                      f'<text x="320" y="{i*lh+35}" text-anchor="middle" style="font-size:10.5px;fill:var(--dim)">{E(l["note"])}</text>' for i, l in enumerate(L))
     chart_layers = (f'<figure class="graph"><svg viewBox="0 0 640 {len(L)*lh}" width="100%" role="img" aria-label="From attempts to a named compromise: what each layer of evidence holds">{shapes}</svg>'
