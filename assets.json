@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "b5afe22d517aaca4126a16da1a7b8d836930c59e",
-  "site_version": "0.22.49"
+  "commit": "13122cbc98bd7ba4c914afeb1efdd7a18bfc3646",
+  "site_version": "0.22.51"
  },
- "files": 178
+ "files": 180
 }

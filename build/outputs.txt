@@ -424,6 +424,14 @@ admin/briefs/2026-10-27__runbook__onboarding-a-session/index.html
 admin/briefs/2026-10-27__runbook__onboarding-a-session/index.md
 admin/briefs/2026-10-27__runbook__the-projects-desk/index.html
 admin/briefs/2026-10-27__runbook__the-projects-desk/index.md
+admin/briefs/2026-10-28__brief__becoming-the-agent-a-new-session/index.html
+admin/briefs/2026-10-28__brief__becoming-the-agent-a-new-session/index.md
+admin/briefs/2026-10-28__brief__how-an-agent-clones-a-vault/index.html
+admin/briefs/2026-10-28__brief__how-an-agent-clones-a-vault/index.md
+admin/briefs/2026-10-28__brief__pushing-and-working-together/index.html
+admin/briefs/2026-10-28__brief__pushing-and-working-together/index.md
+admin/briefs/2026-10-28__decision__all-agents-on-sonnet-for-the-trial/index.html
+admin/briefs/2026-10-28__decision__all-agents-on-sonnet-for-the-trial/index.md
 admin/briefs/index.html
 admin/briefs/index.md
 admin/briefs/view/index.html
@@ -537,6 +545,8 @@ articles/exposed-is-not-exploited/index.html
 articles/exposed-is-not-exploited/index.md
 articles/has-anyone-been-hacked/index.html
 articles/has-anyone-been-hacked/index.md
+articles/how-a-push-reaches-the-pages/index.html
+articles/how-a-push-reaches-the-pages/index.md
 articles/index.html
 articles/index.md
 articles/patch-at-the-speed-of-metasploit/index.html
@@ -1296,6 +1306,8 @@ sources/aljarida-article-148264/index.html
 sources/aljarida-article-148264/index.md
 sources/americanbanker-news-banks-dodge-early-damage-from-php2s/index.html
 sources/americanbanker-news-banks-dodge-early-damage-from-php2s/index.md
+sources/ammonnews-article-1040456/index.html
+sources/ammonnews-article-1040456/index.md
 sources/analyticsinsight-news-changpeng-zhao-warns-crypto-users-a/index.html
 sources/analyticsinsight-news-changpeng-zhao-warns-crypto-users-a/index.md
 sources/andina-agencia-noticia-peru-y-otros-paises-advi/index.html
@@ -1332,8 +1344,12 @@ sources/bbc-live-ckgel5xp2xv9t/index.html
 sources/bbc-live-ckgel5xp2xv9t/index.md
 sources/bgonair-a-5-science-434196-kritichna-uyazvimost/index.html
 sources/bgonair-a-5-science-434196-kritichna-uyazvimost/index.md
+sources/bitmat-news-caso-php2shell-la-vera-sfida-e-nell/index.html
+sources/bitmat-news-caso-php2shell-la-vera-sfida-e-nell/index.md
 sources/bitpage-php2shell-php-sicherheitsluecke-webseite/index.html
 sources/bitpage-php2shell-php-sicherheitsluecke-webseite/index.md
+sources/biz-chosun-it-science-ict-2026-10-27-4r6jyu5n2fclbj/index.html
+sources/biz-chosun-it-science-ict-2026-10-27-4r6jyu5n2fclbj/index.md
 sources/bleepingcomputer-amazon-4-days-before/index.html
 sources/bleepingcomputer-amazon-4-days-before/index.md
 sources/bleepingcomputer-php2shell/index.html
@@ -1474,6 +1490,8 @@ sources/computing-news-2026-security-php-emergency-patches/index.html
 sources/computing-news-2026-security-php-emergency-patches/index.md
 sources/convergenciadigital-seguranca-php-mais-vulnerabilidades-crit/index.html
 sources/convergenciadigital-seguranca-php-mais-vulnerabilidades-crit/index.md
+sources/cozumpark-cisa-php2shell-guvenlik-aciklarinin-sald/index.html
+sources/cozumpark-cisa-php2shell-guvenlik-aciklarinin-sald/index.md
 sources/cpomagazine-cyber-security-threat-actor-targeted-php/index.html
 sources/cpomagazine-cyber-security-threat-actor-targeted-php/index.md
 sources/craft-cms-craft-cloud-and-php2shell/index.html
@@ -1528,6 +1546,8 @@ sources/cyberpress-php2shell-exploits-predate-patches/index.html
 sources/cyberpress-php2shell-exploits-predate-patches/index.md
 sources/cyberscoop-php-emergency-patches-php2shell-vulnerab/index.html
 sources/cyberscoop-php-emergency-patches-php2shell-vulnerab/index.md
+sources/cybersecbrazil-post-hackers-exploram-php2shell-e-invade/index.html
+sources/cybersecbrazil-post-hackers-exploram-php2shell-e-invade/index.md
 sources/cybersecitalia-lalert-dellacn-in-italia-a-rischio-vulne/index.html
 sources/cybersecitalia-lalert-dellacn-in-italia-a-rischio-vulne/index.md
 sources/cybersecurity360-nuove-minacce-php2shell-due-vulnerabilit/index.html
@@ -1544,6 +1564,8 @@ sources/darkreading-php2shell-red-alert/index.html
 sources/darkreading-php2shell-red-alert/index.md
 sources/data-max-article-87622/index.html
 sources/data-max-article-87622/index.md
+sources/datanet-news-articleview-html/index.html
+sources/datanet-news-articleview-html/index.md
 sources/datensicherheit-php2shell-informationen-patch-veroeffent/index.html
 sources/datensicherheit-php2shell-informationen-patch-veroeffent/index.md
 sources/daubois-blog-php2shell-rumors/index.html
@@ -1608,6 +1630,8 @@ sources/enter-chips-bits-fallas-criticas-php2shell-exp/index.html
 sources/enter-chips-bits-fallas-criticas-php2shell-exp/index.md
 sources/epfl-site/index.html
 sources/epfl-site/index.md
+sources/epochtimes-cybersecurite-une-faille-de-securite-php/index.html
+sources/epochtimes-cybersecurite-une-faille-de-securite-php/index.md
 sources/equixly-php2shell-what-we-know/index.html
 sources/equixly-php2shell-what-we-know/index.md
 sources/es-wired-articulos-hackers-aprovecharon-las-vulne/index.html
@@ -1628,6 +1652,8 @@ sources/expresscomputer-guest-blogs-understanding-php2shell-vuln/index.html
 sources/expresscomputer-guest-blogs-understanding-php2shell-vuln/index.md
 sources/expressionengine-php-vulnerabilities/index.html
 sources/expressionengine-php-vulnerabilities/index.md
+sources/falter-zeitung-20261027-schwachstelle-php2shell/index.html
+sources/falter-zeitung-20261027-schwachstelle-php2shell/index.md
 sources/fastly-blog-php2shell/index.html
 sources/fastly-blog-php2shell/index.md
 sources/faz-aktuell-wirtschaft-mehr-wirtschaft-php-s/index.html
@@ -1674,6 +1700,8 @@ sources/fr-prefecture-rhone-down/index.html
 sources/fr-prefecture-rhone-down/index.md
 sources/freepressjournal-bhopal-mp-government-websites-vulnerable/index.html
 sources/freepressjournal-bhopal-mp-government-websites-vulnerable/index.md
+sources/frenchweb-failles-critiques-dans-php-vous-etes-ceo/index.html
+sources/frenchweb-failles-critiques-dans-php-vous-etes-ceo/index.md
 sources/gamemeca-view-php/index.html
 sources/gamemeca-view-php/index.md
 sources/gazzettadelsud-articoli-cronaca-2026-10-22-allarme-php2/index.html
@@ -1718,6 +1746,8 @@ sources/haber-teknoloji-siber-guvenlik-baskanligi-ndan/index.html
 sources/haber-teknoloji-siber-guvenlik-baskanligi-ndan/index.md
 sources/haber7-teknoloji-haber-3670492-php-guvenlik-aci/index.html
 sources/haber7-teknoloji-haber-3670492-php-guvenlik-aci/index.md
+sources/hackernoon-what-you-need-to-know-about-the-php2shel/index.html
+sources/hackernoon-what-you-need-to-know-about-the-php2shel/index.md
 sources/hankyung-article-2026102423207/index.html
 sources/hankyung-article-2026102423207/index.md
 sources/hardwarecooking-failles-php-critiques-php2shell-correcti/index.html
@@ -1778,6 +1808,8 @@ sources/indigodergisi-2026-10-php-guvenlik-acigi-php2shell/index.html
 sources/indigodergisi-2026-10-php-guvenlik-acigi-php2shell/index.md
 sources/inet-detik-security-d-8718436-saking-bahayanya-php2/index.html
 sources/inet-detik-security-d-8718436-saking-bahayanya-php2/index.md
+sources/infoarenales-2026-10-22-que-es-php-y-por-que-una-fall/index.html
+sources/infoarenales-2026-10-22-que-es-php-y-por-que-una-fall/index.md
 sources/infobae-estados-unidos-2026-10-23-php2shell-como/index.html
 sources/infobae-estados-unidos-2026-10-23-php2shell-como/index.md
 sources/infomoney-mundo-php-falha-ameaca-tirar-sites-ar/index.html
@@ -1798,6 +1830,8 @@ sources/insurancebusiness-uk-councils-met/index.html
 sources/insurancebusiness-uk-councils-met/index.md
 sources/insurancebusiness-uk-councils/index.html
 sources/insurancebusiness-uk-councils/index.md
+sources/iphonemod-cisa-warns-hackers-exploiting-critical-p/index.html
+sources/iphonemod-cisa-warns-hackers-exploiting-critical-p/index.md
 sources/iphonesoft-2026-10-22-faille-php-5-8-5-savoir-situa/index.html
 sources/iphonesoft-2026-10-22-faille-php-5-8-5-savoir-situa/index.md
 sources/istanbulticaretgazetesi-siber-guvenlik-baskanligindan-php2shell/index.html
@@ -1816,6 +1850,8 @@ sources/itdaily-news-articleview-html/index.html
 sources/itdaily-news-articleview-html/index.md
 sources/itdaily-php-clumsy-announcement/index.html
 sources/itdaily-php-clumsy-announcement/index.md
+sources/itforbusiness-php2shell-mea-culpa-php-foundation-10899/index.html
+sources/itforbusiness-php2shell-mea-culpa-php-foundation-10899/index.md
 sources/ithome-1-016-980-htm/index.html
 sources/ithome-1-016-980-htm/index.md
 sources/itsocial-cybersecurite-cybersecurite-articles-php/index.html
@@ -1952,6 +1988,8 @@ sources/mt-tech-2026-10-24-2026102414170377166/index.html
 sources/mt-tech-2026-10-24-2026102414170377166/index.md
 sources/muycomputer-2026-10-21-php2shell-el-fallo-de-php-que/index.html
 sources/muycomputer-2026-10-21-php2shell-el-fallo-de-php-que/index.md
+sources/muycomputerpro-2026-10-28-cisa-confirma-la-explotacion/index.html
+sources/muycomputerpro-2026-10-28-cisa-confirma-la-explotacion/index.md
 sources/mynet-php-guvenlik-acigi-alarmi-iki-kritik-aci/index.html
 sources/mynet-php-guvenlik-acigi-alarmi-iki-kritik-aci/index.md
 sources/ncsc-news-php/index.html
@@ -1986,8 +2024,12 @@ sources/news-qq-rain-a-20261021a0eq4p00/index.html
 sources/news-qq-rain-a-20261021a0eq4p00/index.md
 sources/news-tf-read-economy-2380063-htm/index.html
 sources/news-tf-read-economy-2380063-htm/index.md
+sources/news-tokocrypto-mengenal-black-october-2026-celah-php2sh/index.html
+sources/news-tokocrypto-mengenal-black-october-2026-celah-php2sh/index.md
 sources/news-yahoo-articles-d953e2a13109253ae974bf2a64ebe94/index.html
 sources/news-yahoo-articles-d953e2a13109253ae974bf2a64ebe94/index.md
+sources/news1-it-science-security-hacking-6330361/index.html
+sources/news1-it-science-security-hacking-6330361/index.md
 sources/news9live-technology-tech-news-what-is-php2shell-c/index.html
 sources/news9live-technology-tech-news-what-is-php2shell-c/index.md
 sources/newscast-smart-news-4327997/index.html
@@ -1996,6 +2038,10 @@ sources/newscj-news-articleview-html/index.html
 sources/newscj-news-articleview-html/index.md
 sources/newstap-news-articleview-html/index.html
 sources/newstap-news-articleview-html/index.md
+sources/newstomato-readnews-aspx/index.html
+sources/newstomato-readnews-aspx/index.md
+sources/newstopkorea-news-articleview-html/index.html
+sources/newstopkorea-news-articleview-html/index.md
 sources/newsweek-php2shell-list/index.html
 sources/newsweek-php2shell-list/index.md
 sources/newsweek-php2shell-websites/index.html
@@ -2052,8 +2098,12 @@ sources/nw-nachrichten-zwischen-weser-und-rhein-244/index.html
 sources/nw-nachrichten-zwischen-weser-und-rhein-244/index.md
 sources/october-cms-php-security-alert/index.html
 sources/october-cms-php-security-alert/index.md
+sources/ohn-haendlerbund-themen-ki-tech-erste-php2shell-angriffe/index.html
+sources/ohn-haendlerbund-themen-ki-tech-erste-php2shell-angriffe/index.md
 sources/okaz-technology-na-2272170/index.html
 sources/okaz-technology-na-2272170/index.md
+sources/okdiario-techy-php2shell-fallos-criticos-php-ia-o/index.html
+sources/okdiario-techy-php2shell-fallos-criticos-php-ia-o/index.md
 sources/okta-access-gateway-php/index.html
 sources/okta-access-gateway-php/index.md
 sources/openaccessgovernment-ncsc-issues-warning-over-critical-php-re/index.html
@@ -2194,6 +2244,8 @@ sources/sansec-research-php2shell/index.html
 sources/sansec-research-php2shell/index.md
 sources/sbbit-article-cont1-187672/index.html
 sources/sbbit-article-cont1-187672/index.md
+sources/sbircialanotizia-articoli-2026-10-26-php2shell-italia-lst/index.html
+sources/sbircialanotizia-articoli-2026-10-26-php2shell-italia-lst/index.md
 sources/scherzer-dev-wikipedia-ref-15-blog-20261022-php2shell/index.html
 sources/scherzer-dev-wikipedia-ref-15-blog-20261022-php2shell/index.md
 sources/schieb-php2shell-sicherheitsluecke-so-schuetzt/index.html
@@ -2264,6 +2316,8 @@ sources/sonicwall-php-product-notice/index.html
 sources/sonicwall-php-product-notice/index.md
 sources/spacemoney-tecnologia-php2shell-falha-critica-php/index.html
 sources/spacemoney-tecnologia-php2shell-falha-critica-php/index.md
+sources/spiegel-netzwelt-php-sicherheitsluecke-auf-websi/index.html
+sources/spiegel-netzwelt-php-sicherheitsluecke-auf-websi/index.md
 sources/splunk-svd-2026-1013/index.html
 sources/splunk-svd-2026-1013/index.md
 sources/stadt-bremerhaven-synology-sicherheitsupdates-fuer-php-geg/index.html
@@ -2274,6 +2328,8 @@ sources/startupper-ai-282619-antepithesi-220-ekat-liron-apo/index.html
 sources/startupper-ai-282619-antepithesi-220-ekat-liron-apo/index.md
 sources/stephanelarue-sites-des-prefectures-inaccessibles-lint/index.html
 sources/stephanelarue-sites-des-prefectures-inaccessibles-lint/index.md
+sources/stirileprotv-stiri-actualitate-alerta-de-securitate-c/index.html
+sources/stirileprotv-stiri-actualitate-alerta-de-securitate-c/index.md
 sources/stock-10jqka-20261022-c680990008-shtml/index.html
 sources/stock-10jqka-20261022-c680990008-shtml/index.md
 sources/suaranasional-2026-10-25-bahaya-celah-keamanan-php2she/index.html
@@ -2310,6 +2366,8 @@ sources/techaeris-2026-10-21-php2shell-the-emergency-php-p/index.html
 sources/techaeris-2026-10-21-php2shell-the-emergency-php-p/index.md
 sources/techgaming-internet-sotto-attacco-php2shell-vulnera/index.html
 sources/techgaming-internet-sotto-attacco-php2shell-vulnera/index.md
+sources/techgoondu-2026-10-28-more-flaws-like-php-issues-wi/index.html
+sources/techgoondu-2026-10-28-more-flaws-like-php-issues-wi/index.md
 sources/technotoday-php2shell-saldirilari-iki-kritik-php-aci/index.html
 sources/technotoday-php2shell-saldirilari-iki-kritik-php-aci/index.md
 sources/techtarget-cybersecurity-news-366652444-php2shell-2/index.html
@@ -2320,6 +2378,8 @@ sources/techtarget-itmedia-tt-article-2610-23-2000002526/index.html
 sources/techtarget-itmedia-tt-article-2610-23-2000002526/index.md
 sources/techzine-php-chainguard/index.html
 sources/techzine-php-chainguard/index.md
+sources/tecnoandroid-news-php2shell-due-falle-critiche-il-per/index.html
+sources/tecnoandroid-news-php2shell-due-falle-critiche-il-per/index.md
 sources/tek-sapo-opiniao-artigos-exposicao-de-portugal-ao-php2shell/index.html
 sources/tek-sapo-opiniao-artigos-exposicao-de-portugal-ao-php2shell/index.md
 sources/tekno-kompas-read-2026-10-22-14200007-celah-keamanan/index.html
@@ -2354,12 +2414,16 @@ sources/the-verge-php2shell-websites-down/index.html
 sources/the-verge-php2shell-websites-down/index.md
 sources/the420-php2shell-critical-vulnerabilities-cve-2/index.html
 sources/the420-php2shell-critical-vulnerabilities-cve-2/index.md
+sources/thedailystar-news-bangladesh-news-php-flaw-trickles-d/index.html
+sources/thedailystar-news-bangladesh-news-php-flaw-trickles-d/index.md
 sources/thehackernews-php2shell-4days/index.html
 sources/thehackernews-php2shell-4days/index.md
 sources/thehackernews-php2shell-unpatched-alert/index.html
 sources/thehackernews-php2shell-unpatched-alert/index.md
 sources/thehackernews-what-protects-you/index.html
 sources/thehackernews-what-protects-you/index.md
+sources/thehindubusinessline-companies-what-is-the-php2shell-threat-a/index.html
+sources/thehindubusinessline-companies-what-is-the-php2shell-threat-a/index.md
 sources/thelec-news-articleview-html/index.html
 sources/thelec-news-articleview-html/index.md
 sources/themandarin-322640-asd-rushes-out-critical-alert-on-unpatched-php-vulner/index.html
@@ -2376,8 +2440,12 @@ sources/thestar-aseanplus-aseanplus-news-2026-10-22-seri/index.html
 sources/thestar-aseanplus-aseanplus-news-2026-10-22-seri/index.md
 sources/tiasang-lo-hong-php-ai-khien-dieu-bi-lang-quen-t/index.html
 sources/tiasang-lo-hong-php-ai-khien-dieu-bi-lang-quen-t/index.md
+sources/tiinside-26-10-2026-php2shell-corrigido-no-codigo/index.html
+sources/tiinside-26-10-2026-php2shell-corrigido-no-codigo/index.md
 sources/tirto-website-sedunia-geger-ditemukan-celah-ke/index.html
 sources/tirto-website-sedunia-geger-ditemukan-celah-ke/index.md
+sources/tivi-uutiset-a-76dfed20-ffb8-48e7-ad18-12f44a/index.html
+sources/tivi-uutiset-a-76dfed20-ffb8-48e7-ad18-12f44a/index.md
 sources/topagrar-betriebsleitung-news-php-sicherheitsluck/index.html
 sources/topagrar-betriebsleitung-news-php-sicherheitsluck/index.md
 sources/tpo-nl-digid-offline/index.html
@@ -2398,6 +2466,8 @@ sources/turkiyedeisdunyasi-php2shell-turkiye-avrupa-siber-142939/index.html
 sources/turkiyedeisdunyasi-php2shell-turkiye-avrupa-siber-142939/index.md
 sources/tuttotech-news-2026-10-22-vulnerabilita-php-html/index.html
 sources/tuttotech-news-2026-10-22-vulnerabilita-php-html/index.md
+sources/tvnet-8572129-pirmdien-atklata-jauna-un-loti-s/index.html
+sources/tvnet-8572129-pirmdien-atklata-jauna-un-loti-s/index.md
 sources/tvtechnology-infrastructure-security-how-to-protect-y/index.html
 sources/tvtechnology-infrastructure-security-how-to-protect-y/index.md
 sources/uk-edinburgh-council/index.html
