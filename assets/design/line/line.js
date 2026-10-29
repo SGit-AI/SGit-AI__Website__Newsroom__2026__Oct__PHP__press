@@ -423,7 +423,10 @@
     }, 180000);
   }
 
-  addEventListener('storage', function (e) { if (e.key === 'p2s.lens') go(); });
+  /* another tab changed the view: draw it here. Only when what the line shows changed: state() stamps lastActive on every draw, so
+     answering that write with go() made two open tabs redraw each other without end (hundreds of view transitions a second). */
+  function viewSig(v) { try { var r = JSON.parse(v); return r ? [r.role, r.reader, r.depth, r.confirmed].join('|') : ''; } catch (x) { return ''; } }
+  addEventListener('storage', function (e) { if (e.key === 'p2s.lens' && viewSig(e.newValue) !== viewSig(e.oldValue)) go(); });
 
   /* ---------------------------------------------------------------- the catalogue: every line the rules produce */
   function catalogue(host) {
