@@ -432,6 +432,12 @@ admin/briefs/2026-10-28__brief__pushing-and-working-together/index.html
 admin/briefs/2026-10-28__brief__pushing-and-working-together/index.md
 admin/briefs/2026-10-28__decision__all-agents-on-sonnet-for-the-trial/index.html
 admin/briefs/2026-10-28__decision__all-agents-on-sonnet-for-the-trial/index.md
+admin/briefs/2026-10-29__brief__running-an-agent-team-a-conductors-guide/index.html
+admin/briefs/2026-10-29__brief__running-an-agent-team-a-conductors-guide/index.md
+admin/briefs/2026-10-29__brief__the-desk-owns-the-days/index.html
+admin/briefs/2026-10-29__brief__the-desk-owns-the-days/index.md
+admin/briefs/2026-10-29__runbook__getting-a-change-onto-the-sites/index.html
+admin/briefs/2026-10-29__runbook__getting-a-change-onto-the-sites/index.md
 admin/briefs/index.html
 admin/briefs/index.md
 admin/briefs/view/index.html
@@ -541,6 +547,8 @@ agencies/index.html
 agencies/index.md
 analysis/index.html
 analysis/index.md
+articles/dream-research-rooted-25-servers/index.html
+articles/dream-research-rooted-25-servers/index.md
 articles/exposed-is-not-exploited/index.html
 articles/exposed-is-not-exploited/index.md
 articles/has-anyone-been-hacked/index.html
@@ -1554,6 +1562,8 @@ sources/cybersecurity360-nuove-minacce-php2shell-due-vulnerabilit/index.html
 sources/cybersecurity360-nuove-minacce-php2shell-due-vulnerabilit/index.md
 sources/cybersecuritynews-critical-php2shell-exploit-code/index.html
 sources/cybersecuritynews-critical-php2shell-exploit-code/index.md
+sources/cypro-php2shell-exploit-roots-firewalls/index.html
+sources/cypro-php2shell-exploit-roots-firewalls/index.md
 sources/dailynews-news-6303237/index.html
 sources/dailynews-news-6303237/index.md
 sources/dailysecu-news-articleview-html/index.html
@@ -1594,6 +1604,12 @@ sources/donanimhaber-php-acigindan-etkilenen-ulkeler-ve-sitel/index.html
 sources/donanimhaber-php-acigindan-etkilenen-ulkeler-ve-sitel/index.md
 sources/donews-news-detail-8-6750596-html/index.html
 sources/donews-news-detail-8-6750596-html/index.md
+sources/dreamgroup-chained-php2shell-roots-25-servers/index.html
+sources/dreamgroup-chained-php2shell-roots-25-servers/index.md
+sources/dreamgroup-hercules-on-prem-ai-vuln-model-cybergym/index.html
+sources/dreamgroup-hercules-on-prem-ai-vuln-model-cybergym/index.md
+sources/dreamgroup-multi-agent-ai-framework-asian-governme/index.html
+sources/dreamgroup-multi-agent-ai-framework-asian-governme/index.md
 sources/drupal-psa-2026-10-20/index.html
 sources/drupal-psa-2026-10-20/index.md
 sources/dutchitleaders-websites-offline/index.html
@@ -2406,6 +2422,10 @@ sources/thansettakij-economy-672045/index.html
 sources/thansettakij-economy-672045/index.md
 sources/the-hacker-news-cisa-confirms-php2shell-exploitation/index.html
 sources/the-hacker-news-cisa-confirms-php2shell-exploitation/index.md
+sources/the-hacker-news-thehackernews-php2shell-roots-25-s/index.html
+sources/the-hacker-news-thehackernews-php2shell-roots-25-s/index.md
+sources/the-next-web-php2shell-cisa-kev-dream-25-servers/index.html
+sources/the-next-web-php2shell-cisa-kev-dream-25-servers/index.md
 sources/the-next-web-php2shell-no-confirmed-breaches/index.html
 sources/the-next-web-php2shell-no-confirmed-breaches/index.md
 sources/the-register-hackers-pile-on-php2shell/index.html
@@ -2830,8 +2850,12 @@ views/state/v4-v5/index.html
 views/state/v4-v5/index.md
 views/state/v4/index.html
 views/state/v4/index.md
+views/state/v5-v6/index.html
+views/state/v5-v6/index.md
 views/state/v5/index.html
 views/state/v5/index.md
+views/state/v6/index.html
+views/state/v6/index.md
 whatsnew/index.html
 whatsnew/index.md
 wikipedia/for-editors/index.html
