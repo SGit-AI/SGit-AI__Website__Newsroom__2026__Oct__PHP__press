@@ -1260,6 +1260,8 @@ signals/index.md
 sitemap.xml
 sources/01net-actualites-failles-php-pourquoi-cest-vra/index.html
 sources/01net-actualites-failles-php-pourquoi-cest-vra/index.md
+sources/12punto-bilim-teknoloji-php2shell-aciklarinda-tu/index.html
+sources/12punto-bilim-teknoloji-php2shell-aciklarinda-tu/index.md
 sources/20-minuten-20min-fr-suisse-romande/index.html
 sources/20-minuten-20min-fr-suisse-romande/index.md
 sources/20min-fr-suisse-romande/index.html
@@ -1268,6 +1270,8 @@ sources/20minutos-tecnologia-ciberseguridad-por-que-gobiernos-hospit/index.html
 sources/20minutos-tecnologia-ciberseguridad-por-que-gobiernos-hospit/index.md
 sources/24-article-969853-ai-php-70/index.html
 sources/24-article-969853-ai-php-70/index.md
+sources/24h-cong-nghe-thong-tin-website-toan-cau-hun/index.html
+sources/24h-cong-nghe-thong-tin-website-toan-cau-hun/index.md
 sources/24heures-php2shell-qui-est-affecte-par-la-faille/index.html
 sources/24heures-php2shell-qui-est-affecte-par-la-faille/index.md
 sources/2days-22-10-07-109016-it-program/index.html
@@ -1582,6 +1586,8 @@ sources/cybersecurity-insiders-offsec-launches-free-php2shell-lab-follo/index.ht
 sources/cybersecurity-insiders-offsec-launches-free-php2shell-lab-follo/index.md
 sources/cybersecurity360-nuove-minacce-php2shell-due-vulnerabilit/index.html
 sources/cybersecurity360-nuove-minacce-php2shell-due-vulnerabilit/index.md
+sources/cybersecuritydive-news-insurance-industry-risk-php2shell-8/index.html
+sources/cybersecuritydive-news-insurance-industry-risk-php2shell-8/index.md
 sources/cybersecuritynews-critical-php2shell-exploit-code/index.html
 sources/cybersecuritynews-critical-php2shell-exploit-code/index.md
 sources/cypro-php2shell-exploit-roots-firewalls/index.html
@@ -1624,6 +1630,8 @@ sources/digitalpr-r-146712/index.html
 sources/digitalpr-r-146712/index.md
 sources/digitaltoday-cn-view-118322-stealien-launches-free-ph/index.html
 sources/digitaltoday-cn-view-118322-stealien-launches-free-ph/index.md
+sources/digitech-news-digital-01-11-2026-php2shell-vulnerabili/index.html
+sources/digitech-news-digital-01-11-2026-php2shell-vulnerabili/index.md
 sources/distributique-actualites-lire-php-des-failles-critique/index.html
 sources/distributique-actualites-lire-php-des-failles-critique/index.md
 sources/donanimhaber-php-acigindan-etkilenen-ulkeler-ve-sitel/index.html
@@ -1886,6 +1894,10 @@ sources/iphonesoft-2026-10-22-faille-php-5-8-5-savoir-situa/index.html
 sources/iphonesoft-2026-10-22-faille-php-5-8-5-savoir-situa/index.md
 sources/istanbulticaretgazetesi-siber-guvenlik-baskanligindan-php2shell/index.html
 sources/istanbulticaretgazetesi-siber-guvenlik-baskanligindan-php2shell/index.md
+sources/it-administrator-php2shell-patchtempo-altversionen/index.html
+sources/it-administrator-php2shell-patchtempo-altversionen/index.md
+sources/it-blastingnews-tecnologia-2026-10-la-crisi-php2shell-ri/index.html
+sources/it-blastingnews-tecnologia-2026-10-la-crisi-php2shell-ri/index.md
 sources/it-daily-shortnews-php2shell-die-aktuelle-lage/index.html
 sources/it-daily-shortnews-php2shell-die-aktuelle-lage/index.md
 sources/it-finance-yahoo-notizie-avviso-per-gli-exchange-di-22423/index.html
@@ -1916,6 +1928,8 @@ sources/jauns-raksts-zinas-735243-atklata-jauna-un-lot/index.html
 sources/jauns-raksts-zinas-735243-atklata-jauna-un-lot/index.md
 sources/jawapos-teknologi-2610230446-celah-php2shell-anc/index.html
 sources/jawapos-teknologi-2610230446-celah-php2shell-anc/index.md
+sources/jeonmae-news-articleview-html/index.html
+sources/jeonmae-news-articleview-html/index.md
 sources/jeuxvideo-news-2110338-une-faille-critique-dans-ph/index.html
 sources/jeuxvideo-news-2110338-une-faille-critique-dans-ph/index.md
 sources/jiji-jc-article/index.html
@@ -1982,6 +1996,8 @@ sources/lessentiel-fr-story-mondeluxembourg-une-faille-de-s/index.html
 sources/lessentiel-fr-story-mondeluxembourg-une-faille-de-s/index.md
 sources/letemps-php-sites-debranches/index.html
 sources/letemps-php-sites-debranches/index.md
+sources/letsai-php2shell-security-flaws/index.html
+sources/letsai-php2shell-security-flaws/index.md
 sources/libertatea-stiri-ce-este-vulnerabilitatea-php-care/index.html
 sources/libertatea-stiri-ce-este-vulnerabilitatea-php-care/index.md
 sources/lineaedp-rubriche-sicurezza-php2shell-lia-acceler/index.html
@@ -2202,6 +2218,8 @@ sources/oxfordchronicle-councils-offline/index.html
 sources/oxfordchronicle-councils-offline/index.md
 sources/paloalto-psirt-cve-2026-109618/index.html
 sources/paloalto-psirt-cve-2026-109618/index.md
+sources/panamericana-tecnologia-476200-alerta-mundial-fallas/index.html
+sources/panamericana-tecnologia-476200-alerta-mundial-fallas/index.md
 sources/paperjam-article-php2shell-des-milliers-de-sites/index.html
 sources/paperjam-article-php2shell-des-milliers-de-sites/index.md
 sources/patchtheplanet-org/index.html
@@ -2276,6 +2294,8 @@ sources/rbbtoday-release-prtimes2-today-20261022-1383966/index.html
 sources/rbbtoday-release-prtimes2-today-20261022-1383966/index.md
 sources/recordedfuture-php2shell/index.html
 sources/recordedfuture-php2shell/index.md
+sources/redusers-noticias-publicaciones-pllhp2she/index.html
+sources/redusers-noticias-publicaciones-pllhp2she/index.md
 sources/repubblica-tecnologia-2026-10-21-news-php2shell-ia/index.html
 sources/repubblica-tecnologia-2026-10-21-news-php2shell-ia/index.md
 sources/reuters-factbox-gbaf/index.html
@@ -2302,6 +2322,8 @@ sources/safeguard-how-hard-to-exploit/index.html
 sources/safeguard-how-hard-to-exploit/index.md
 sources/safeguard-waf-rules-limits/index.html
 sources/safeguard-waf-rules-limits/index.md
+sources/safestate-post-php2shell-vulnerability-how-the-php/index.html
+sources/safestate-post-php2shell-vulnerability-how-the-php/index.md
 sources/salesforce-general-message-20000267/index.html
 sources/salesforce-general-message-20000267/index.md
 sources/salzburg24-news-oesterreich-massive-sache-folgen-der-php-sic/index.html
@@ -2690,6 +2712,8 @@ sources/ziuaveche-stiinta-it-it-alerta-dnsc-doua-vulnerabi/index.html
 sources/ziuaveche-stiinta-it-it-alerta-dnsc-doua-vulnerabi/index.md
 sources/zoomtecnologico-2026-10-26-php-php2shell-chile/index.html
 sources/zoomtecnologico-2026-10-26-php-php2shell-chile/index.md
+sources/zscaler-fr-blogs-cybersecurity-best-practices-ph/index.html
+sources/zscaler-fr-blogs-cybersecurity-best-practices-ph/index.md
 stack/catalogue.json
 stack/index.html
 stack/index.md

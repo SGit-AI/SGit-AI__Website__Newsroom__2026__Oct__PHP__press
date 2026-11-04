@@ -1,8 +1,8 @@
 {
  "from": {
   "repository": "SGit-AI/sgit-ai__website__newsroom__2026__oct__php",
-  "commit": "55e770c4c2c747cf132875529aee640ef90adc8f",
-  "site_version": "0.22.55"
+  "commit": "7c7623e0a8a5ec6dfdf59f872273651e36db77a1",
+  "site_version": "0.22.57"
  },
  "sources": {
   "assets/": "assets/",
@@ -110,8 +110,8 @@
   "assets/design/lens.css": "0bae8e4bf0f32dc59f1736d7a5e5e877520523b45889c48f082811fa6644cf6b",
   "assets/design/lens.js": "009235204ace0587736583d0105721af3a28b7ad43e70eb98fe580e079e7fa4f",
   "assets/design/line/boot.js": "f68683c6a39628947d0c5f51200ce7eee515d3405d8730bea0693bd7608df4a9",
-  "assets/design/line/config.js": "3102eb6edcea65f638e5f84bacf825811e533517a58ab6495c9c97d13dcc508f",
-  "assets/design/line/copy.json": "7257a73470c3377b89db29a4651fade4fa08bb766408bff51ae08fd40c15bb3f",
+  "assets/design/line/config.js": "7d9c48c6c5158f132e1eb2b3341a8fdb724ef94824401dc3501e58ba59dadfec",
+  "assets/design/line/copy.json": "bffca157bf067fe35778a78747b3c391f9400bfea553b3a244f3c4ae790c31c7",
   "assets/design/line/copy.src.json": "0403f2f45844e27f6930bb0697cfca3b3994ff0477f7db4e18d7677ab0f9c45b",
   "assets/design/line/engine.js": "8c402899db4bffea547554fbd7b4a96dbfdf3d57ad65799d2d3f8e152b361ff8",
   "assets/design/line/engine.test.mjs": "b454460fc8d1bccd7c574f90d673aba1a2e75fb0438fd5547fb7afc86b4c0e16",
@@ -215,7 +215,7 @@
   "build/issues_sync.py": "184a26b3a7f9a98d7a5ed2244845e9f1a2dd7545926bd61f3e1ee1a93db0aa32",
   "build/loops.py": "6166a494c1d7caf8491945d001c782ff3cc41d4a23c6d31a6bf1dd0381751406",
   "build/newsroom_paths.py": "dea7967e26286dd09a599ce7bc5f629f8463d06a34b3a4430f3f2c9b0eaa032e",
-  "build/outputs.txt": "ed49ca3c310e1445b950d595db437728f4c96a3d41c1dfb1e0bf9c9bf625df80",
+  "build/outputs.txt": "cd15184091705ccc07e93a3a13e110621c875fcc8ed51eb934af57dbc5eab593",
   "build/postmaster.py": "745756002f6b39e167d744be3dc1bf86aac34c9d72966a84bcf74d5897117654",
   "build/release.sh": "e72d1ce9663aa7d6569722cf8b968513cfeca98d7250548e4329a47c8c2eb1d5",
   "build/release_pages.py": "ae440c96aa00dc5894a5e8afb544dee3fc496396c92967d577a785a7e83eef4e",
